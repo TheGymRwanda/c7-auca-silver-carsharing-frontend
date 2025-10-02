@@ -12,7 +12,7 @@ configure({
 
 function App(): ReactElement {
   return (
-    <div className="min-h-screen bg-teal-600">
+    <div className="min-h-screen bg-teal-600 max-w-[430px] mx-auto">
       <Navbar />
       <main className="flex min-h-screen w-full flex-col gap-6 sm:gap-8 py-6 sm:py-10 px-4 sm:px-6">
         <div className="max-w-sm mx-auto w-full text-center">
