@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline-white' | 'outline-teal'
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outlineWhite' | 'outlineTeal'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,14 +31,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       'inline-flex items-center justify-center font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variantClasses = {
-      primary: 'bg-white text-teal-500 hover:bg-gray-50 focus:ring-teal-500',
-      secondary: 'bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500',
-      ghost:
-        'bg-gray-400 text-indigo-700 hover:bg-gray-500 focus:ring-indigo-900 transition-colors',
-      outline:
-        'border-2 border-white text-white bg-transparent hover:bg-white hover:text-teal-700 focus:ring-white',
-      destructive: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-      link: 'text-teal-600 underline-offset-4 hover:underline focus:ring-teal-500',
+      primary: 'bg-white text-primary hover:bg-gray-50 focus:ring-primary',
+      secondary: 'bg-primary text-white hover:bg-primary focus:ring-primary',
+      ghost: 'bg-ghost-light text-primary hover:bg-ghost-dark focus:ring-ghost-light',
+      outlineWhite:
+        'border-2 border-white text-white bg-transparent hover:bg-white hover:text-primary focus:ring-primary',
+      outlineTeal:
+        'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-white focus:ring-white',
     }
 
     const sizeClasses = {
@@ -76,7 +75,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           </svg>
         )}
         {icon && !loading && <span className="mr-2">{icon}</span>}
-        {children}
+        {!loading && <>{children}</>}
       </button>
     )
   },
