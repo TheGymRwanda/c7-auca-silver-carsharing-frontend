@@ -12,7 +12,7 @@ configure({
 
 function App(): ReactElement {
   return (
-    <div className="bg-[#265e78] min-h-screen">
+    <div className="min-h-screen bg-[#265e78]">
       <HomePage />
     </div>
   )

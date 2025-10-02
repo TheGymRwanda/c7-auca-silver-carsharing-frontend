@@ -4,27 +4,27 @@ export function HomePage(): React.ReactElement {
   return (
     <>
       {/* Navbar goes here */}
-      <div className="min-h-screen w-full flex items-center justify-center px-4 sm:px-6">
-        <div className="max-w-xs sm:max-w-sm w-full rounded-lg py-10 px-6 flex flex-col items-center text-center">
-          <h1 className="text-5xl sm:text-6xl text-white mb-2 flex flex-col font-lora">
+      <div className="flex min-h-screen w-full items-center justify-center px-4 sm:px-6">
+        <div className="flex w-full max-w-xs flex-col items-center rounded-lg px-6 py-10 text-center sm:max-w-sm">
+          <h1 className="mb-2 flex flex-col font-lora text-5xl text-white sm:text-6xl">
             <span className="font-lora font-bold ">MONI</span>
-            <span className="text-5xl sm:text-6xl italic font-lora">Share</span>
+            <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
           </h1>
-          <p className="text-lg sm:text-xl text-white mb-8 mt-6">
+          <p className="mb-8 mt-6 text-lg text-white sm:text-xl">
             Hello Manuela!
             <br />
             What are you up to today?
           </p>
           {/* Primary button */}
-          <button className="bg-white text-cyan-800 font-semibold rounded-full py-3 px-6 text-base sm:text-lg w-full mb-6">
+          <button className="mb-6 w-full rounded-full bg-white px-6 py-3 text-base font-semibold text-cyan-800 sm:text-lg">
             Book Car
           </button>
-          <span className="text-white mb-4">or</span>
+          <span className="mb-4 text-white">or</span>
           {/* Outlined buttons */}
-          <button className="border border-white text-white rounded-full py-3 px-6 text-base sm:text-lg w-full mb-3">
+          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
             See My Cars
           </button>
-          <button className="border border-white text-white rounded-full py-3 px-6 text-base sm:text-lg w-full">
+          <button className="w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
             See My Bookings
           </button>
         </div>
