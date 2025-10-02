@@ -52,17 +52,11 @@ export default function Navbar(): ReactElement {
 
             {isMenuOpen && (
                 <>
-                    {/* <div 
-                        className="fixed top-16 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-30"
-                        onClick={closeMenu}
-                    /> */}
-                    
                     <div className="fixed top-18 left-2 w-2/3 mt-4 bg-indigo-400 transform transition-transform duration-300 ease-in-out z-50 rounded-2xl translate-x-0 shadow-2xl">
                         <div className="flex flex-col">
                             
-                            {/* Menu Items */}
                             <div className="flex-1 py-2">
-                                <div className="px-4">
+                                <div className="px-2">
                                     <Link 
                                         to="/book-car" 
                                         className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
