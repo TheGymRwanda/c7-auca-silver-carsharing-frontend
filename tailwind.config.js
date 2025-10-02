@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#265E78',
-        'ghost': {
-          'light': '#B8B8B8',
-          'dark': '#d1d1d1'
-        }
-      }
+        primary: '#265E78',
+        ghost: {
+          light: '#B8B8B8',
+          dark: '#d1d1d1',
+        },
+      },
     },
   },
   plugins: [],
