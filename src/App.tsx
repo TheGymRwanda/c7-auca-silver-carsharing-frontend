@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-import { HomePage } from './components/homePage'
+import HomePage from './components/homePage'
 import Navbar from './components/Navbar'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
@@ -23,11 +23,12 @@ configure({
 
 function App(): ReactElement {
   return (
-    <div className="bg-primary-dark mx-auto min-h-screen max-w-[430px]">
-      <HomePage />
+    <div className="bg-primary-dark mx-auto max-w-[430px]">
       <Navbar />
-      <main className="flex min-h-screen w-full flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-10">
+      <HomePage />
+      <main className="hidden">
         <Routes>
+          <Route path={AppRoutes.home} element={<div />} />
           <Route path={AppRoutes.cars} element={<Cars />} />
           <Route path={AppRoutes.profile} element={<Profile />} />
           <Route path={AppRoutes.bookCar} element={<BookCar />} />
@@ -36,7 +37,7 @@ function App(): ReactElement {
           <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
           <Route path={AppRoutes.addCar} element={<AddCar />} />
           <Route path={AppRoutes.logout} element={<Logout />} />
-          <Route path="*" element={<Navigate to={AppRoutes.cars} replace />} />
+          <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
         </Routes>
       </main>
     </div>

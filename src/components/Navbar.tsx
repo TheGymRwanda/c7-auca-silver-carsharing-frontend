@@ -37,9 +37,9 @@ export default function Navbar(): ReactElement {
           <div className="absolute left-1/2 -translate-x-1/2">
             <div className="-mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6">
               <Link
-                to={AppRoutes.cars}
+                to={AppRoutes.home}
                 className="flex items-center justify-center text-white transition-colors hover:text-gray-300"
-                aria-label="Cars"
+                aria-label="Home"
               >
                 <Logo className="size-7 sm:size-8" />
               </Link>
@@ -103,7 +103,7 @@ export default function Navbar(): ReactElement {
                     onClick={closeMenu}
                   >
                     <ListIcon color="white" className="size-5" />
-                    <span className="text-base">My Car&aspos;s Bookings</span>
+                    <span className="text-base">My Car&apos;s Bookings</span>
                   </Link>
 
                   <Link
@@ -111,7 +111,7 @@ export default function Navbar(): ReactElement {
                     className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <CarPlusIcon />
+                    <CarPlusIcon className="size-5" />
                     <span className="text-base">Add New Car</span>
                   </Link>
                 </div>
