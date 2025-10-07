@@ -25,10 +25,9 @@ function App(): ReactElement {
   return (
     <div className="bg-primary-dark mx-auto max-w-[430px]">
       <Navbar />
-      <HomePage />
-      <main className="hidden">
+      <main>
         <Routes>
-          <Route path={AppRoutes.home} element={<div />} />
+          <Route path={AppRoutes.home} element={<HomePage />} />
           <Route path={AppRoutes.cars} element={<Cars />} />
           <Route path={AppRoutes.profile} element={<Profile />} />
           <Route path={AppRoutes.bookCar} element={<BookCar />} />
