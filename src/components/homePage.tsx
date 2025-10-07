@@ -1,10 +1,10 @@
 import React from 'react'
 
-export function HomePage(): React.ReactElement {
+export default function HomePage(): React.ReactElement {
   return (
     <>
       {/* Navbar goes here */}
-      <div className="flex min-h-screen w-full items-center justify-center px-4 sm:px-6">
+      <div className="flex w-full items-center justify-center px-4 py-20 sm:px-6">
         <div className="flex w-full max-w-xs flex-col items-center rounded-lg px-6 py-10 text-center sm:max-w-sm">
           <h1 className="mb-2 flex flex-col font-lora text-5xl text-white sm:text-6xl">
             <span className="font-lora font-bold ">MONI</span>

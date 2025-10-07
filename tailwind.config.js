@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'lora': ['Lora', 'serif'],
+      },
       colors: {
         primary: {
           light: '#3E7591',

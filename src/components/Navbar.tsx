@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
 import ListIcon from '../assets/ListIcon'
-import PlusIcon from '../assets/PlusIcon'
+
 import LogoutIcon from '../assets/LogoutIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
@@ -23,26 +23,26 @@ export default function Navbar(): ReactElement {
   return (
     <>
       <nav
-        className={`bg-gray-900 w-full max-w-[430px] mx-auto rounded-b-[30px] relative shadow-lg`}
+        className={`relative mx-auto w-full max-w-[430px] rounded-b-[30px] bg-gray-900 shadow-lg`}
       >
-        <div className="flex justify-between items-center h-16 px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           <div className="flex items-center">
             <button
               onClick={handleMenuClick}
-              className="text-white text-base sm:text-lg font-medium hover:text-gray-300 transition-colors py-2 px-3 -ml-3 rounded-lg active:bg-gray-800"
+              className="-ml-3 rounded-lg px-3 py-2 text-base font-medium text-white transition-colors hover:text-gray-300 active:bg-gray-800 sm:text-lg"
             >
               {isMenuOpen ? 'Close' : 'Menu'}
             </button>
           </div>
 
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <div className="bg-gray-900 rounded-b-full mt-8 px-4 sm:px-6 py-2 pb-4 -mb-2 shadow-lg">
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <div className="-mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6">
               <Link
-                to={AppRoutes.cars}
-                className="flex items-center justify-center text-white hover:text-gray-300 transition-colors"
-                aria-label="Cars"
+                to={AppRoutes.home}
+                className="flex items-center justify-center text-white transition-colors hover:text-gray-300"
+                aria-label="Home"
               >
-                <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+                <Logo className="size-7 sm:size-8" />
               </Link>
             </div>
           </div>
@@ -50,10 +50,10 @@ export default function Navbar(): ReactElement {
           <div className="flex items-center">
             <Link
               to={AppRoutes.profile}
-              className="p-3 text-white hover:text-gray-300 transition-colors rounded-lg active:bg-gray-800"
+              className="rounded-lg p-3 text-white transition-colors hover:text-gray-300 active:bg-gray-800"
               aria-label="Profile"
             >
-              <ProfileIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+              <ProfileIcon className="size-6 sm:size-7" />
             </Link>
           </div>
         </div>
@@ -61,68 +61,68 @@ export default function Navbar(): ReactElement {
 
       {isMenuOpen && (
         <>
-          <div className="fixed top-18 left-2 w-2/3 max-w-[430px] mx-auto mt-4 bg-primary-light transform transition-transform duration-300 ease-in-out z-50 rounded-2xl translate-x-0 shadow-2xl">
+          <div className="top-18 fixed left-2 z-50 mx-auto mt-4 w-2/3 max-w-[430px] translate-x-0 rounded-2xl bg-primary-light shadow-2xl transition-transform duration-300 ease-in-out">
             <div className="flex flex-col">
               <div className="flex-1 py-2">
                 <div className="px-4">
                   <Link
                     to={AppRoutes.bookCar}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <CarsIcon color="white" className="w-5 h-5" />
+                    <CarsIcon color="white" className="size-5" />
                     <span className="text-base">Book A Car</span>
                   </Link>
 
                   <Link
                     to={AppRoutes.myBookings}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <ListIcon color="white" className="w-5 h-5" />
+                    <ListIcon color="white" className="size-5" />
                     <span className="text-base">My Bookings</span>
                   </Link>
                 </div>
 
-                <div className="border-t border-gray-700 my-3 mx-4"></div>
+                <div className="mx-4 my-3 border-t border-gray-700"></div>
 
-                <div className="px-4 mb-4">
-                  <div className="text-white font-semibold text-base mb-3">My cars</div>
+                <div className="mb-4 px-4">
+                  <div className="mb-3 text-base font-semibold text-white">My cars</div>
 
                   <Link
                     to={AppRoutes.myCars}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <CarIcon color="white" className="w-5 h-5" />
+                    <CarIcon color="white" className="size-5" />
                     <span className="text-base">See My Cars</span>
                   </Link>
 
                   <Link
                     to={AppRoutes.myCarsBookings}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <ListIcon color="white" className="w-5 h-5" />
-                    <span className="text-base">My Car's Bookings</span>
+                    <ListIcon color="white" className="size-5" />
+                    <span className="text-base">My Car&apos;s Bookings</span>
                   </Link>
 
                   <Link
                     to={AppRoutes.addCar}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
-                    <CarPlusIcon />
+                    <CarPlusIcon className="size-5" />
                     <span className="text-base">Add New Car</span>
                   </Link>
                 </div>
 
-                <div className="border-t border-gray-700 my-3 mx-4"></div>
+                <div className="mx-4 my-3 border-t border-gray-700"></div>
 
                 <div className="px-4">
                   <Link
                     to={AppRoutes.logout}
-                    className="flex items-center space-x-3 py-3 text-white hover:text-gray-300 transition-colors"
+                    className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
                     onClick={closeMenu}
                   >
                     <LogoutIcon />

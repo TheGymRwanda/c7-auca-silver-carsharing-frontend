@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 
 interface CarIconProps {
-  className?: string,
+  className?: string
   color?: string
 }
 

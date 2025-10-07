@@ -1,4 +1,5 @@
 export enum AppRoutes {
+  home = '/',
   cars = '/cars',
   profile = '/profile',
   bookCar = '/book-car',
@@ -9,6 +10,4 @@ export enum AppRoutes {
   logout = '/logout',
 }
 
-export type { } // keep file extensible and satisfy isolatedModules
-
-
+export type {} // keep file extensible and satisfy isolatedModules

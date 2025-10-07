@@ -11,10 +11,8 @@ export default function Logout(): ReactElement {
   }, [navigate])
 
   return (
-    <div className="max-w-sm mx-auto w-full text-center text-white">
+    <div className="mx-auto w-full max-w-sm text-center text-white">
       <p className="text-sm sm:text-base">Logging out...</p>
     </div>
   )
 }
-
-
