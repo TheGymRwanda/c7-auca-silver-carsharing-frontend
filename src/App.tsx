@@ -23,7 +23,7 @@ configure({
 
 function App(): ReactElement {
   return (
-    <div className="bg-primary-dark mx-auto max-w-[430px]">
+    <div className="mx-auto max-w-[430px] bg-primary-dark">
       <Navbar />
       <main>
         <Routes>

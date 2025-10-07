@@ -60,7 +60,7 @@ export default function Navbar(): ReactElement {
 
       {isMenuOpen && (
         <>
-          <div className="top-18 bg-primary-light fixed left-2 z-50 mx-auto mt-4 w-2/3 max-w-[430px] translate-x-0 rounded-2xl shadow-2xl transition-transform duration-300 ease-in-out">
+          <div className="top-18 fixed left-2 z-50 mx-auto mt-4 w-2/3 max-w-[430px] translate-x-0 rounded-2xl bg-primary-light shadow-2xl transition-transform duration-300 ease-in-out">
             <div className="flex flex-col">
               <div className="flex-1 py-2">
                 <div className="px-4">
