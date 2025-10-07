@@ -3,6 +3,8 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        'lora': ['Lora', 'serif'],
       colors: {
         primary: {
           light: '#3E7591',

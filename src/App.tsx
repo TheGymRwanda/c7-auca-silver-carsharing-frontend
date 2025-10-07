@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
+import { HomePage } from './components/homePage'
 import Navbar from './components/Navbar'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
@@ -23,6 +24,7 @@ configure({
 function App(): ReactElement {
   return (
     <div className="min-h-screen bg-primary-dark max-w-[430px] mx-auto">
+      <HomePage />
       <Navbar />
       <main className="flex min-h-screen w-full flex-col gap-6 sm:gap-8 py-6 sm:py-10 px-4 sm:px-6">
         <Routes>
