@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from './Button'
+import Button from '../Button'
 import ErrorMsgIcon from '../../assets/ErrorMsgIcon'
 
 export default function ErroPage(): React.ReactElement {
@@ -17,7 +17,14 @@ export default function ErroPage(): React.ReactElement {
         Something went wrong.
         <br /> We will solve your issue soon.
       </p>
-      <Button />
+      <Button
+        variant="primary"
+        size="md"
+        fullWidth={true}
+        className="mt-6 w-[350px] font-lora font-semibold sm:mt-6 md:mt-8"
+      >
+        Go back
+      </Button>
     </div>
   )
 }
