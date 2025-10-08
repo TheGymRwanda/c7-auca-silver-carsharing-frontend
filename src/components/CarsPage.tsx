@@ -1,12 +1,11 @@
-// CarsPage.tsx
 import React, { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import useCars from '../hooks/useCars'
 import useUsers from '../hooks/useUsers'
 import useCarTypes from '../hooks/useCarTypes'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
 
-// 1. Define the Car type with combined data
 interface CarWithDetails {
   id: number
   name: string
@@ -16,13 +15,11 @@ interface CarWithDetails {
   info?: string
 }
 
-// 2. Main component
 const CarsPage: React.FC = () => {
   const [{ data: carsData, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: usersData, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypesData, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
 
-  // 3. Combine all data
   const cars = useMemo(() => {
     if (!carsData || !usersData || !carTypesData) return []
 
@@ -57,7 +54,6 @@ const CarsPage: React.FC = () => {
     return <div className="p-4 text-center font-serif">No cars available</div>
   }
 
-  // 4. Reusable Card
   const CarCard: React.FC<{ car: CarWithDetails }> = ({ car }) => (
     <div className="car-card flex gap-4 rounded-xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur-sm transition-all hover:bg-white/20 hover:shadow-xl sm:gap-6 sm:p-8">
       {/* Car Image  */}
@@ -87,9 +83,12 @@ const CarsPage: React.FC = () => {
         </div>
 
         <div className="mt-6 border-t border-white/20 pt-4">
-          <button className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300">
+          <Link
+            to={`/cars/${car.id}`}
+            className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
+          >
             Show Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
