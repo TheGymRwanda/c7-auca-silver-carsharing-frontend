@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'lora': ['Lora', 'serif'],
+        lora: ['Lora', 'serif'],
       },
       colors: {
         primary: {

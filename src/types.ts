@@ -10,4 +10,4 @@ export enum AppRoutes {
   logout = '/logout',
 }
 
-export type {} 
+export type {}

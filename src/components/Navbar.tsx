@@ -2,7 +2,6 @@ import { ReactElement, useState } from 'react'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
 import ListIcon from '../assets/ListIcon'
-
 import LogoutIcon from '../assets/LogoutIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
