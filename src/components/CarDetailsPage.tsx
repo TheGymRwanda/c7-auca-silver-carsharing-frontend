@@ -19,35 +19,35 @@ const CarDetails: React.FC<{ car: CarDto; owner?: UserDto; carType?: CarTypeDto 
 }) => (
   <div className="space-y-4 text-left">
     <div className="flex items-center gap-3 text-white">
-      <ProfileIcon className="h-6 w-6 text-white" />
+      <ProfileIcon className="size-6 text-white" />
       <span className="text-lg"> {owner?.name || 'Unknown'}</span>
     </div>
     <div className="flex items-center gap-3 text-white">
-      <div className="h-6 w-6 text-white">
+      <div className="size-6 text-white">
         <CarsIcon />
       </div>
       <span className="text-lg"> {carType?.name || 'Unknown'}</span>
     </div>
     {car.licensePlate && (
       <div className="flex items-center gap-3 text-white">
-        <LicensePlateIcon className="h-6 w-6 text-white" />
+        <LicensePlateIcon className="size-6 text-white" />
         <span className="text-lg"> {car.licensePlate}</span>
       </div>
     )}
     {car.horsepower && (
       <div className="flex items-center gap-3 text-white">
-        <div className="h-6 w-6 text-white">
+        <div className="size-6 text-white">
           <HorseIcon />
         </div>
         <span className="text-lg"> {car.horsepower} HP</span>
       </div>
     )}
     <div className="flex items-center gap-3 text-white">
-      <FuelIcon className="h-6 w-6 text-white" />
+      <FuelIcon className="size-6 text-white" />
       <span className="text-lg"> {car.fuelType}</span>
     </div>
     <div className="flex items-center gap-3 text-white">
-      <div className="h-6 w-6 text-white">
+      <div className="size-6 text-white">
         <AlertIcon />
       </div>
       <span className="text-lg font-bold">No smoking</span>
@@ -80,7 +80,7 @@ const CarDetailsPage: React.FC = () => {
     <div className="mx-auto max-w-4xl p-6 font-serif">
       <div className="mb-6 flex items-center justify-between">
         <Link to="/cars" className="inline-flex items-center gap-2 text-white hover:text-white">
-          <ChevronBackIcon className="h-5 w-5" />
+          <ChevronBackIcon className="size-5" />
         </Link>
         <h2 className="text-2xl font-bold text-white">DETAILS</h2>
         <div className="w-8"></div>

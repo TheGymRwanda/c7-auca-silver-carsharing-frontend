@@ -70,12 +70,12 @@ const CarsPage: React.FC = () => {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white">{car.name}</h2>
           <div className="flex items-center gap-3 text-white">
-            <ProfileIcon className="h-6 w-6 text-white" />
+            <ProfileIcon className="size-6 text-white" />
             <span className="text-lg font-medium">{car.owner}</span>
           </div>
 
           <div className="flex items-center gap-3 text-white">
-            <div className="h-6 w-6 text-white">
+            <div className="size-6 text-white">
               <CarsIcon />
             </div>
             <span className="text-lg font-medium">{car.type}</span>
