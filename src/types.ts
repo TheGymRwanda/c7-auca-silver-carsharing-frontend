@@ -9,6 +9,7 @@ export enum AppRoutes {
   myCarsBookings = '/my-cars-bookings',
   addCar = '/add-car',
   logout = '/logout',
+  notFound = '*',
 }
 
 export type {}

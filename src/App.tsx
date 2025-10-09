@@ -2,6 +2,7 @@ import { ReactElement, useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
+
 import HomePage from './components/homePage'
 import Navbar from './components/Navbar'
 import CarsPage from './components/CarsPage'
@@ -49,7 +50,7 @@ function App(): ReactElement {
           <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
           <Route path={AppRoutes.addCar} element={<AddCar />} />
           <Route path={AppRoutes.logout} element={<Logout />} />
-          <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
+          <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.home} replace />} />
         </Routes>
       </main>
     </div>
