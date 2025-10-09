@@ -17,7 +17,7 @@ const CarDetails: React.FC<{ car: CarDto; owner?: UserDto; carType?: CarTypeDto 
   owner,
   carType,
 }) => (
-  <div className="space-y-4 text-left">
+  <div className="space-y-2 text-left">
     <div className="flex items-center gap-3 text-white">
       <ProfileIcon className="size-6 text-white" />
       <span className="text-lg"> {owner?.name || 'Unknown'}</span>
@@ -77,27 +77,27 @@ const CarDetailsPage: React.FC = () => {
   const carType = carTypes?.find(type => type.id === car.carTypeId)
 
   return (
-    <div className="mx-auto max-w-4xl p-6 font-serif">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="flex h-full flex-col p-4 font-serif">
+      <div className="mb-4 flex items-center justify-between">
         <Link to="/cars" className="inline-flex items-center gap-2 text-white hover:text-white">
           <ChevronBackIcon className="size-5" />
         </Link>
-        <h2 className="text-2xl font-bold text-white">DETAILS</h2>
+        <h2 className="text-xl font-bold text-white">DETAILS</h2>
         <div className="w-8"></div>
       </div>
-      <div className="p-8">
-        <div className="flex flex-col items-center space-y-8">
-          <div className="flex justify-center">
-            <img
-              src={carType?.imageUrl || 'https://via.placeholder.com/400'}
-              alt={car.name}
-              className="h-48 w-72 rounded-lg object-cover"
-            />
-          </div>
-          <div className="w-full space-y-6">
-            <h1 className=" text-3xl font-semibold text-white">{car.name}</h1>
-            <CarDetails car={car} owner={owner} carType={carType} />
-          </div>
+
+      <div className="flex flex-1 flex-col items-center justify-center space-y-4">
+        <div className="flex justify-center">
+          <img
+            src={carType?.imageUrl || 'https://via.placeholder.com/400'}
+            alt={car.name}
+            className="h-44 w-60 rounded-lg object-contain"
+          />
+        </div>
+
+        <div className="w-full max-w-xs space-y-3">
+          <h1 className="text-center text-3xl font-semibold text-white">{car.name}</h1>
+          <CarDetails car={car} owner={owner} carType={carType} />
         </div>
       </div>
     </div>
