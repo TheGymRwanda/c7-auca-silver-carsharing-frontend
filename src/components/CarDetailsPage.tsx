@@ -1,5 +1,5 @@
-import React from 'react'
 import { useParams, Link } from 'react-router-dom'
+
 import useCarById from '../hooks/useCarById'
 import useUsers from '../hooks/useUsers'
 import useCarTypes from '../hooks/useCarTypes'
@@ -12,50 +12,56 @@ import LicensePlateIcon from '../assets/LicensePlateIcon'
 import AlertIcon from '../assets/AlertIcon'
 import { CarDto, UserDto, CarTypeDto } from '../util/api'
 
-const CarDetails: React.FC<{ car: CarDto; owner?: UserDto; carType?: CarTypeDto }> = ({
+function CarDetails({
   car,
   owner,
   carType,
-}) => (
-  <div className="space-y-2 text-left">
-    <div className="flex items-center gap-3 text-white">
-      <ProfileIcon className="size-6 text-white" />
-      <span className="text-lg"> {owner?.name || 'Unknown'}</span>
-    </div>
-    <div className="flex items-center gap-3 text-white">
-      <div className="size-6 text-white">
-        <CarsIcon />
-      </div>
-      <span className="text-lg"> {carType?.name || 'Unknown'}</span>
-    </div>
-    {car.licensePlate && (
+}: {
+  car: CarDto
+  owner?: UserDto
+  carType?: CarTypeDto
+}) {
+  return (
+    <div className="space-y-2 text-left">
       <div className="flex items-center gap-3 text-white">
-        <LicensePlateIcon className="size-6 text-white" />
-        <span className="text-lg"> {car.licensePlate}</span>
+        <ProfileIcon className="size-6 text-white" />
+        <span className="text-lg"> {owner?.name || 'Unknown'}</span>
       </div>
-    )}
-    {car.horsepower && (
       <div className="flex items-center gap-3 text-white">
         <div className="size-6 text-white">
-          <HorseIcon />
+          <CarsIcon />
         </div>
-        <span className="text-lg"> {car.horsepower} HP</span>
+        <span className="text-lg"> {carType?.name || 'Unknown'}</span>
       </div>
-    )}
-    <div className="flex items-center gap-3 text-white">
-      <FuelIcon className="size-6 text-white" />
-      <span className="text-lg"> {car.fuelType}</span>
-    </div>
-    <div className="flex items-center gap-3 text-white">
-      <div className="size-6 text-white">
-        <AlertIcon />
+      {car.licensePlate && (
+        <div className="flex items-center gap-3 text-white">
+          <LicensePlateIcon className="size-6 text-white" />
+          <span className="text-lg"> {car.licensePlate}</span>
+        </div>
+      )}
+      {car.horsepower && (
+        <div className="flex items-center gap-3 text-white">
+          <div className="size-6 text-white">
+            <HorseIcon />
+          </div>
+          <span className="text-lg"> {car.horsepower} HP</span>
+        </div>
+      )}
+      <div className="flex items-center gap-3 text-white">
+        <FuelIcon className="size-6 text-white" />
+        <span className="text-lg"> {car.fuelType}</span>
       </div>
-      <span className="text-lg font-bold">No smoking</span>
+      <div className="flex items-center gap-3 text-white">
+        <div className="size-6 text-white">
+          <AlertIcon />
+        </div>
+        <span className="text-lg font-bold">No smoking</span>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
-const CarDetailsPage: React.FC = () => {
+export default function CarDetailsPage() {
   const { carId } = useParams<{ carId: string }>()
   const [{ data: car, loading: carLoading, error: carError }] = useCarById(carId || '')
   const [{ data: users }] = useUsers()
@@ -103,5 +109,3 @@ const CarDetailsPage: React.FC = () => {
     </div>
   )
 }
-
-export default CarDetailsPage
