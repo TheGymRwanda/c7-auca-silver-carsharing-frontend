@@ -15,6 +15,43 @@ interface CarWithDetails {
   info?: string
 }
 
+const CarCard: React.FC<{ car: CarWithDetails }> = ({ car }) => (
+  <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+    <div className="flex">
+      <div className="w-1/2">
+        <img src={car.image} alt={car.name} className="size-full object-contain" />
+      </div>
+
+      <div className="flex w-1/2 flex-col justify-around pl-4">
+        <div className="mb-4">
+          <h2 className="text-xxl font-bold text-white">{car.name}</h2>
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-white">
+            <ProfileIcon className="size-4 text-white" />
+            <span className="text-md">{car.owner}</span>
+          </div>
+
+          <div className="flex items-center gap-2 text-white">
+            <CarsIcon className="size-4" />
+            <span className="text-sm">{car.type}</span>
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <Link
+            to={`/cars/${car.id}`}
+            className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
+          >
+            Show details
+          </Link>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 const CarsPage: React.FC = () => {
   const navigate = useNavigate()
   const [{ data: carsData, loading: carsLoading, error: carsError }] = useCars()
@@ -54,39 +91,6 @@ const CarsPage: React.FC = () => {
   if (cars.length === 0) {
     return <div className="p-4 text-center font-serif">No cars available</div>
   }
-
-  const CarCard: React.FC<{ car: CarWithDetails }> = ({ car }) => (
-    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-      <div className="mb-4">
-        <h2 className="text-xl font-bold text-white">{car.name}</h2>
-      </div>
-
-      <div className="mb-4 flex justify-center">
-        <img src={car.image} alt={car.name} className="h-24 w-32 object-contain" />
-      </div>
-
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 text-white">
-          <ProfileIcon className="size-4 text-white" />
-          <span className="text-sm">{car.owner}</span>
-        </div>
-
-        <div className="flex items-center gap-2 text-white">
-          <CarsIcon className="size-4" />
-          <span className="text-sm">{car.type}</span>
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <Link
-          to={`/cars/${car.id}`}
-          className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
-        >
-          Show details
-        </Link>
-      </div>
-    </div>
-  )
 
   return (
     <div className="min-h-screen p-4 font-serif">
