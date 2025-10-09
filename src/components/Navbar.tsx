@@ -55,7 +55,7 @@ export default function Navbar(): ReactElement {
       </nav>
 
       {isMenuOpen && (
-        <div className="top-18 fixed left-2 z-50 mx-auto mt-4 w-2/3 max-w-[430px] translate-x-0 rounded-2xl bg-primary-light shadow-2xl transition-transform duration-300 ease-in-out">
+        <div className="absolute left-2 z-50 mx-auto mt-7 w-2/3 max-w-[430px] translate-x-0 rounded-2xl bg-primary-light shadow-2xl transition-transform duration-300 ease-in-out">
           <MenuItems closeMenu={closeMenu} />
         </div>
       )}

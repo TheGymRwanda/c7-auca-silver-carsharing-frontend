@@ -25,7 +25,10 @@ configure({
 
 function App(): ReactElement {
   return (
-    <div className="mx-auto min-h-screen max-w-[430px]" style={{ backgroundColor: '#265e78' }}>
+    <div
+      className="relative mx-auto h-screen max-w-[430px] overflow-hidden"
+      style={{ backgroundColor: '#265e78' }}
+    >
       <Navbar />
       <main>
         <Routes>
