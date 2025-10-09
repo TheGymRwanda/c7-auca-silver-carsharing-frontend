@@ -20,5 +20,3 @@ export interface CarWithDetails {
   image: string
   info?: string
 }
-
-export type {}
