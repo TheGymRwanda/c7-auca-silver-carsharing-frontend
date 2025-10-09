@@ -23,6 +23,23 @@ function App(): ReactElement {
         </Routes>
       </main>
     </Router>
+    <div className="mx-auto max-w-[430px] bg-primary-dark">
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path={AppRoutes.home} element={<HomePage />} />
+          <Route path={AppRoutes.cars} element={<Cars />} />
+          <Route path={AppRoutes.profile} element={<Profile />} />
+          <Route path={AppRoutes.bookCar} element={<BookCar />} />
+          <Route path={AppRoutes.myBookings} element={<MyBookings />} />
+          <Route path={AppRoutes.myCars} element={<MyCars />} />
+          <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
+          <Route path={AppRoutes.addCar} element={<AddCar />} />
+          <Route path={AppRoutes.logout} element={<Logout />} />
+          <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
+        </Routes>
+      </main>
+    </div>
   )
 }
 
