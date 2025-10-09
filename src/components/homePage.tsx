@@ -19,16 +19,19 @@ export default function HomePage(): React.ReactElement {
           </p>
           {/* Primary button */}
           <Link
-            to={AppRoutes.cars}
+            to={AppRoutes.bookCar}
             className="mb-6 block w-full rounded-full bg-white px-6 py-3 text-center text-base font-semibold text-cyan-800 sm:text-lg"
           >
             Book Car
           </Link>
           <span className="mb-4 text-white">or</span>
           {/* Outlined buttons */}
-          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+          <Link
+            to={AppRoutes.cars}
+            className="mb-3 block w-full rounded-full border border-white px-6 py-3 text-center text-base text-white sm:text-lg"
+          >
             See My Cars
-          </button>
+          </Link>
           <button className="w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
             See My Bookings
           </button>

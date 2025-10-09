@@ -21,7 +21,7 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <CarsIcon className="size-5" />
+            <CarsIcon className="size-5 text-white" />
             <span className="text-base">Book A Car</span>
           </Link>
 
@@ -30,7 +30,7 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <ListIcon className="size-5" />
+            <ListIcon className="size-5 text-white" />
             <span className="text-base">My Bookings</span>
           </Link>
         </div>
@@ -41,11 +41,11 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
           <div className="mb-3 text-base font-semibold text-white">My cars</div>
 
           <Link
-            to={AppRoutes.myCars}
+            to={AppRoutes.cars}
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <CarIcon className="size-5" />
+            <CarIcon className="size-5 text-white" />
             <span className="text-base">See My Cars</span>
           </Link>
 
@@ -54,7 +54,7 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <ListIcon className="size-5" />
+            <ListIcon className="size-5 text-white" />
             <span className="text-base">My Car&apos;s Bookings</span>
           </Link>
 
@@ -63,7 +63,7 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <CarPlusIcon className="size-5" />
+            <CarPlusIcon className="size-5 text-white" />
             <span className="text-base">Add New Car</span>
           </Link>
         </div>
@@ -76,7 +76,7 @@ export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
             className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
             onClick={closeMenu}
           >
-            <LogoutIcon />
+            <LogoutIcon className="text-white" />
             <span className="text-base">Log Out</span>
           </Link>
         </div>
