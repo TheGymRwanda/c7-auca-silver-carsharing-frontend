@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
@@ -24,9 +24,16 @@ configure({
 })
 
 function App(): ReactElement {
+  useEffect(() => {
+    const devToken = import.meta.env.VITE_DEV_TOKEN
+    if (devToken && !localStorage.getItem('token')) {
+      localStorage.setItem('token', devToken)
+    }
+  }, [])
+
   return (
     <div
-      className="relative mx-auto h-screen max-w-[430px] overflow-hidden"
+      className="relative mx-auto h-screen max-w-[430px] overflow-x-hidden"
       style={{ backgroundColor: '#265e78' }}
     >
       <Navbar />
