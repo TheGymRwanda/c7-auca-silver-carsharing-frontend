@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
 import CarsIcon from '../assets/CarsIcon'
@@ -11,7 +10,7 @@ interface MenuItemsProps {
   closeMenu: () => void
 }
 
-export default function MenuItems({ closeMenu }: MenuItemsProps): ReactElement {
+export default function MenuItems({ closeMenu }: MenuItemsProps) {
   return (
     <div className="flex flex-col">
       <div className="flex-1 py-2">

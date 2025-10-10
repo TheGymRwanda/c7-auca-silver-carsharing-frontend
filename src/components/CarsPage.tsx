@@ -1,21 +1,54 @@
-import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 import useCars from '../hooks/useCars'
 import useUsers from '../hooks/useUsers'
 import useCarTypes from '../hooks/useCarTypes'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
+import { CarWithDetails } from '../types'
 
-interface CarWithDetails {
-  id: number
-  name: string
-  owner: string
-  type: string
-  image: string
-  info?: string
+function CarCard({ car }: { car: CarWithDetails }) {
+  return (
+    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+      <div className="flex">
+        <div className="w-1/2">
+          <img src={car.image} alt={car.name} className="size-full object-contain" />
+        </div>
+
+        <div className="flex w-1/2 flex-col justify-around pl-4">
+          <div className="mb-4">
+            <h2 className="text-xxl font-bold text-white">{car.name}</h2>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-white">
+              <ProfileIcon className="size-4 text-white" />
+              <span className="text-md">{car.owner}</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-white">
+              <CarsIcon className="size-4" />
+              <span className="text-sm">{car.type}</span>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <Link
+              to={`/cars/${car.id}`}
+              className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
+            >
+              Show details
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-const CarsPage: React.FC = () => {
+export default function CarsPage() {
+  const navigate = useNavigate()
   const [{ data: carsData, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: usersData, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypesData, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -54,50 +87,26 @@ const CarsPage: React.FC = () => {
     return <div className="p-4 text-center font-serif">No cars available</div>
   }
 
-  const CarCard: React.FC<{ car: CarWithDetails }> = ({ car }) => (
-    <div className="car-card flex gap-4 rounded-xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur-sm transition-all hover:bg-white/20 hover:shadow-xl sm:gap-6 sm:p-8">
-      {/* Car Image  */}
-      <div className="flex shrink-0 items-center">
-        <img
-          src={car.image}
-          alt={car.name}
-          className="h-24 w-32 rounded-lg object-cover sm:h-28 sm:w-36 lg:h-32 lg:w-40"
-        />
-      </div>
-
-      {/* Car Details  */}
-      <div className="flex flex-1 flex-col justify-between">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-white">{car.name}</h2>
-          <div className="flex items-center gap-3 text-white">
-            <ProfileIcon className="size-6 text-white" />
-            <span className="text-lg font-medium">{car.owner}</span>
-          </div>
-
-          <div className="flex items-center gap-3 text-white">
-            <div className="size-6 text-white">
-              <CarsIcon />
-            </div>
-            <span className="text-lg font-medium">{car.type}</span>
-          </div>
-        </div>
-
-        <div className="mt-6 border-t border-white/20 pt-4">
-          <Link
-            to={`/cars/${car.id}`}
-            className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
-          >
-            Show Details
-          </Link>
-        </div>
-      </div>
-    </div>
-  )
-
   return (
-    <div className="cars-container mx-auto max-w-7xl space-y-6 p-6 font-serif">
-      <h1 className="text-center text-3xl font-bold text-white">ALL CARS</h1>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+    <div className="min-h-screen p-4 font-serif">
+      {/* Header */}
+      <div className="mb-6 flex items-center">
+        <button onClick={() => navigate(-1)} className="text-white">
+          <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <h1 className="flex-1 text-center text-2xl font-bold text-white">ALL CARS</h1>
+        <div className="w-6"></div>
+      </div>
+
+      {/* Cars Grid */}
+      <div className="space-y-4">
         {cars.map(car => (
           <CarCard key={car.id} car={car} />
         ))}
@@ -105,5 +114,3 @@ const CarsPage: React.FC = () => {
     </div>
   )
 }
-
-export default CarsPage
