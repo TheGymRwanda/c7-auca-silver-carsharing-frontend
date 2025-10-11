@@ -1,5 +1,5 @@
-import React from 'react'
-
+import { forwardRef } from 'react'
+import classNames from 'classnames'
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outlineWhite' | 'outlineIndigo'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -7,20 +7,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: ButtonVariant
   size?: ButtonSize
   loading?: boolean
-  fullWidth?: boolean
-  icon?: React.ReactNode
   children: React.ReactNode
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
       variant = 'primary',
       size = 'md',
       disabled = false,
-      fullWidth = false,
-      icon = null,
       loading = false,
       className = '',
       ...props
@@ -45,9 +41,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'h-14 px-8 text-lg',
       xl: 'h-16 px-10 text-xl',
     }
-    const widthClass = fullWidth ? 'w-full' : ''
-    const buttonClasses =
-      `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`.trim()
+    const buttonClasses = classNames(
+      baseClasses,
+      variantClasses[variant],
+      sizeClasses[size],
+      className
+    )
 
     const isDisabled = disabled || loading
 
@@ -70,7 +69,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
-        {icon && !loading && <span className="mr-2">{icon}</span>}
         {!loading && children}
       </button>
     )
