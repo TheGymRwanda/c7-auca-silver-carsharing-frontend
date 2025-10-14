@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
 
 import type { AuthContextType, User, LoginCredentials, AuthState } from '../types/auth_types'
-import { apiUrl } from '../util/apiUrl'
+import { apiUrl } from '../utils/apiUrl'
 
 export interface AuthProviderProps {
   children: ReactNode
@@ -30,15 +30,15 @@ const unauthenticatedState: AuthState = {
   error: null,
 }
 
-const authRequest = async (endpoint: string, credentials: LoginCredentials): Promise<User> => {
-  const response = await fetch(`${apiUrl}/auth/${endpoint}`, {
+const authRequest = async (credentials: LoginCredentials): Promise<User> => {
+  const response = await fetch(`${apiUrl}/auth/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
   })
 
   if (!response.ok) {
-    throw new Error(`${endpoint} failed`)
+    throw new Error(`Request failed!`)
   }
 
   return response.json()
@@ -60,7 +60,7 @@ export default function AuthContextProvider({ children }: AuthProviderProps) {
   const login = async (credentials: LoginCredentials) => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }))
-      const userData = await authRequest('login', credentials)
+      const userData = await authRequest(credentials)
       sessionStorage.setItem('user', JSON.stringify(userData))
       setState(authenticatedState(userData))
     } catch (error_) {
@@ -75,7 +75,7 @@ export default function AuthContextProvider({ children }: AuthProviderProps) {
   const register = async (credentials: LoginCredentials) => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }))
-      const userData = await authRequest('register', credentials)
+      const userData = await authRequest(credentials)
       sessionStorage.setItem('user', JSON.stringify(userData))
       setState(authenticatedState(userData))
     } catch (error_) {

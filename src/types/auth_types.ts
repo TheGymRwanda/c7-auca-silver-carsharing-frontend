@@ -11,14 +11,13 @@ export interface AuthState {
 }
 
 export interface LoginCredentials {
-  username?: string
-  email?: string
+  username: string
   password: string
 }
 
 export interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>
-  logout: () => Promise<void>
+  logout: () => void
   register: (credentials: LoginCredentials) => Promise<void>
   cleanError: () => void
 }

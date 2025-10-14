@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
+import useAuth from './hooks/useAuth'
 
 import HomePage from './components/homePage'
 import Navbar from './components/Navbar'
@@ -25,12 +26,24 @@ configure({
 })
 
 function App() {
+  const { isAuthenticated, isLoading, error, login } = useAuth()
+
   useEffect(() => {
-    const devToken = import.meta.env.VITE_DEV_TOKEN
-    if (devToken && !localStorage.getItem('token')) {
-      localStorage.setItem('token', devToken)
+    if (!isAuthenticated && !isLoading && !error) {
+      login({ username: 'Silver', password: 'beatrice-PW' })
     }
-  }, [])
+  }, [isAuthenticated, isLoading, error, login])
+
+  if (isLoading) {
+    return (
+      <div
+        className="flex h-screen items-center justify-center"
+        style={{ backgroundColor: '#265e78' }}
+      >
+        <p className="text-white">Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div

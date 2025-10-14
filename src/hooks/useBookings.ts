@@ -1,9 +1,9 @@
 import axios from 'axios'
 import useAxios from 'axios-hooks'
 import { useEffect, useState } from 'react'
-import { BookingDto, BookingWithReferences, CarDto, UserDto } from '../util/api'
-import { apiUrl } from '../util/apiUrl'
-import { getAuthToken } from '../util/auth'
+import { BookingDto, BookingWithReferences, CarDto, UserDto } from '../utils/api'
+import { apiUrl } from '../utils/apiUrl'
+import { getAuthToken } from '../utils/auth'
 
 function useBookingData() {
   const [data, setData] = useState<BookingWithReferences[] | null>(null)

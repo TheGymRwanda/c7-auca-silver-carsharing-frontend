@@ -4,7 +4,7 @@ import FuelIcon from '../assets/FuelIcon'
 import CarsIcon from '../assets/CarsIcon'
 import LicensePlateIcon from '../assets/LicensePlateIcon'
 import AlertIcon from '../assets/AlertIcon'
-import { CarDto, UserDto, CarTypeDto } from '../util/api'
+import { CarDto, UserDto, CarTypeDto } from '../utils/api'
 import { styles } from '../utils/styles'
 import { TextLarge } from '../utils/Typography'
 
