@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useCarData } from '../hooks/useCarData'
 import CarCard from '../UI/CarCard'
 import PageHeader from './PageHeader'
+import { styles } from '../utils/styles'
 
 export default function CarsPage() {
   const {
@@ -30,7 +31,7 @@ export default function CarsPage() {
   }, [carsData, usersData, carTypesData])
 
   if (carsLoading || usersLoading || carTypesLoading) {
-    return <div className="p-4 text-center font-serif">Loading cars...</div>
+    return <div className={styles.centerText}>Loading cars...</div>
   }
 
   if (carsError || usersError || carTypesError) {
@@ -42,11 +43,11 @@ export default function CarsPage() {
   }
 
   if (cars.length === 0) {
-    return <div className="p-4 text-center font-serif">No cars available</div>
+    return <div className={styles.centerText}>No cars available</div>
   }
 
   return (
-    <div className="min-h-screen p-4 font-serif">
+    <div className={styles.pageContainer}>
       <PageHeader title="ALL CARS" />
 
       <div className="space-y-4">

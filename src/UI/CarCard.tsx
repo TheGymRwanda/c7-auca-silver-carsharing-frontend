@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
 import { CarWithDetails } from '../types'
+import { styles } from '../utils/styles'
 
 interface CarCardProps {
   car: CarWithDetails
@@ -9,7 +10,7 @@ interface CarCardProps {
 
 export default function CarCard({ car }: CarCardProps) {
   return (
-    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+    <div className={styles.cardContainer}>
       <div className="flex">
         <div className="w-1/2">
           <img src={car.image} alt={car.name} className="size-full object-contain" />
@@ -21,22 +22,19 @@ export default function CarCard({ car }: CarCardProps) {
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-white">
+            <div className={styles.cardRow}>
               <ProfileIcon className="size-4 text-white" />
               <span className="text-md">{car.owner}</span>
             </div>
 
-            <div className="flex items-center gap-2 text-white">
+            <div className={styles.cardRow}>
               <CarsIcon className="size-4" />
               <span className="text-sm">{car.type}</span>
             </div>
           </div>
 
           <div className="mt-4">
-            <Link
-              to={`/cars/${car.id}`}
-              className="text-sm font-semibold text-yellow-400 transition-colors hover:text-yellow-300"
-            >
+            <Link to={`/cars/${car.id}`} className={styles.detailsLink}>
               Show details
             </Link>
           </div>
