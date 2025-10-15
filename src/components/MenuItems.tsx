@@ -14,7 +14,7 @@ interface MenuItemsProps {
 export default function MenuItems({ closeMenu }: MenuItemsProps) {
   return (
     <div className="flex flex-col">
-      <div className="flex-1 py-2">
+      <div className="flex-1 py-2 ">
         <div className="px-4">
           <Link to={AppRoutes.bookCar} className={styles.menuLink} onClick={closeMenu}>
             <CarsIcon className={styles.iconWhite} />

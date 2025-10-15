@@ -3,22 +3,14 @@ import ProfileIcon from '../assets/ProfileIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
 import Logo from '../assets/Logo'
-import CarIcon from '../assets/CarIcon'
-import CarPlusIcon from '../assets/CarPlusIcon'
-import { buttonBase } from '../util/buttonBase'
+import { buttonBase } from '../utils/buttonBase'
 import MenuItems from './MenuItems'
 
 export default function Navbar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+  const handleMenuClick = () => setIsMenuOpen(!isMenuOpen)
+  const closeMenu = () => setIsMenuOpen(false)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -27,60 +19,86 @@ export default function Navbar(): ReactElement {
       }
     }
 
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    if (isMenuOpen) document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isMenuOpen])
 
   return (
     <>
-      <nav className="relative mx-auto w-full max-w-[430px] rounded-b-[30px] bg-gray-900 shadow-lg">
-        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center">
-            <button
-              onClick={handleMenuClick}
-              className={`ml-3 rounded-lg px-3 py-2 text-base font-medium ${buttonBase} sm:text-lg`}
-            >
-              {isMenuOpen ? 'Close' : 'Menu'}
-            </button>
-          </div>
+      <nav className="relative w-full bg-gray-900 shadow-lg">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="md:h-18 flex h-16 items-center justify-between lg:h-20">
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={handleMenuClick}
+                className={`rounded-lg px-3 py-2 text-base font-medium lg:hidden ${buttonBase}`}
+              >
+                {isMenuOpen ? 'Close' : 'Menu'}
+              </button>
 
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <div className="mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6 sm:mb-0 mb-2">
               <Link
                 to={AppRoutes.home}
-                className={`flex items-center justify-center ${buttonBase}`}
+                className={`hidden items-center lg:flex ${buttonBase}`}
                 aria-label="Home"
               >
-                <Logo className="size-7 sm:size-8" />
+                <Logo className="size-9" />
+              </Link>
+
+              {isMenuOpen && (
+                <div
+                  className="
+                    absolute left-0 top-full z-50 mt-2 min-w-[200px] rounded-2xl bg-primary-light shadow-2xl transition-all duration-300 ease-in-out lg:hidden"
+                >
+                  <MenuItems closeMenu={closeMenu} />
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-center">
+              <div className="mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6 lg:hidden">
+                <Link
+                  to={AppRoutes.home}
+                  className={`flex items-center justify-center ${buttonBase}`}
+                  aria-label="Home"
+                >
+                  <Logo className="size-7 sm:size-8 md:size-9" />
+                </Link>
+              </div>
+
+              <div className="hidden items-center space-x-6 lg:flex">
+                <Link to={AppRoutes.home} className={`text-base ${buttonBase}`}>
+                  Home
+                </Link>
+                <Link to={AppRoutes.cars} className={`text-base ${buttonBase}`}>
+                  Cars
+                </Link>
+                <Link to={AppRoutes.myBookings} className={`text-base ${buttonBase}`}>
+                  My Bookings
+                </Link>
+                <Link to={AppRoutes.myCars} className={`text-base ${buttonBase}`}>
+                  My Cars
+                </Link>
+                <Link to={AppRoutes.addCar} className={`text-base ${buttonBase}`}>
+                  Add Car
+                </Link>
+                <Link to={AppRoutes.myCarsBookings} className={`text-base ${buttonBase}`}>
+                  My Car&apos;s Bookings
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <Link
+                to={AppRoutes.profile}
+                className={`rounded-lg p-2 sm:p-3 ${buttonBase}`}
+                aria-label="Profile"
+              >
+                <ProfileIcon className="size-6 sm:size-7 md:size-8" />
               </Link>
             </div>
           </div>
-
-          <div className="flex items-center">
-            <Link
-              to={AppRoutes.profile}
-              className={`rounded-lg p-3 ${buttonBase}`}
-              aria-label="Profile"
-            >
-              <ProfileIcon className="size-6 sm:size-7" />
-            </Link>
-          </div>
         </div>
       </nav>
-
-      {isMenuOpen && (
-        <div
-          ref={menuRef}
-          className="absolute left-2 z-50 mx-auto mt-7 w-2/3 max-w-[430px] translate-x-0 rounded-2xl bg-primary-light shadow-2xl transition-transform duration-300 ease-in-out"
-        >
-          <MenuItems closeMenu={closeMenu} />
-        </div>
-      )}
     </>
   )
 }

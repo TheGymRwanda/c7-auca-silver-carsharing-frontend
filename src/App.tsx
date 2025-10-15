@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { configure } from 'axios-hooks'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
 import useAuth from './hooks/useAuth'
 
@@ -10,7 +10,6 @@ import CarsPage from './components/CarsPage'
 import CarDetailsPage from './components/CarDetailsPage'
 import AddCar from './pages/AddCar'
 import BookCar from './pages/BookCar'
-import Cars from './pages/Cars'
 import Logout from './pages/Logout'
 import MyBookings from './pages/MyBookings'
 import MyCars from './pages/MyCars'
@@ -46,26 +45,25 @@ function App() {
   }
 
   return (
-    <div
-      className="relative mx-auto h-screen max-w-[430px] overflow-x-hidden"
-      style={{ backgroundColor: '#265e78' }}
-    >
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path={AppRoutes.home} element={<HomePage />} />
-          <Route path={AppRoutes.cars} element={<CarsPage />} />
-          <Route path={AppRoutes.carDetails} element={<CarDetailsPage />} />
-          <Route path={AppRoutes.profile} element={<Profile />} />
-          <Route path={AppRoutes.bookCar} element={<BookCar />} />
-          <Route path={AppRoutes.myBookings} element={<MyBookings />} />
-          <Route path={AppRoutes.myCars} element={<MyCars />} />
-          <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
-          <Route path={AppRoutes.addCar} element={<AddCar />} />
-          <Route path={AppRoutes.logout} element={<Logout />} />
-          <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.home} replace />} />
-        </Routes>
-      </main>
+    <div className="min-h-screen w-full" style={{ backgroundColor: 'primary-dark' }}>
+      <div className="relative h-screen w-full overflow-x-hidden">
+        <Navbar />
+        <main className="px-4 sm:px-6 md:px-8 lg:px-12">
+          <Routes>
+            <Route path={AppRoutes.home} element={<HomePage />} />
+            <Route path={AppRoutes.cars} element={<CarsPage />} />
+            <Route path={AppRoutes.carDetails} element={<CarDetailsPage />} />
+            <Route path={AppRoutes.profile} element={<Profile />} />
+            <Route path={AppRoutes.bookCar} element={<BookCar />} />
+            <Route path={AppRoutes.myBookings} element={<MyBookings />} />
+            <Route path={AppRoutes.myCars} element={<MyCars />} />
+            <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
+            <Route path={AppRoutes.addCar} element={<AddCar />} />
+            <Route path={AppRoutes.logout} element={<Logout />} />
+            <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.home} replace />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   )
 }
