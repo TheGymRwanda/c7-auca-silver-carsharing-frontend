@@ -1,10 +1,10 @@
 import { ReactElement, useState, useRef, useEffect } from 'react'
-import ProfileIcon from '../assets/ProfileIcon'
+import ProfileIcon from '@/assets/ProfileIcon'
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '../types'
-import Logo from '../assets/Logo'
+import { AppRoutes } from '@/types'
+import Logo from '@/assets/Logo'
 import { buttonBase } from '../utils/buttonBase'
-import MenuItems from './MenuItems'
+import MenuItems from '@/components/MenuItems'
 
 export default function Navbar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
