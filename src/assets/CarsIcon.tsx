@@ -2,10 +2,9 @@ import { ReactElement } from 'react'
 
 interface CarsIconProps {
   className?: string
-  color?: string
 }
 
-export default function CarsIcon({ className, color = '#059669' }: CarsIconProps): ReactElement {
+export default function CarsIcon({ className }: CarsIconProps): ReactElement {
   return (
     <svg
       width="24"

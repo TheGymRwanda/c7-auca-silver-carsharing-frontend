@@ -13,8 +13,10 @@ module.exports = {
         },
         ghost: {
           light: '#B8B8B8',
-          dark: '#d1d1d1',
         },
+      },
+      fontSize: {
+        xxl: ['1.375rem', '1.75rem'],
       },
     },
     plugins: [],

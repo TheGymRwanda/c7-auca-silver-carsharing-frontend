@@ -29,7 +29,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const baseClasses =
       'inline-flex items-center justify-center font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
-
     const variantClasses = {
       primary: 'bg-white text-primary hover:bg-gray-50 focus:ring-primary',
       secondary: 'bg-primary text-white hover:bg-primary focus:ring-primary',
@@ -39,7 +38,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       outlineIndigo:
         'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-white focus:ring-white',
     }
-
     const sizeClasses = {
       xs: 'h-8 px-3 text-xs',
       sm: 'h-9 px-4 text-sm',
@@ -47,9 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: 'h-14 px-8 text-lg',
       xl: 'h-16 px-10 text-xl',
     }
-
     const widthClass = fullWidth ? 'w-full' : ''
-
     const buttonClasses =
       `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`.trim()
 
@@ -75,7 +71,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           </svg>
         )}
         {icon && !loading && <span className="mr-2">{icon}</span>}
-        {!loading && <>{children}</>}
+        {!loading && children}
       </button>
     )
   },
