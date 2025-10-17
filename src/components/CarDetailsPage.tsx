@@ -39,18 +39,18 @@ export default function CarDetailsPage() {
         <div className="w-8"></div>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center space-y-8">
-        <div className={styles.flexCenter}>
+      <div className="flex flex-1 flex-col items-center justify-center space-y-8 md:space-y-12 lg:space-y-16">
+        <div className="flex w-full justify-center">
           <img
             src={carType?.imageUrl || 'https://via.placeholder.com/400'}
             alt={car.name}
-            className="h-44 w-60 rounded-lg object-contain"
+            className="h-44 w-60 rounded-lg object-contain md:h-64 md:w-full md:max-w-2xl lg:h-80 lg:max-w-3xl"
           />
         </div>
 
-        <div className={`${styles.maxWidthContainer} space-y-6 px-4`}>
-          <H1 className="text-left">{car.name}</H1>
-          <div className="mt-6">
+        <div className="w-full max-w-xs space-y-6 px-4 md:max-w-4xl md:space-y-8 lg:space-y-10">
+          <H1 className="text-center md:text-2xl lg:text-3xl">{car.name}</H1>
+          <div className="mt-6 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10">
             <CarDetails car={car} owner={owner} carType={carType} />
           </div>
         </div>

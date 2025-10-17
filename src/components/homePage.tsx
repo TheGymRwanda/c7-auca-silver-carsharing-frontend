@@ -34,12 +34,11 @@ export default function HomePage(): ReactElement {
             >
               See My Cars
             </Link>
-            <Link
-              to={AppRoutes.myBookings}
+            <button
               className={`mb-3 md:mb-4 lg:mb-6 ${styles.outlineButton} md:text-md whitespace-nowrap sm:w-auto sm:flex-1 sm:text-base md:p-4 md:px-8`}
             >
               See My Bookings
-            </Link>
+            </button>
           </div>
         </div>
       </div>
