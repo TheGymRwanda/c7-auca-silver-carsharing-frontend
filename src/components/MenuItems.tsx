@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '../types'
-import CarsIcon from '../assets/CarsIcon'
-import ListIcon from '../assets/ListIcon'
-import CarIcon from '../assets/CarIcon'
-import CarPlusIcon from '../assets/CarPlusIcon'
-import LogoutIcon from '../assets/LogoutIcon'
-import { styles } from '../utils/styles'
+import { AppRoutes } from '@/types'
+import CarsIcon from '@/assets/CarsIcon'
+import ListIcon from '@/assets/ListIcon'
+import CarIcon from '@/assets/CarIcon'
+import CarPlusIcon from '@/assets/CarPlusIcon'
+import LogoutIcon from '@/assets/LogoutIcon'
+import { styles } from '@/utils/styles'
 
 interface MenuItemsProps {
   closeMenu: () => void

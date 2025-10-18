@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
 
-import type { AuthContextType, User, LoginCredentials, AuthState } from '../types/auth_types'
-import { apiUrl } from '../utils/apiUrl'
+import type { AuthContextType, User, LoginCredentials, AuthState } from '@/types/auth_types'
+import { apiUrl } from '@/utils/apiUrl'
 
 export interface AuthProviderProps {
   children: ReactNode

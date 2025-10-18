@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import classNames from 'classnames'
 
-import LoadingSpinner from '../assets/LoadingSpinner'
+import LoadingSpinner from '@/assets/LoadingSpinner'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outlineWhite' | 'outlineIndigo'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'

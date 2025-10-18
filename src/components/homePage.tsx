@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '../types'
-import { BrandTitle, BodyLarge, TextBase } from '../utils/Typography'
-import { styles } from '../utils/styles'
+import { AppRoutes } from '@/types'
+import { BrandTitle, BodyLarge, TextBase } from '@/utils/Typography'
+import { styles } from '@/utils/styles'
 
 export default function HomePage(): ReactElement {
   return (

@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 
-import { useCarData } from '../hooks/useCarData'
-import CarCard from '../UI/CarCard'
-import PageHeader from './PageHeader'
-import { styles } from '../utils/styles'
+import { useCarData } from '@/hooks/useCarData'
+import CarCard from '@/UI/CarCard'
+import PageHeader from '@/components/PageHeader'
+import { styles } from '@/utils/styles'
 
 export default function CarsPage() {
   const {

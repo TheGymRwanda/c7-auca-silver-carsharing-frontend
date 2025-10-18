@@ -1,11 +1,11 @@
 import { useParams, Link } from 'react-router-dom'
 
-import useCarById from '../hooks/useCarById'
-import { useCarData } from '../hooks/useCarData'
-import { ChevronBackIcon } from '../assets/ChevronBackIcon'
-import CarDetails from './CarDetails'
-import { H1, H2 } from '../utils/Typography'
-import { styles } from '../utils/styles'
+import useCarById from '@/hooks/useCarById'
+import { useCarData } from '@/hooks/useCarData'
+import { ChevronBackIcon } from '@/assets/ChevronBackIcon'
+import CarDetails from '@/components/CarDetails'
+import { H1, H2 } from '@/utils/Typography'
+import { styles } from '@/utils/styles'
 
 export default function CarDetailsPage() {
   const { carId } = useParams<{ carId: string }>()
