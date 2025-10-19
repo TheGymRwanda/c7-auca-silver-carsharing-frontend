@@ -1,7 +1,5 @@
 import useBookings from './useBookings'
-import useCars from './useCars'
-import useCarTypes from './useCarTypes'
-import useUser from './useUser'
-import useUsers from './useUsers'
+import useCarById from './useCarById'
+import { useCarData } from './useCarData'
 
-export { useBookings, useCars, useCarTypes, useUser, useUsers }
+export { useBookings, useCarById, useCarData }

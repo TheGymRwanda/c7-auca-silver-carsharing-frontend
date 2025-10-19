@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes } from './types'
@@ -24,7 +24,7 @@ configure({
   },
 })
 
-function App(): ReactElement {
+function App() {
   useEffect(() => {
     const devToken = import.meta.env.VITE_DEV_TOKEN
     if (devToken && !localStorage.getItem('token')) {

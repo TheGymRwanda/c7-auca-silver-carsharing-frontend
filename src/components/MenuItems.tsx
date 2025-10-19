@@ -5,6 +5,7 @@ import ListIcon from '../assets/ListIcon'
 import CarIcon from '../assets/CarIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
+import { styles } from '../utils/styles'
 
 interface MenuItemsProps {
   closeMenu: () => void
@@ -15,22 +16,14 @@ export default function MenuItems({ closeMenu }: MenuItemsProps) {
     <div className="flex flex-col">
       <div className="flex-1 py-2">
         <div className="px-4">
-          <Link
-            to={AppRoutes.bookCar}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <CarsIcon className="size-5 text-white" />
-            <span className="text-base">Book A Car</span>
+          <Link to={AppRoutes.bookCar} className={styles.menuLink} onClick={closeMenu}>
+            <CarsIcon className={styles.iconWhite} />
+            <span className={styles.textBase}>Book A Car</span>
           </Link>
 
-          <Link
-            to={AppRoutes.myBookings}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <ListIcon className="size-5 text-white" />
-            <span className="text-base">My Bookings</span>
+          <Link to={AppRoutes.myBookings} className={styles.menuLink} onClick={closeMenu}>
+            <ListIcon className={styles.iconWhite} />
+            <span className={styles.textBase}>My Bookings</span>
           </Link>
         </div>
 
@@ -39,44 +32,28 @@ export default function MenuItems({ closeMenu }: MenuItemsProps) {
         <div className="mb-4 px-4">
           <div className="mb-3 text-base font-semibold text-white">My cars</div>
 
-          <Link
-            to={AppRoutes.cars}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <CarIcon className="size-5 text-white" />
-            <span className="text-base">See My Cars</span>
+          <Link to={AppRoutes.cars} className={styles.menuLink} onClick={closeMenu}>
+            <CarIcon className={styles.iconWhite} />
+            <span className={styles.textBase}>See My Cars</span>
           </Link>
 
-          <Link
-            to={AppRoutes.myCarsBookings}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <ListIcon className="size-5 text-white" />
-            <span className="text-base">My Car&apos;s Bookings</span>
+          <Link to={AppRoutes.myCarsBookings} className={styles.menuLink} onClick={closeMenu}>
+            <ListIcon className={styles.iconWhite} />
+            <span className={styles.textBase}>My Car&apos;s Bookings</span>
           </Link>
 
-          <Link
-            to={AppRoutes.addCar}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <CarPlusIcon className="size-5 text-white" />
-            <span className="text-base">Add New Car</span>
+          <Link to={AppRoutes.addCar} className={styles.menuLink} onClick={closeMenu}>
+            <CarPlusIcon className={styles.iconWhite} />
+            <span className={styles.textBase}>Add New Car</span>
           </Link>
         </div>
 
         <div className="mx-4 my-3 border-t border-gray-700"></div>
 
         <div className="px-4">
-          <Link
-            to={AppRoutes.logout}
-            className="flex items-center space-x-3 py-3 text-white transition-colors hover:text-gray-300"
-            onClick={closeMenu}
-          >
-            <LogoutIcon className="text-white" />
-            <span className="text-base">Log Out</span>
+          <Link to={AppRoutes.logout} className={styles.menuLink} onClick={closeMenu}>
+            <LogoutIcon className={styles.textWhite} />
+            <span className={styles.textBase}>Log Out</span>
           </Link>
         </div>
       </div>
