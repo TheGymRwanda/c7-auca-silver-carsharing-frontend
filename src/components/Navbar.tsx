@@ -3,6 +3,9 @@ import ProfileIcon from '../assets/ProfileIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
 import Logo from '../assets/Logo'
+import CarIcon from '../assets/CarIcon'
+import CarPlusIcon from '../assets/CarPlusIcon'
+import { buttonBase } from '../util/buttonBase'
 import MenuItems from './MenuItems'
 
 export default function Navbar(): ReactElement {
@@ -40,17 +43,17 @@ export default function Navbar(): ReactElement {
           <div className="flex items-center">
             <button
               onClick={handleMenuClick}
-              className="-ml-3 rounded-lg px-3 py-2 text-base font-medium text-white transition-colors hover:text-gray-300 active:bg-gray-800 sm:text-lg"
+              className={`ml-3 rounded-lg px-3 py-2 text-base font-medium ${buttonBase} sm:text-lg`}
             >
               {isMenuOpen ? 'Close' : 'Menu'}
             </button>
           </div>
 
           <div className="absolute left-1/2 -translate-x-1/2">
-            <div className="-mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6">
+            <div className="mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6 sm:mb-0 mb-2">
               <Link
                 to={AppRoutes.home}
-                className="flex items-center justify-center text-white transition-colors hover:text-gray-300"
+                className={`flex items-center justify-center ${buttonBase}`}
                 aria-label="Home"
               >
                 <Logo className="size-7 sm:size-8" />
@@ -61,7 +64,7 @@ export default function Navbar(): ReactElement {
           <div className="flex items-center">
             <Link
               to={AppRoutes.profile}
-              className="rounded-lg p-3 text-white transition-colors hover:text-gray-300 active:bg-gray-800"
+              className={`rounded-lg p-3 ${buttonBase}`}
               aria-label="Profile"
             >
               <ProfileIcon className="size-6 sm:size-7" />
