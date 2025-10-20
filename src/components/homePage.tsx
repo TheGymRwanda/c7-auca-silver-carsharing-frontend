@@ -1,10 +1,9 @@
-import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '@/types'
 import { BrandTitle, BodyLarge, TextBase } from '@/utils/Typography'
 import { styles } from '@/utils/styles'
 
-export default function HomePage(): ReactElement {
+export default function HomePage() {
   return (
     <div className={`${styles.centerContainer} pt-20`}>
       <div className={`${styles.centerContent} px-4 md:px-8`}>

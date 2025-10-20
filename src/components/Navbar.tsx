@@ -1,12 +1,12 @@
-import { ReactElement, useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import ProfileIcon from '@/assets/ProfileIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '@/types'
 import Logo from '@/assets/Logo'
-import { buttonBase } from '../utils/buttonBase'
+import { buttonBase } from '@/utils/buttonBase'
 import MenuItems from '@/components/MenuItems'
 
-export default function Navbar(): ReactElement {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const handleMenuClick = () => setIsMenuOpen(!isMenuOpen)

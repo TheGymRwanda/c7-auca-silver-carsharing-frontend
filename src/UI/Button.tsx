@@ -10,6 +10,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: ButtonVariant
   size?: ButtonSize
   loading?: boolean
+  asChild?: boolean
   children: React.ReactNode
 }
 
@@ -21,6 +22,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'md',
       disabled = false,
       loading = false,
+      asChild = false,
       className = '',
       ...props
     },
@@ -52,6 +54,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     )
 
     const isDisabled = disabled || loading
+
+    if (asChild) {
+      return (
+        <span className={buttonClasses}>
+          {children}
+        </span>
+      )
+    }
 
     return (
       <button ref={ref} className={buttonClasses} disabled={isDisabled} {...props}>
