@@ -2,6 +2,7 @@ export enum AppRoutes {
   home = '/',
   login = '/login',
   cars = '/cars',
+  carDetails = '/cars/:carId',
   profile = '/profile',
   bookCar = '/book-car',
   myBookings = '/my-bookings',
@@ -9,6 +10,14 @@ export enum AppRoutes {
   myCarsBookings = '/my-cars-bookings',
   addCar = '/add-car',
   logout = '/logout',
+  notFound = '*',
 }
 
-export type {}
+export interface CarWithDetails {
+  id: number
+  name: string
+  owner: string
+  type: string
+  image: string
+  info?: string
+}
