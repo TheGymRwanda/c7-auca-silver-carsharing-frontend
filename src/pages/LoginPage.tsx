@@ -94,7 +94,6 @@ export default function LoginPage(): ReactElement {
                 </div>
               </div>
 
-              {/* Password input */}
               <div className="relative">
                 <label htmlFor="password" className="sr-only">
                   Password
@@ -116,7 +115,6 @@ export default function LoginPage(): ReactElement {
                 </div>
               </div>
 
-              {/* Login button */}
               <Button
                 onClick={handleSubmit}
                 variant="primary"
