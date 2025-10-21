@@ -1,14 +1,16 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import CarsPage from './components/CarsPage'
 import CarDetailsPage from './components/CarDetailsPage'
 import Navbar from './components/Navbar'
+import LoginNavbar from './components/LoginNavbar'
 import { AppRoutes } from './types'
 import HomePage from './components/homePage'
 import AddCar from './pages/AddCar'
 import BookCar from './pages/BookCar'
 import Cars from './pages/Cars'
+import LoginPage from './pages/LoginPage'
 import Logout from './pages/Logout'
 import MyBookings from './pages/MyBookings'
 import MyCars from './pages/MyCars'
@@ -23,6 +25,16 @@ configure({
   },
 })
 
+function ConditionalNavbar(): ReactElement {
+  const location = useLocation()
+
+  if (location.pathname === AppRoutes.login) {
+    return <LoginNavbar />
+  }
+
+  return <Navbar />
+}
+
 function App(): ReactElement {
   return (
     <Router>
@@ -34,9 +46,10 @@ function App(): ReactElement {
         </Routes>
       </main> */}
       <div className="mx-auto max-w-[430px] bg-primary-dark">
-        <Navbar />
+        <ConditionalNavbar />
         <main>
           <Routes>
+            <Route path={AppRoutes.login} element={<LoginPage />} />
             <Route path={AppRoutes.home} element={<HomePage />} />
             <Route path={AppRoutes.cars} element={<Cars />} />
             <Route path={AppRoutes.profile} element={<Profile />} />
@@ -46,7 +59,7 @@ function App(): ReactElement {
             <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
             <Route path={AppRoutes.addCar} element={<AddCar />} />
             <Route path={AppRoutes.logout} element={<Logout />} />
-            <Route path="*" element={<Navigate to={AppRoutes.home} replace />} />
+            <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
           </Routes>
         </main>
       </div>

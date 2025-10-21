@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { AppRoutes } from '../types'
 
 export default function HomePage(): React.ReactElement {
   return (
     <>
-      {/* Navbar goes here */}
       <div className="flex w-full items-center justify-center px-4 py-20 sm:px-6">
         <div className="flex w-full max-w-xs flex-col items-center rounded-lg px-6 py-10 text-center sm:max-w-sm">
           <h1 className="mb-2 flex flex-col font-lora text-5xl text-white sm:text-6xl">
@@ -24,7 +25,7 @@ export default function HomePage(): React.ReactElement {
           <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
             See My Cars
           </button>
-          <button className="w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
             See My Bookings
           </button>
         </div>
