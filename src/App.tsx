@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 import useAuth from '@/hooks/useAuth'
 
 import HomePage from '@/components/homePage'

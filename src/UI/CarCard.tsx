@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import ProfileIcon from '@/assets/ProfileIcon'
 import CarsIcon from '@/assets/CarsIcon'
-import { CarWithDetails } from '@/types'
+import { CarWithDetails } from '@/types/cardetails_type'
 import { styles } from '@/utils/styles'
 
 interface CarCardProps {
