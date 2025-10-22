@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 
-import { useCarData } from '../hooks/useCarData'
-import CarCard from '../UI/CarCard'
-import PageHeader from './PageHeader'
-import { styles } from '../utils/styles'
+import { useCarData } from '@/hooks/useCarData'
+import CarCard from '@/UI/CarCard'
+import PageHeader from '@/components/PageHeader'
+import { styles } from '@/utils/styles'
 
 export default function CarsPage() {
   const {
@@ -50,7 +50,7 @@ export default function CarsPage() {
     <div className={styles.pageContainer}>
       <PageHeader title="ALL CARS" />
 
-      <div className="space-y-4">
+      <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
         {cars.map(car => (
           <CarCard key={car.id} car={car} />
         ))}
