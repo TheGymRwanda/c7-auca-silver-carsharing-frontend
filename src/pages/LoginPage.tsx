@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { ReactElement } from 'react'
 import Button from '@/UI/Button'
+import ProfileIcon from '@/assets/ProfileIcon'
+import KeyIcon from '@/assets/KeyIcon'
 
 export default function LoginPage(): ReactElement {
   const [showLoginForm, setShowLoginForm] = useState(false)
@@ -36,7 +38,7 @@ export default function LoginPage(): ReactElement {
                 <span className="font-lora font-bold ">MONI</span>
                 <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
               </h1>
-              <p className="text-lg text-white sm:text-xl">
+              <p className="text-md text-white sm:text-xl">
                 Start sharing your Monis
                 <br />
                 with the world
@@ -67,7 +69,7 @@ export default function LoginPage(): ReactElement {
               <span className="font-lora font-bold ">MONI</span>
               <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
             </h1>
-            <h1 className="mb-8 flex flex-col font-lora text-3xl text-white sm:text-4xl">
+            <h1 className="mb-8 flex flex-col font-lora text-xl text-white sm:text-2xl">
               <span className="font-lora font-bold">Login</span>
             </h1>
 
@@ -76,18 +78,21 @@ export default function LoginPage(): ReactElement {
                 <label htmlFor="username" className="sr-only">
                   Username or email address
                 </label>
-                <input
-                  id="username"
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                  placeholder="Username / e-mail"
-                  className="w-full rounded-full bg-white/10 border border-white/20 px-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                  required
-                  aria-describedby="username-help"
-                  autoComplete="username"
-                />
+                <div className="relative">
+                  <ProfileIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                  <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    placeholder="Username / e-mail"
+                    className="w-full rounded-full bg-white/10 border border-white/20 pl-12 pr-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
+                    required
+                    aria-describedby="username-help"
+                    autoComplete="username"
+                  />
+                </div>
                 <div id="username-help" className="sr-only">
                   Enter your username or email address
                 </div>
@@ -97,18 +102,21 @@ export default function LoginPage(): ReactElement {
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="Password"
-                  className="w-full rounded-full bg-white/10 border border-white/20 px-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                  required
-                  aria-describedby="password-help"
-                  autoComplete="current-password"
-                />
+                <div className="relative">
+                  <KeyIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Password"
+                    className="w-full rounded-full bg-white/10 border border-white/20 pl-12 pr-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
+                    required
+                    aria-describedby="password-help"
+                    autoComplete="current-password"
+                  />
+                </div>
                 <div id="password-help" className="sr-only">
                   Enter your password
                 </div>
