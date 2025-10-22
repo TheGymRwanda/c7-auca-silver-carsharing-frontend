@@ -1,12 +1,12 @@
-import { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AppRoutes } from '../types'
+import { AppRoutes } from '@/types'
 
-export default function Logout(): ReactElement {
+export default function Logout() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Placeholder for clearing auth
+
     navigate(AppRoutes.cars, { replace: true })
   }, [navigate])
 

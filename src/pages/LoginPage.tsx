@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ReactElement } from 'react'
-import Button from '../components/Button'
+import Button from '@/UI/Button'
 
 export default function LoginPage(): ReactElement {
   const [showLoginForm, setShowLoginForm] = useState(false)
@@ -45,8 +45,7 @@ export default function LoginPage(): ReactElement {
                 onClick={handleLoginClick}
                 variant="primary"
                 size="lg"
-                fullWidth
-                className="mt-8"
+                className="mt-8 w-full"
                 aria-label="Show login form"
               >
                 Login
@@ -119,8 +118,7 @@ export default function LoginPage(): ReactElement {
                 onClick={handleSubmit}
                 variant="primary"
                 size="lg"
-                fullWidth={true}
-                className="mt-8"
+                className="mt-8 w-full"
                 aria-label="Submit login form"
               >
                 Login

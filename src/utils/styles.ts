@@ -40,4 +40,15 @@ export const styles = {
   textWhite: 'text-white',
   textBase: 'text-base',
   textLg: 'text-lg',
+
+  // Responsive containers
+  mobileContainer: 'max-w-sm mx-auto',
+  tabletContainer: 'max-w-4xl mx-auto',
+  desktopContainer: 'max-w-6xl mx-auto',
+  responsiveContainer: 'max-w-sm md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto',
+
+  // Responsive navigation
+  mobileNav: 'block md:hidden',
+  desktopNav: 'hidden md:flex',
+  tabletNav: 'hidden md:block lg:flex',
 } as const

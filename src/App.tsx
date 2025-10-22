@@ -1,21 +1,22 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, BrowserRouter as Router } from 'react-router-dom'
+import { AppRoutes } from '@/types'
+import useAuth from '@/hooks/useAuth'
+
+import HomePage from '@/components/homePage'
+import Navbar from '@/components/Navbar'
 import CarsPage from '@/components/CarsPage'
 import CarDetailsPage from '@/components/CarDetailsPage'
-import Navbar from '@/components/Navbar'
-import LoginNavbar from '@/components/LoginNavbar'
-import { AppRoutes } from '@/types'
-import HomePage from '@/components/homePage'
 import AddCar from '@/pages/AddCar'
 import BookCar from '@/pages/BookCar'
-import Cars from '@/pages/Cars'
-import LoginPage from '@/pages/LoginPage'
 import Logout from '@/pages/Logout'
 import MyBookings from '@/pages/MyBookings'
 import MyCars from '@/pages/MyCars'
 import MyCarsBookings from '@/pages/MyCarsBookings'
 import Profile from '@/pages/Profile'
+import LoginNavbar from './components/LoginNavbar'
+import LoginPage from './pages/LoginPage'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -51,7 +52,8 @@ function App(): ReactElement {
           <Routes>
             <Route path={AppRoutes.login} element={<LoginPage />} />
             <Route path={AppRoutes.home} element={<HomePage />} />
-            <Route path={AppRoutes.cars} element={<Cars />} />
+            <Route path={AppRoutes.cars} element={<CarsPage />} />
+            <Route path={AppRoutes.carDetails} element={<CarDetailsPage />} />
             <Route path={AppRoutes.profile} element={<Profile />} />
             <Route path={AppRoutes.bookCar} element={<BookCar />} />
             <Route path={AppRoutes.myBookings} element={<MyBookings />} />
