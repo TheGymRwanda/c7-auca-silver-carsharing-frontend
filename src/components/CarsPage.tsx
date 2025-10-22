@@ -1,8 +1,11 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useCarData } from '../hooks/useCarData'
 import CarCard from '../UI/CarCard'
 import PageHeader from './PageHeader'
+import Button from './Button'
+import { AppRoutes } from '../types'
 import { styles } from '../utils/styles'
 
 export default function CarsPage() {
@@ -47,14 +50,25 @@ export default function CarsPage() {
   }
 
   return (
-    <div className={styles.pageContainer}>
-      <PageHeader title="ALL CARS" />
+    <>
+      <div className={styles.pageContainer}>
+        <PageHeader title="MY CARS" />
 
-      <div className="space-y-4">
-        {cars.map(car => (
-          <CarCard key={car.id} car={car} />
-        ))}
+        <div className="space-y-4">
+          {cars.map(car => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </div>
       </div>
-    </div>
+      <div className="fixed inset-x-0 bottom-0 p-4" style={{ backgroundColor: '#265e78' }}>
+        <div className="mx-auto max-w-[430px]">
+          <Link to={AppRoutes.addCar}>
+            <Button variant="primary" fullWidth>
+              Add new car
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </>
   )
 }

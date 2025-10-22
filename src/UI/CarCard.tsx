@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarsIcon from '../assets/CarsIcon'
+import Button from '../components/Button'
 import { CarWithDetails } from '../types'
 import { styles } from '../utils/styles'
 
 interface CarCardProps {
   car: CarWithDetails
+  onDelete?: (carId: number) => void
 }
 
 export default function CarCard({ car }: CarCardProps) {
   return (
     <div className={styles.cardContainer}>
-      <div className="flex">
+      <div className="mb-4 flex">
         <div className="w-1/2">
           <img src={car.image} alt={car.name} className="size-full object-contain" />
         </div>
 
         <div className="flex w-1/2 flex-col justify-around pl-4">
           <div className="mb-4">
-            <h2 className="text-xxl font-bold text-white">{car.name}</h2>
+            <h2 className="overflow-wrap-anywhere break-words text-xxl font-bold text-white">
+              {car.name}
+            </h2>
           </div>
 
           <div className="space-y-2">
@@ -40,6 +44,14 @@ export default function CarCard({ car }: CarCardProps) {
           </div>
         </div>
       </div>
+      <Button
+        variant="outlineWhite"
+        size="sm"
+        fullWidth
+        className="!border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black"
+      >
+        Delete
+      </Button>
     </div>
   )
 }

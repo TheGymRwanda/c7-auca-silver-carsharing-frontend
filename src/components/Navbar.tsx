@@ -3,8 +3,6 @@ import ProfileIcon from '../assets/ProfileIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../types'
 import Logo from '../assets/Logo'
-import CarIcon from '../assets/CarIcon'
-import CarPlusIcon from '../assets/CarPlusIcon'
 import { buttonBase } from '../util/buttonBase'
 import MenuItems from './MenuItems'
 
@@ -50,7 +48,7 @@ export default function Navbar(): ReactElement {
           </div>
 
           <div className="absolute left-1/2 -translate-x-1/2">
-            <div className="mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:px-6 sm:mb-0 mb-2">
+            <div className="mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:mb-0 sm:px-6">
               <Link
                 to={AppRoutes.home}
                 className={`flex items-center justify-center ${buttonBase}`}
