@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
-import CarIcon from '../assets/CarIcon'
-import { AppRoutes } from '../types'
+import CarIcon from '@/assets/CarIcon'
+import { AppRoutes } from '@/types'
 import { Link } from 'react-router-dom'
-import Logo from '../assets/Logo'
-import { buttonBase } from '../util/buttonBase'
+import Logo from '@/assets/Logo'
+import { buttonBase } from '@/util/buttonBase'
 
 export default function LoginNavbar(): ReactElement {
   return (
