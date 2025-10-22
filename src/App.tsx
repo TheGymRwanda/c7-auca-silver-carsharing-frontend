@@ -34,7 +34,7 @@ function App() {
   return (
     <Router>
       <div
-        className="relative mx-auto h-screen max-w-[430px] md:max-w-none overflow-x-hidden"
+        className="relative mx-auto h-screen max-w-[430px] overflow-x-hidden md:max-w-none"
         style={{ backgroundColor: '#265e78' }}
       >
         <Navbar />

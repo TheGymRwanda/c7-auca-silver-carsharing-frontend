@@ -36,7 +36,7 @@ export default function Navbar(): ReactElement {
 
   return (
     <>
-      <nav className="relative mx-auto w-full max-w-[430px] md:max-w-none rounded-b-[30px] bg-gray-900 shadow-lg">
+      <nav className="relative mx-auto w-full max-w-[430px] rounded-b-[30px] bg-gray-900 shadow-lg md:max-w-none">
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
           <div className="flex items-center">
             <button
