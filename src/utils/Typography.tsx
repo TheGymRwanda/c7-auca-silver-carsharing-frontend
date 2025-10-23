@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
-import CustomSelect from '../components/CustomSelect'
+import CustomSelect from '@/components/CustomSelect'
 
 interface TypographyProps {
   children: ReactNode

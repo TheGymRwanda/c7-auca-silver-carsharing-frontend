@@ -1,6 +1,9 @@
 import { useState } from 'react'
-import { FuelType } from '../utils/api'
-import { validateField, validateForm } from '../utils/validation'
+import { FuelType } from '@/utils/api'
+import { validateField, validateForm } from '@/utils/validation'
+import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
+import { submitCarData } from '@/utils/apiSubmission'
+import useAuth from './useAuth'
 
 export interface FormData {
   name: string
@@ -18,6 +21,7 @@ export const fuelTypeOptions = [
 ]
 
 export function useNewCarForm() {
+  const { user } = useAuth()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     carTypeId: null,
@@ -29,9 +33,17 @@ export function useNewCarForm() {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleInputChange = (field: keyof FormData, value: string | number | FuelType | null) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    let sanitizedValue = value
+
+    // Apply real-time sanitization for text fields
+    if (typeof value === 'string' && (field === 'name' || field === 'info')) {
+      sanitizedValue = value.replace(/[<>]/g, '') // Remove XSS characters immediately
+    }
+
+    setFormData(prev => ({ ...prev, [field]: sanitizedValue }))
 
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))
@@ -44,18 +56,45 @@ export function useNewCarForm() {
     setErrors(prev => ({ ...prev, [field]: error || '' }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const formErrors = validateForm(formData)
     setErrors(formErrors)
     setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
+
+    if (Object.keys(formErrors).length === 0 && user) {
+      setIsSubmitting(true)
+
+      try {
+        const apiData = transformFormDataToApi(formData, user.id)
+
+        const apiErrors = validateApiData(apiData)
+        if (apiErrors.length > 0) {
+          setErrors({ submit: apiErrors.join(', ') })
+          return
+        }
+
+        const result = await submitCarData(apiData)
+
+        if (result.success) {
+          // TODO: Navigate to success page or reset form
+        } else {
+          setErrors({ submit: result.error || 'Failed to create car' })
+        }
+      } catch (error) {
+        setErrors({ submit: 'Network error occurred' })
+      } finally {
+        setIsSubmitting(false)
+      }
+    }
   }
 
   return {
     formData,
     errors,
     touched,
+    isSubmitting,
     handleInputChange,
     handleBlur,
     handleSubmit,
