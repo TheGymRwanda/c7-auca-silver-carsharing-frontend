@@ -1,28 +1,40 @@
-import { ChevronDownIcon } from '../assets/ChevronDownIcon'
+import { useCarData } from '@/hooks'
+import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
+import CustomSelect from './CustomSelect'
 
 export default function NewOwnCarForm() {
+  const { carTypes } = useCarData()
+  const { formData, handleInputChange, handleSubmit } = useNewCarForm()
+
+  const carTypeOptions = carTypes[0].data
+    ? carTypes[0].data.map(type => ({
+        value: type.id,
+        label: type.name,
+      }))
+    : []
+
   return (
     <div className="mx-auto w-full max-w-sm px-6 py-8">
-      <form className="">
+      <form onSubmit={handleSubmit}>
         <div>
           <label className="mb-3 block text-base text-white">Name</label>
           <input
             type="text"
+            value={formData.name}
+            onChange={e => handleInputChange('name', e.target.value)}
             placeholder="e.g. My Nice Moni Car"
             className="w-full rounded-full bg-primary-form px-5 py-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
           />
         </div>
+
         <div className="mt-4">
           <label className="mb-3 block text-base text-white">Type</label>
-          <div className="relative">
-            <button
-              type="button"
-              className="w-full rounded-full bg-primary-form px-5 py-4 text-left text-base text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
-            >
-              Moni Cooper
-            </button>
-            <ChevronDownIcon className="absolute right-5 top-1/2 size-8 -translate-y-1/2 text-white" />
-          </div>
+          <CustomSelect
+            value={formData.carTypeId}
+            onChange={value => handleInputChange('carTypeId', Number(value))}
+            options={carTypeOptions}
+            placeholder="Select car type"
+          />
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-4">
@@ -30,6 +42,8 @@ export default function NewOwnCarForm() {
             <label className="mb-3 block text-base text-white">License Plate</label>
             <input
               type="text"
+              value={formData.licensePlate}
+              onChange={e => handleInputChange('licensePlate', e.target.value)}
               placeholder="e.g. M-XY 123"
               className="w-full rounded-full bg-primary-form p-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
             />
@@ -38,6 +52,8 @@ export default function NewOwnCarForm() {
             <label className="mb-3 block text-base text-white">Horse Power</label>
             <input
               type="number"
+              value={formData.horsepower}
+              onChange={e => handleInputChange('horsepower', e.target.value)}
               placeholder="110"
               className="w-full rounded-full bg-primary-form p-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
             />
@@ -46,20 +62,20 @@ export default function NewOwnCarForm() {
 
         <div className="mt-4">
           <label className="mb-3 block text-base text-white">Fuel type</label>
-          <div className="relative">
-            <button
-              type="button"
-              className="w-full rounded-full bg-primary-form px-5 py-4 text-left text-base text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
-            >
-              e.g. 150
-            </button>
-            <ChevronDownIcon className="absolute right-5 top-1/2 size-8 -translate-y-1/2 text-white" />
-          </div>
+          <CustomSelect
+            value={formData.fuelType}
+            onChange={value => handleInputChange('fuelType', value)}
+            options={fuelTypeOptions}
+            placeholder="Select fuel type"
+          />
         </div>
 
         <div className="mt-4">
           <label className="mb-3 block text-base text-white">Additional Information</label>
           <input
+            type="text"
+            value={formData.info}
+            onChange={e => handleInputChange('info', e.target.value)}
             placeholder="e.g. No smoking"
             className="w-full resize-none rounded-3xl bg-primary-form px-5 py-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-white/30"
           />
