@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
+import CustomSelect from '../components/CustomSelect'
 
 interface TypographyProps {
   children: ReactNode
@@ -8,6 +9,33 @@ interface TypographyProps {
 interface LabelProps extends TypographyProps {
   htmlFor?: string
   required?: boolean
+}
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string
+  label: string
+  error?: string
+  className?: string
+}
+
+interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string
+  error?: string
+  touched?: boolean
+  onBlur?: () => void
+  className?: string
+}
+
+interface FormSelectProps {
+  label: string
+  value: string | number | null
+  onChange: (value: string | number) => void
+  onBlur?: () => void
+  options: { value: string | number; label: string }[]
+  placeholder: string
+  error?: string
+  touched?: boolean
+  className?: string
 }
 
 export function H1({ children, className = '' }: TypographyProps): ReactElement {
@@ -66,13 +94,6 @@ export function LabelText({
   )
 }
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string
-  label: string
-  error?: string
-  className?: string
-}
-
 export function Input({ id, label, error, className = '', ...props }: InputProps): ReactElement {
   return (
     <div className="w-full">
@@ -97,6 +118,61 @@ export function Input({ id, label, error, className = '', ...props }: InputProps
         {...props}
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+    </div>
+  )
+}
+
+export function FormField({
+  label,
+  error,
+  touched,
+  onBlur,
+  className = '',
+  ...props
+}: FormFieldProps): ReactElement {
+  const hasError = error && touched
+
+  return (
+    <div className="w-full">
+      <label className="mb-3 block text-base text-white">{label}</label>
+      <input
+        onBlur={onBlur}
+        className={`w-full rounded-full bg-primary-form px-5 py-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 ${
+          hasError ? 'ring-2 ring-red-500 focus:ring-red-500' : 'focus:ring-white/30'
+        } ${className}`}
+        {...props}
+      />
+      {hasError && <p className="mt-2 text-sm text-red-400">{error}</p>}
+    </div>
+  )
+}
+
+export function FormSelect({
+  label,
+  value,
+  onChange,
+  onBlur,
+  options,
+  placeholder,
+  error,
+  touched,
+  className = '',
+}: FormSelectProps): ReactElement {
+  const hasError = error && touched
+
+  return (
+    <div className="w-full">
+      <label className="mb-3 block text-base text-white">{label}</label>
+      <CustomSelect
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        options={options}
+        placeholder={placeholder}
+        error={hasError ? error : undefined}
+        className={className}
+      />
+      {hasError && <p className="mt-2 text-sm text-red-400">{error}</p>}
     </div>
   )
 }
