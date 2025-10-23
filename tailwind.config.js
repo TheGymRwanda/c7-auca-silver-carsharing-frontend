@@ -10,6 +10,7 @@ module.exports = {
         primary: {
           light: '#3E7591',
           dark: '#265E78',
+          form: '#64A1C0',
         },
         ghost: {
           light: '#B8B8B8',
