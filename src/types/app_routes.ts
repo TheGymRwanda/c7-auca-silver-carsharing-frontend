@@ -8,6 +8,7 @@ export enum AppRoutes {
   myCars = '/my-cars',
   myCarsBookings = '/my-cars-bookings',
   addCar = '/add-car',
+  newCar = '/new-car',
   logout = '/logout',
   notFound = '*',
 }

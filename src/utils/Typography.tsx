@@ -7,15 +7,15 @@ interface TypographyProps {
 
 // Heading Components
 export function H1({ children, className = '' }: TypographyProps): ReactElement {
-  return <h1 className={`text-3xl font-semibold text-white ${className}`}>{children}</h1>
+  return <h1 className={`font-lora text-3xl font-semibold text-white ${className}`}>{children}</h1>
 }
 
 export function H2({ children, className = '' }: TypographyProps): ReactElement {
-  return <h2 className={`text-xl font-bold text-white ${className}`}>{children}</h2>
+  return <h2 className={`font-lora text-xl font-bold text-white ${className}`}>{children}</h2>
 }
 
 export function H3({ children, className = '' }: TypographyProps): ReactElement {
-  return <h3 className={`text-lg font-semibold text-white ${className}`}>{children}</h3>
+  return <h3 className={`font-lora text-lg font-semibold text-white ${className}`}>{children}</h3>
 }
 
 // Brand Title Component

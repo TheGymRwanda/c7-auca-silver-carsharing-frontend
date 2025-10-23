@@ -13,6 +13,7 @@ import BookCar from '@/pages/BookCar'
 import Logout from '@/pages/Logout'
 import MyBookings from '@/pages/MyBookings'
 import MyCars from '@/pages/MyCars'
+import NewCar from '@/pages/NewCar'
 import MyCarsBookings from '@/pages/MyCarsBookings'
 import Profile from '@/pages/Profile'
 
@@ -59,6 +60,7 @@ function App() {
             <Route path={AppRoutes.myCars} element={<MyCars />} />
             <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
             <Route path={AppRoutes.addCar} element={<AddCar />} />
+            <Route path={AppRoutes.newCar} element={<NewCar />} />
             <Route path={AppRoutes.logout} element={<Logout />} />
             <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.home} replace />} />
           </Routes>
