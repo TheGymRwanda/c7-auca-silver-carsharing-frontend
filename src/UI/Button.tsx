@@ -56,7 +56,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const isDisabled = disabled || loading
 
     if (asChild) {
-      return <span className={buttonClasses}>{children}</span>
+      return (
+        <span className={buttonClasses}>
+          {children}
+        </span>
+      )
     }
 
     return (
