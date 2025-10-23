@@ -34,13 +34,13 @@ export function useNewCarForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleInputChange = (field: keyof FormData, value: string | number | FuelType | null) => {
     let sanitizedValue = value
 
-    // Apply real-time sanitization for text fields
     if (typeof value === 'string' && (field === 'name' || field === 'info')) {
-      sanitizedValue = value.replace(/[<>]/g, '') // Remove XSS characters immediately
+      sanitizedValue = value.replace(/[<>]/g, '')
     }
 
     setFormData(prev => ({ ...prev, [field]: sanitizedValue }))
@@ -54,6 +54,20 @@ export function useNewCarForm() {
     setTouched(prev => ({ ...prev, [field]: true }))
     const error = validateField(field, formData[field])
     setErrors(prev => ({ ...prev, [field]: error || '' }))
+  }
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      carTypeId: null,
+      licensePlate: '',
+      horsepower: '',
+      fuelType: null,
+      info: '',
+    })
+    setErrors({})
+    setTouched({})
+    setIsSuccess(false)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,7 +92,11 @@ export function useNewCarForm() {
         const result = await submitCarData(apiData)
 
         if (result.success) {
-          // TODO: Navigate to success page or reset form
+          setIsSuccess(true)
+          setErrors({})
+          setTimeout(() => {
+            resetForm()
+          }, 3000)
         } else {
           setErrors({ submit: result.error || 'Failed to create car' })
         }
@@ -95,8 +113,10 @@ export function useNewCarForm() {
     errors,
     touched,
     isSubmitting,
+    isSuccess,
     handleInputChange,
     handleBlur,
     handleSubmit,
+    resetForm,
   }
 }

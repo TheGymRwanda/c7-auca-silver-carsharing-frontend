@@ -2,10 +2,7 @@ import { FuelType, NewCarDto } from './api'
 import { FormData } from '../hooks/useNewCarForm'
 
 export const sanitizeString = (input: string): string =>
-  input
-    .trim()
-    .replace(/[<>]/g, '') // Remove potential XSS characters
-    .replace(/\s+/g, ' ') // Normalize whitespace
+  input.trim().replace(/[<>]/g, '').replace(/\s+/g, ' ')
 
 export const sanitizeNumber = (input: string): number | null => {
   const trimmed = input.trim()
@@ -19,7 +16,7 @@ export const sanitizeLicensePlate = (input: string): string | null => {
   const cleaned = input
     .trim()
     .toUpperCase()
-    .replace(/[^A-Z0-9\s-]/g, '') // Only allow letters, numbers, spaces, and hyphens
+    .replace(/[^A-Z0-9\s-]/g, '')
     .replace(/\s+/g, ' ')
 
   return cleaned || null
