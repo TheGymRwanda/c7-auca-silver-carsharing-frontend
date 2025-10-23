@@ -1,7 +1,8 @@
 import { useCarData } from '@/hooks'
 import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
 import CarFormFields from './CarFormFields'
-import LoadingSpinner from './LoadingSpinner'
+import { useEffect, useRef } from 'react'
+import Button from '../UI/Button'
 
 export default function NewOwnCarForm() {
   const { carTypes } = useCarData()
@@ -17,10 +18,24 @@ export default function NewOwnCarForm() {
     resetForm,
   } = useNewCarForm()
   const carTypeOptions = carTypes[0].data?.map(type => ({ value: type.id, label: type.name })) || []
+  const formRef = useRef<HTMLFormElement>(null)
+
+  useEffect(() => {
+    if (isSuccess && formRef.current) {
+      const firstInput = formRef.current.querySelector('input, select') as HTMLElement
+      firstInput?.focus()
+    }
+  }, [isSuccess])
 
   return (
     <div className="mx-auto w-full max-w-sm px-6 py-8">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="space-y-4"
+        noValidate
+        aria-label="Add new car form"
+      >
         <CarFormFields
           formData={formData}
           errors={errors}
@@ -38,7 +53,11 @@ export default function NewOwnCarForm() {
         )}
 
         {isSuccess && (
-          <div className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-3">
+          <div
+            className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-3"
+            role="status"
+            aria-live="polite"
+          >
             <p className="text-sm text-green-400">
               ✅ Car added successfully! Form will reset in 3 seconds.
             </p>
@@ -46,22 +65,32 @@ export default function NewOwnCarForm() {
         )}
 
         <div className="mt-20 flex gap-4">
-          <button
+          <Button
             type="button"
+            variant="outlineWhite"
             onClick={resetForm}
             disabled={isSubmitting}
-            className="flex-1 rounded-full border-2 border-white bg-transparent px-6 py-2 text-base text-white transition-colors hover:bg-white/10 disabled:opacity-50"
+            aria-label={isSuccess ? 'Add another car' : 'Cancel form'}
+            className="flex-1"
           >
             {isSuccess ? 'Add Another' : 'Cancel'}
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
-            disabled={isSubmitting || isSuccess}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-6 py-2 text-base font-medium text-primary-dark transition-colors hover:bg-white/90 disabled:opacity-50"
+            variant="primary"
+            loading={isSubmitting}
+            disabled={isSuccess}
+            aria-label={
+              isSubmitting
+                ? 'Adding car, please wait'
+                : isSuccess
+                  ? 'Car added successfully'
+                  : 'Add car to system'
+            }
+            className="flex-1"
           >
-            {isSubmitting && <LoadingSpinner size="sm" className="text-primary-dark" />}
             {isSubmitting ? 'Adding...' : isSuccess ? '✓ Added' : 'Add Car'}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

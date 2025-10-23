@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
+import classNames from 'classnames'
 import CustomSelect from '@/components/CustomSelect'
 
 interface TypographyProps {
@@ -39,15 +40,25 @@ interface FormSelectProps {
 }
 
 export function H1({ children, className = '' }: TypographyProps): ReactElement {
-  return <h1 className={`font-lora text-3xl font-semibold text-white ${className}`}>{children}</h1>
+  return (
+    <h1 className={classNames('font-lora text-3xl font-semibold text-white', className)}>
+      {children}
+    </h1>
+  )
 }
 
 export function H2({ children, className = '' }: TypographyProps): ReactElement {
-  return <h2 className={`font-lora text-xl font-bold text-white ${className}`}>{children}</h2>
+  return (
+    <h2 className={classNames('font-lora text-xl font-bold text-white', className)}>{children}</h2>
+  )
 }
 
 export function H3({ children, className = '' }: TypographyProps): ReactElement {
-  return <h3 className={`font-lora text-lg font-semibold text-white ${className}`}>{children}</h3>
+  return (
+    <h3 className={classNames('font-lora text-lg font-semibold text-white', className)}>
+      {children}
+    </h3>
+  )
 }
 
 export function BrandTitle({ children, className = '' }: TypographyProps): ReactElement {
@@ -131,18 +142,38 @@ export function FormField({
   ...props
 }: FormFieldProps): ReactElement {
   const hasError = error && touched
+  const fieldId = props.id || `field-${label.toLowerCase().replace(/\s+/g, '-')}`
 
   return (
     <div className="w-full">
-      <label className="mb-3 block text-base text-white">{label}</label>
+      <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
+        {label}
+        {props.required && (
+          <span className="ml-1 text-red-400" aria-label="required">
+            *
+          </span>
+        )}
+      </label>
       <input
+        id={fieldId}
         onBlur={onBlur}
-        className={`w-full rounded-full bg-primary-form px-5 py-4 text-base text-white placeholder:text-white/70 focus:outline-none focus:ring-2 ${
-          hasError ? 'ring-2 ring-red-500 focus:ring-red-500' : 'focus:ring-white/30'
-        } ${className}`}
+        aria-invalid={hasError ? 'true' : 'false'}
+        aria-describedby={hasError ? `${fieldId}-error` : undefined}
+        className={classNames(
+          'w-full rounded-full bg-primary-form px-5 py-4 text-base text-white transition-all duration-200 placeholder:text-white/70 focus:outline-none focus:ring-2',
+          {
+            'ring-2 ring-red-500 focus:ring-red-500': hasError,
+            'hover:ring-1 hover:ring-white/20 focus:ring-white/30': !hasError,
+          },
+          className,
+        )}
         {...props}
       />
-      {hasError && <p className="mt-2 text-sm text-red-400">{error}</p>}
+      {hasError && (
+        <p id={`${fieldId}-error`} className="mt-2 text-sm text-red-400" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   )
 }
@@ -159,10 +190,16 @@ export function FormSelect({
   className = '',
 }: FormSelectProps): ReactElement {
   const hasError = error && touched
+  const fieldId = `select-${label.toLowerCase().replace(/\s+/g, '-')}`
 
   return (
     <div className="w-full">
-      <label className="mb-3 block text-base text-white">{label}</label>
+      <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
+        {label}
+        <span className="ml-1 text-red-400" aria-label="required">
+          *
+        </span>
+      </label>
       <CustomSelect
         value={value}
         onChange={onChange}
@@ -172,7 +209,11 @@ export function FormSelect({
         error={hasError ? error : undefined}
         className={className}
       />
-      {hasError && <p className="mt-2 text-sm text-red-400">{error}</p>}
+      {hasError && (
+        <p id={`${fieldId}-error`} className="mt-2 text-sm text-red-400" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

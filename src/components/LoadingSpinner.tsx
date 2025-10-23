@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg'
   className?: string
@@ -12,7 +14,11 @@ export default function LoadingSpinner({ size = 'md', className = '' }: LoadingS
 
   return (
     <div
-      className={`animate-spin rounded-full border-2 border-current border-t-transparent ${sizeClasses[size]} ${className}`}
+      className={classNames(
+        'animate-spin rounded-full border-2 border-current border-t-transparent',
+        sizeClasses[size],
+        className,
+      )}
       role="status"
       aria-label="Loading"
     >
