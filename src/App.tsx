@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate, useLocation, BrowserRouter as Router } from 'react-router-dom'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 
 import HomePage from '@/components/homePage'
 import Navbar from '@/components/Navbar'

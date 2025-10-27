@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 import CarsIcon from '@/assets/CarsIcon'
 import ListIcon from '@/assets/ListIcon'
 import CarIcon from '@/assets/CarIcon'

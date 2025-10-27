@@ -9,15 +9,7 @@ export enum AppRoutes {
   myCars = '/my-cars',
   myCarsBookings = '/my-cars-bookings',
   addCar = '/add-car',
+  newCar = '/new-car',
   logout = '/logout',
   notFound = '*',
-}
-
-export interface CarWithDetails {
-  id: number
-  name: string
-  owner: string
-  type: string
-  image: string
-  info?: string
 }

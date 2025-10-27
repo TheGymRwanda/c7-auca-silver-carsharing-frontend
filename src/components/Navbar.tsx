@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import ProfileIcon from '@/assets/ProfileIcon'
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 import Logo from '@/assets/Logo'
 import { buttonBase } from '@/utils/buttonBase'
 import MenuItems from '@/components/MenuItems'
