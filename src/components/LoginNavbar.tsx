@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
-import { AppRoutes } from '@/types'
 import { Link } from 'react-router-dom'
+
+import { AppRoutes } from '@/types/app_routes'
 import Logo from '@/assets/Logo'
 import { buttonBase } from '@/utils/buttonBase'
 

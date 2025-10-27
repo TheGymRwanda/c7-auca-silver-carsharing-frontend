@@ -1,29 +1,32 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '@/UI/Button'
+import useAuth from '@/hooks/useAuth'
+import { AppRoutes } from '@/types/app_routes'
+import { LoginCredentials } from '@/types/auth_types'
 
 export default function LoginPage(): ReactElement {
   const [showLoginForm, setShowLoginForm] = useState(false)
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  })
+  const [formData, setFormData] = useState<LoginCredentials>({ username: '', password: '' })
+  const { login, isAuthenticated, isLoading, error, cleanError } = useAuth()
+  const navigate = useNavigate()
 
-  const handleLoginClick = () => {
-    setShowLoginForm(true)
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(AppRoutes.home, { replace: true })
+    }
+  }, [isAuthenticated, navigate])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFormData(prev => ({ ...prev, [name]: value }))
+    if (error) cleanError()
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Login attempt:', formData)
+    await login(formData)
   }
 
   return (
@@ -42,7 +45,7 @@ export default function LoginPage(): ReactElement {
                 with the world
               </p>
               <Button
-                onClick={handleLoginClick}
+                onClick={() => setShowLoginForm(true)}
                 variant="primary"
                 size="lg"
                 className="mt-8 w-full"
@@ -85,6 +88,7 @@ export default function LoginPage(): ReactElement {
                   placeholder="Username / e-mail"
                   className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
                   required
+                  disabled={isLoading}
                   aria-describedby="username-help"
                   autoComplete="username"
                 />
@@ -106,6 +110,7 @@ export default function LoginPage(): ReactElement {
                   placeholder="Password"
                   className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
                   required
+                  disabled={isLoading}
                   aria-describedby="password-help"
                   autoComplete="current-password"
                 />
@@ -114,14 +119,22 @@ export default function LoginPage(): ReactElement {
                 </div>
               </div>
 
+              {error && (
+                <div className="rounded-lg border border-red-500/50 bg-red-500/20 p-3" role="alert">
+                  <p className="text-sm text-red-400">{error}</p>
+                </div>
+              )}
+
               <Button
-                onClick={handleSubmit}
+                type="submit"
                 variant="primary"
                 size="lg"
+                loading={isLoading}
+                disabled={!formData.username || !formData.password}
                 className="mt-8 w-full"
                 aria-label="Submit login form"
               >
-                Login
+                {isLoading ? 'Logging in...' : 'Login'}
               </Button>
             </form>
           </div>

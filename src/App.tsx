@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate, useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
@@ -16,6 +16,10 @@ import MyCarsBookings from '@/pages/MyCarsBookings'
 import Profile from '@/pages/Profile'
 import LoginNavbar from './components/LoginNavbar'
 import LoginPage from './pages/LoginPage'
+import AuthContextProvider from '@/context/authContext'
+import ProtectedRoute from '@/components/ProtectedRoute'
+import { setupApiInterceptors } from '@/utils/apiInterceptors'
+import useAuth from '@/hooks/useAuth'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -35,29 +39,119 @@ function ConditionalNavbar(): ReactElement {
   return <Navbar />
 }
 
+function AppContent(): ReactElement {
+  const { logout } = useAuth()
+
+  // Setup API interceptors with auth context
+  React.useEffect(() => {
+    const refreshTokenFn = async () => {
+      // This will be handled by the auth context's token refresh
+      throw new Error('Token refresh handled by context')
+    }
+
+    setupApiInterceptors(refreshTokenFn, logout)
+  }, [logout])
+
+  return (
+    <div className="mx-auto min-h-screen bg-primary-dark">
+      <ConditionalNavbar />
+      <main>
+        <Routes>
+          <Route path={AppRoutes.login} element={<LoginPage />} />
+          <Route
+            path={AppRoutes.home}
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.cars}
+            element={
+              <ProtectedRoute>
+                <CarsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.carDetails}
+            element={
+              <ProtectedRoute>
+                <CarDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.profile}
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.bookCar}
+            element={
+              <ProtectedRoute>
+                <BookCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.myBookings}
+            element={
+              <ProtectedRoute>
+                <MyBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.myCars}
+            element={
+              <ProtectedRoute>
+                <MyCars />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.myCarsBookings}
+            element={
+              <ProtectedRoute>
+                <MyCarsBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.addCar}
+            element={
+              <ProtectedRoute>
+                <AddCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={AppRoutes.logout}
+            element={
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
+        </Routes>
+      </main>
+    </div>
+  )
+}
+
 function App(): ReactElement {
   return (
-    <Router>
-      <div className="mx-auto min-h-screen bg-primary-dark">
-        <ConditionalNavbar />
-        <main>
-          <Routes>
-            <Route path={AppRoutes.login} element={<LoginPage />} />
-            <Route path={AppRoutes.home} element={<HomePage />} />
-            <Route path={AppRoutes.cars} element={<CarsPage />} />
-            <Route path={AppRoutes.carDetails} element={<CarDetailsPage />} />
-            <Route path={AppRoutes.profile} element={<Profile />} />
-            <Route path={AppRoutes.bookCar} element={<BookCar />} />
-            <Route path={AppRoutes.myBookings} element={<MyBookings />} />
-            <Route path={AppRoutes.myCars} element={<MyCars />} />
-            <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
-            <Route path={AppRoutes.addCar} element={<AddCar />} />
-            <Route path={AppRoutes.logout} element={<Logout />} />
-            <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <AuthContextProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthContextProvider>
   )
 }
 
