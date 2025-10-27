@@ -6,7 +6,6 @@ export default function Logout() {
   const navigate = useNavigate()
 
   useEffect(() => {
-
     navigate(AppRoutes.cars, { replace: true })
   }, [navigate])
 
