@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { ReactElement } from 'react'
 import Button from '@/UI/Button'
+import Input from '@/UI/Input'
 import ProfileIcon from '@/assets/ProfileIcon'
 import KeyIcon from '@/assets/KeyIcon'
 
-export default function LoginPage(): ReactElement {
+export default function LoginPage() {
   const [showLoginForm, setShowLoginForm] = useState(false)
   const [formData, setFormData] = useState({
     username: '',
@@ -78,21 +78,18 @@ export default function LoginPage(): ReactElement {
                 <label htmlFor="username" className="sr-only">
                   Username or email address
                 </label>
-                <div className="relative">
-                  <ProfileIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
-                  <input
-                    id="username"
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    placeholder="Username / e-mail"
-                    className="w-full rounded-full bg-white/10 border border-white/20 pl-12 pr-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                    required
-                    aria-describedby="username-help"
-                    autoComplete="username"
-                  />
-                </div>
+                <Input
+                  id="username"
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  placeholder="Username / e-mail"
+                  required
+                  aria-describedby="username-help"
+                  autoComplete="username"
+                  leftIcon={<ProfileIcon className="w-5 h-5" />}
+                />
                 <div id="username-help" className="sr-only">
                   Enter your username or email address
                 </div>
@@ -102,21 +99,18 @@ export default function LoginPage(): ReactElement {
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
-                <div className="relative">
-                  <KeyIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
-                  <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="Password"
-                    className="w-full rounded-full bg-white/10 border border-white/20 pl-12 pr-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                    required
-                    aria-describedby="password-help"
-                    autoComplete="current-password"
-                  />
-                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Password"
+                  required
+                  aria-describedby="password-help"
+                  autoComplete="current-password"
+                  leftIcon={<KeyIcon className="w-5 h-5" />}
+                />
                 <div id="password-help" className="sr-only">
                   Enter your password
                 </div>

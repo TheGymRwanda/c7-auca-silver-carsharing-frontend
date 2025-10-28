@@ -2,7 +2,6 @@ import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
 import { Routes, Route, Navigate, useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types'
-import useAuth from '@/hooks/useAuth'
 
 import HomePage from '@/components/homePage'
 import Navbar from '@/components/Navbar'
@@ -26,17 +25,13 @@ configure({
   },
 })
 
-function ConditionalNavbar(): ReactElement {
+function ConditionalNavbar() {
   const location = useLocation()
 
-  if (location.pathname === AppRoutes.login) {
-    return <LoginNavbar />
-  }
-
-  return <Navbar />
+  return location.pathname === AppRoutes.login ? <LoginNavbar /> : <Navbar />
 }
 
-function App(): ReactElement {
+function App() {
   return (
     <Router>
       {/* <main className="min-h-screen bg-[#265e78]">
@@ -61,7 +56,7 @@ function App(): ReactElement {
             <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
             <Route path={AppRoutes.addCar} element={<AddCar />} />
             <Route path={AppRoutes.logout} element={<Logout />} />
-            <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
+            <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.login} replace />} />
           </Routes>
         </main>
       </div>

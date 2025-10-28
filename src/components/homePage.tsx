@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '@/types'
 
-export default function HomePage(): React.ReactElement {
+export default function HomePage(){
   return (
     <>
       {/* Navbar goes here */}
