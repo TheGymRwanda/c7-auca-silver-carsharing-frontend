@@ -31,7 +31,7 @@ export default function HomePage(){
           </button>
           <Link
             to={AppRoutes.login}
-            className="w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg text-center hover:bg-white hover:text-primary-dark transition-colors duration-200"
+            className="w-full rounded-full border border-white px-6 py-3 text-center text-base text-white transition-colors duration-200 hover:bg-white hover:text-primary-dark sm:text-lg"
           >
             Login
           </Link>

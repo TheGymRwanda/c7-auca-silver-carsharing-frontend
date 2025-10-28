@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="relative w-full bg-gray-900 shadow-lg rounded-b-[30px]">
+      <nav className="relative w-full rounded-b-[30px] bg-gray-900 shadow-lg">
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="md:h-18 flex h-16 items-center justify-between lg:h-20">
             <div className="relative" ref={menuRef}>

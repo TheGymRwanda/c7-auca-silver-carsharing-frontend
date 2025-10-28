@@ -33,8 +33,8 @@ export default function LoginPage() {
       <div className="flex w-full items-center justify-center sm:px-6">
         <div className="flex w-full max-w-xs flex-col items-center rounded-lg text-center sm:max-w-sm">
           {!showLoginForm && (
-            <div className="w-full overflow-hidden flex flex-col items-center justify-between gap-24">
-              <h1 className="flex flex-col font-lora text-5xl text-white sm:text-6xl mt-10">
+            <div className="flex w-full flex-col items-center justify-between gap-24 overflow-hidden">
+              <h1 className="mt-10 flex flex-col font-lora text-5xl text-white sm:text-6xl">
                 <span className="font-lora font-bold ">MONI</span>
                 <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
               </h1>
@@ -56,16 +56,16 @@ export default function LoginPage() {
           )}
 
           <div
-            className={`w-full transition-all duration-500 ease-in-out transform ${
+            className={`w-full transition-all duration-500 ease-in-out${
               showLoginForm
-                ? 'opacity-100 translate-y-0 max-h-96'
-                : 'opacity-0 -translate-y-8 max-h-0 overflow-hidden'
+                ? 'max-h-96 translate-y-0 opacity-100'
+                : 'max-h-0 -translate-y-8 overflow-hidden opacity-0'
             }`}
             role="region"
             aria-label="Login form"
             aria-expanded={showLoginForm}
           >
-            <h1 className="flex flex-col font-lora text-5xl text-white sm:text-6xl my-16">
+            <h1 className="my-16 flex flex-col font-lora text-5xl text-white sm:text-6xl">
               <span className="font-lora font-bold ">MONI</span>
               <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
             </h1>
@@ -85,6 +85,7 @@ export default function LoginPage() {
                   value={formData.username}
                   onChange={handleInputChange}
                   placeholder="Username / e-mail"
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
                   required
                   aria-describedby="username-help"
                   autoComplete="username"
@@ -106,6 +107,7 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Password"
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
                   required
                   aria-describedby="password-help"
                   autoComplete="current-password"

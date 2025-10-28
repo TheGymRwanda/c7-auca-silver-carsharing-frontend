@@ -34,14 +34,7 @@ function ConditionalNavbar() {
 function App() {
   return (
     <Router>
-      {/* <main className="min-h-screen bg-[#265e78]">
-        <Routes>
-          <Route path="/" element={<CarsPage />} />
-          <Route path="/cars" element={<CarsPage />} />
-          <Route path="/cars/:carId" element={<CarDetailsPage />} />
-        </Routes>
-      </main> */}
-      <div className="mx-auto max-w-[430px] bg-primary-dark">
+      <div className="mx-auto min-h-screen bg-primary-dark">
         <ConditionalNavbar />
         <main>
           <Routes>
