@@ -10,6 +10,13 @@ interface LabelProps extends TypographyProps {
   required?: boolean
 }
 
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string
+  label: string
+  error?: string
+  className?: string
+}
+
 export function H1({ children, className = '' }: TypographyProps): ReactElement {
   return <h1 className={`font-lora text-3xl font-semibold text-white ${className}`}>{children}</h1>
 }
@@ -64,13 +71,6 @@ export function LabelText({
       {children}
     </label>
   )
-}
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string
-  label: string
-  error?: string
-  className?: string
 }
 
 export function Input({ id, label, error, className = '', ...props }: InputProps): ReactElement {
