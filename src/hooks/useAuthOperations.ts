@@ -54,6 +54,22 @@ const refreshTokenRequest = async (token: string): Promise<User> => {
   return response.json()
 }
 
+const fetchUserDetails = async (token: string): Promise<Pick<User, 'id' | 'name'>> => {
+  const response = await fetch(`${apiUrl}/auth/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user details')
+  }
+
+  return response.json()
+}
+
 export const useAuthOperations = () => {
   const [state, setState] = useState<AuthState>(initialState)
 
@@ -103,8 +119,19 @@ export const useAuthOperations = () => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }))
       const userData = await authRequest(credentials)
-      sessionStorage.setItem('user', JSON.stringify(userData))
-      setState(authenticatedState(userData))
+
+      // Try to fetch additional user details
+      try {
+        const userDetails = await fetchUserDetails(userData.token)
+        const completeUserData = { ...userData, ...userDetails }
+        sessionStorage.setItem('user', JSON.stringify(completeUserData))
+        setState(authenticatedState(completeUserData))
+      } catch {
+        // If GET /auth fails, use login response data
+        // GET /auth failed, using login response only
+        sessionStorage.setItem('user', JSON.stringify(userData))
+        setState(authenticatedState(userData))
+      }
     } catch (error_) {
       setState(prev => ({
         ...prev,
@@ -114,20 +141,7 @@ export const useAuthOperations = () => {
     }
   }
 
-  const register = async (credentials: LoginCredentials) => {
-    try {
-      setState(prev => ({ ...prev, isLoading: true, error: null }))
-      const userData = await authRequest(credentials)
-      sessionStorage.setItem('user', JSON.stringify(userData))
-      setState(authenticatedState(userData))
-    } catch (error_) {
-      setState(prev => ({
-        ...prev,
-        isLoading: false,
-        error: error_ instanceof Error ? error_.message : 'Registration failed',
-      }))
-    }
-  }
+  const register = login // Registration uses same logic as login
 
   const logout = () => {
     sessionStorage.removeItem('user')
