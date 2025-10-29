@@ -33,7 +33,7 @@ export default function Navbar() {
               <Button
                 onClick={handleMenuClick}
                 variant="ghost"
-                className={`rounded-lg px-3 py-2 text-base font-medium lg:hidden ${buttonBase}`}
+                className={`rounded-lg px-3 py-2 text-base font-medium lg:hidden ${buttonBase} bg-transparent focus:ring-0 focus:ring-offset-0`}
               >
                 {isMenuOpen ? 'Close' : 'Menu'}
               </Button>
