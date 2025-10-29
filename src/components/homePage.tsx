@@ -26,18 +26,19 @@ export default function HomePage() {
             Book Car
           </Link>
           <TextBase className="mb-6 md:text-lg">or</TextBase>
-          <div className="w-full sm:grid sm:grid-cols-2 sm:gap-x-3 sm:text-base">
+          <div className="flex w-full flex-col gap-y-3 sm:flex-row sm:gap-x-3">
             <Link
               to={AppRoutes.cars}
-              className={`mb-3 md:mb-4 lg:mb-6 ${styles.secondaryButton} md:text-md whitespace-nowrap sm:w-auto sm:flex-1 sm:text-base md:p-4 md:px-8`}
+              className="flex-1 whitespace-nowrap rounded-full border border-white px-6 py-3 text-center text-base text-white"
             >
               See My Cars
             </Link>
-            <button
-              className={`mb-3 md:mb-4 lg:mb-6 ${styles.outlineButton} md:text-md whitespace-nowrap sm:w-auto sm:flex-1 sm:text-base md:p-4 md:px-8`}
+            <Link
+              to={AppRoutes.myBookings}
+              className="flex-1 whitespace-nowrap rounded-full border border-white px-6 py-3 text-center text-base text-white"
             >
               See My Bookings
-            </button>
+            </Link>
           </div>
         </div>
       </div>
