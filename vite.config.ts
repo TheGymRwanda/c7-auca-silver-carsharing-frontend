@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
+import path from 'path'
 import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
@@ -8,14 +9,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/src',
-      '@components': '/src/components',
-      '@pages': '/src/pages',
-      '@utils': '/src/utils',
-      '@assets': '/src/assets',
-      '@hooks': '/src/hooks',
-      '@types': '/src/types',
-      '@context': '/src/context',
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   test: {

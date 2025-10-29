@@ -1,29 +1,39 @@
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
-import { BrandTitle, BodyLarge, TextBase } from '@/utils/Typography'
-import { styles } from '@/utils/styles'
+import { TextBase } from '@/utils/Typography'
 
 export default function HomePage() {
   return (
-    <div className={`${styles.centerContainer} pt-20`}>
-      <div className={`${styles.centerContent} px-4 md:px-8`}>
-        <div
-          className={`${styles.flexCol} mx-auto w-full max-w-xs items-center text-center md:max-w-md lg:max-w-lg xl:max-w-xl`}
-        >
-          <BrandTitle className="mb-2 flex flex-col sm:flex-row sm:gap-x-3 md:mb-4">
-            <span className="text-4xl font-bold sm:text-5xl">MONI</span>
-            <span className="text-4xl italic sm:text-5xl">Share</span>
-          </BrandTitle>
-          <BodyLarge className="mb-8 mt-6 text-lg md:mb-10 md:mt-8 md:text-xl lg:mb-12 lg:mt-10 lg:text-2xl">
+    <>
+      {/* Navbar goes here */}
+      <div className="flex w-full items-center justify-center px-4 py-20 sm:px-6">
+        <div className="flex w-full max-w-xs flex-col items-center rounded-lg px-6 py-10 text-center sm:max-w-sm">
+          <h1 className="mb-2 flex flex-col font-lora text-5xl text-white sm:text-6xl">
+            <span className="font-lora font-bold ">MONI</span>
+            <span className="font-lora text-5xl italic sm:text-6xl">Share</span>
+          </h1>
+          <p className="mb-8 mt-6 text-lg text-white sm:text-xl">
             Hello Manuela!
             <br />
             What are you up to today?
-          </BodyLarge>
-          <Link
-            to={AppRoutes.bookCar}
-            className={`mb-6 md:mb-8 lg:mb-10 ${styles.primaryButton} md:text-md md:px-4`}
-          >
+          </p>
+          {/* Primary button */}
+          <button className="mb-6 w-full rounded-full bg-white px-6 py-3 text-base font-semibold text-cyan-800 sm:text-lg">
             Book Car
+          </button>
+          <span className="mb-4 text-white">or</span>
+          {/* Outlined buttons */}
+          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+            See My Cars
+          </button>
+          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+            See My Bookings
+          </button>
+          <Link
+            to={AppRoutes.login}
+            className="w-full rounded-full border border-white px-6 py-3 text-center text-base text-white transition-colors duration-200 hover:bg-white hover:text-primary-dark sm:text-lg"
+          >
+            Login
           </Link>
           <TextBase className="mb-6 md:text-lg">or</TextBase>
           <div className="flex w-full flex-col gap-y-3 sm:flex-row sm:gap-x-3">
@@ -42,6 +52,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </div>
+      {/* User/account icon can be placed here */}
+    </>
   )
 }
