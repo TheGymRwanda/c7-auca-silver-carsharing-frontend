@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
+import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types'
-import useAuth from '@/hooks/useAuth'
 
 import HomePage from '@/components/homePage'
 import Navbar from '@/components/Navbar'
@@ -15,6 +14,8 @@ import MyBookings from '@/pages/MyBookings'
 import MyCars from '@/pages/MyCars'
 import MyCarsBookings from '@/pages/MyCarsBookings'
 import Profile from '@/pages/Profile'
+import LoginNavbar from './components/LoginNavbar'
+import LoginPage from './pages/LoginPage'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -24,32 +25,20 @@ configure({
   },
 })
 
+function ConditionalNavbar() {
+  const location = useLocation()
+
+  return location.pathname === AppRoutes.login ? <LoginNavbar /> : <Navbar />
+}
+
 function App() {
-  const { isAuthenticated, isLoading, error, login } = useAuth()
-
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading && !error) {
-      login({ username: 'Silver', password: 'beatrice-PW' })
-    }
-  }, [isAuthenticated, isLoading, error, login])
-
-  if (isLoading) {
-    return (
-      <div
-        className="flex h-screen items-center justify-center"
-        style={{ backgroundColor: '#265e78' }}
-      >
-        <p className="text-white">Loading...</p>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen w-full" style={{ backgroundColor: 'primary-dark' }}>
-      <div className="relative h-screen w-full overflow-x-hidden">
-        <Navbar />
-        <main className="px-4 sm:px-6 md:px-8 lg:px-12">
+    <Router>
+      <div className="mx-auto min-h-screen bg-primary-dark">
+        <ConditionalNavbar />
+        <main>
           <Routes>
+            <Route path={AppRoutes.login} element={<LoginPage />} />
             <Route path={AppRoutes.home} element={<HomePage />} />
             <Route path={AppRoutes.cars} element={<CarsPage />} />
             <Route path={AppRoutes.carDetails} element={<CarDetailsPage />} />
@@ -60,11 +49,11 @@ function App() {
             <Route path={AppRoutes.myCarsBookings} element={<MyCarsBookings />} />
             <Route path={AppRoutes.addCar} element={<AddCar />} />
             <Route path={AppRoutes.logout} element={<Logout />} />
-            <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.home} replace />} />
+            <Route path={AppRoutes.notFound} element={<Navigate to={AppRoutes.login} replace />} />
           </Routes>
         </main>
       </div>
-    </div>
+    </Router>
   )
 }
 
