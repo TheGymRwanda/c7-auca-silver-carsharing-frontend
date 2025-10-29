@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import { useEffect } from 'react'
 import { configure } from 'axios-hooks'
 import { useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
 
 import Navbar from '@/components/Navbar'
-import LoginNavbar from './components/LoginNavbar'
+import LoginNavbar from '@/components/LoginNavbar'
 import AuthContextProvider from '@/context/authContext'
 import AppRoutesComponent from '@/components/AppRoutes'
 import { setupApiInterceptors } from '@/utils/apiInterceptors'
@@ -18,20 +18,16 @@ configure({
   },
 })
 
-function ConditionalNavbar(): ReactElement {
+function ConditionalNavbar() {
   const location = useLocation()
 
-  if (location.pathname === AppRoutes.login) {
-    return <LoginNavbar />
-  }
-
-  return <Navbar />
+  return location.pathname === AppRoutes.login ? <LoginNavbar /> : <Navbar />
 }
 
-function AppContent(): ReactElement {
+function AppContent() {
   const { logout } = useAuth()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const refreshTokenFn = async () => {
       throw new Error('Token refresh handled by context')
     }
@@ -48,7 +44,7 @@ function AppContent(): ReactElement {
   )
 }
 
-function App(): ReactElement {
+function App() {
   return (
     <AuthContextProvider>
       <Router>

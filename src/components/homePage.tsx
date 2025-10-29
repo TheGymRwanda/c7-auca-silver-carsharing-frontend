@@ -1,12 +1,10 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { AppRoutes } from '@/types/app_routes'
 import useAuth from '@/hooks/useAuth'
 
-export default function HomePage(): React.ReactElement {
+export default function HomePage() {
   const { user } = useAuth()
-
   return (
     <>
       <div className="flex w-full items-center justify-center px-4 py-20 sm:px-6">

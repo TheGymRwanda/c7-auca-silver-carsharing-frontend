@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { ReactElement } from 'react'
 import { useLoginForm } from '@/hooks/useLoginForm'
 import LoginForm from '@/components/LoginForm'
 import WelcomeScreen from '@/components/WelcomeScreen'
 
-export default function LoginPage(): ReactElement {
+export default function LoginPage() {
   const [showLoginForm, setShowLoginForm] = useState(false)
   const { formData, handleInputChange, handleSubmit, isLoading, error, isFormValid } =
     useLoginForm()
