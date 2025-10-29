@@ -33,8 +33,8 @@ export default function NewOwnCarForm() {
       if (carTypes[0]?.error?.response?.status === 400) {
         try {
           await login({ username: 'admin', password: 'admin' })
-        } catch (error) {
-          console.error('Token refresh failed:', error)
+        } catch {
+          // Token refresh failed - user may need to login manually
         }
       }
     }
@@ -47,27 +47,6 @@ export default function NewOwnCarForm() {
       firstInput?.focus()
     }
   }, [isSuccess])
-
-  // Debug only on submission state changes
-  useEffect(() => {
-    if (isSubmitting) {
-      console.log('=== CAR SUBMISSION STARTED ===')
-      console.log('Form data:', formData)
-    }
-  }, [isSubmitting])
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log('=== CAR CREATED SUCCESSFULLY ===')
-    }
-  }, [isSuccess])
-
-  useEffect(() => {
-    if (errors.submit) {
-      console.log('=== CAR CREATION FAILED ===')
-      console.log('Error:', errors.submit)
-    }
-  }, [errors.submit])
 
   return (
     <div className="mx-auto w-full max-w-sm px-6 py-8">
