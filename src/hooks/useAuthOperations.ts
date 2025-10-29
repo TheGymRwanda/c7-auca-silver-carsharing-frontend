@@ -60,27 +60,21 @@ export const useAuthOperations = () => {
   const checkAuthentication = async () => {
     try {
       const storedUser = sessionStorage.getItem('user')
-      console.log('Stored user from sessionStorage:', storedUser)
       const user = storedUser ? JSON.parse(storedUser) : null
-      console.log('Parsed user:', user)
 
       if (user && user.token) {
         const tokenExpired = isTokenExpired(user.token)
-        console.log('Token expired?', tokenExpired)
+
         if (tokenExpired) {
-          console.log('Token expired, clearing session')
           sessionStorage.removeItem('user')
           setState(unauthenticatedState)
         } else {
-          console.log('Token valid, setting authenticated state')
           setState(authenticatedState(user))
         }
       } else {
-        console.log('No user or token found, setting unauthenticated')
         setState(unauthenticatedState)
       }
     } catch {
-      console.log('Error checking authentication, clearing session')
       sessionStorage.removeItem('user')
       setState({ ...unauthenticatedState, error: 'Failed to restore session' })
     }

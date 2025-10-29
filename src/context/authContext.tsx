@@ -14,9 +14,6 @@ export default function AuthContextProvider({ children }: AuthProviderProps) {
   const { state, checkAuthentication, refreshToken, login, register, logout, cleanError } =
     useAuthOperations()
 
-  // Debug auth state
-  console.log('AuthContext State:', state)
-
   useTokenRefresh({
     isAuthenticated: state.isAuthenticated,
     refreshToken,
@@ -24,7 +21,6 @@ export default function AuthContextProvider({ children }: AuthProviderProps) {
   })
 
   useEffect(() => {
-    console.log('AuthContext: Checking authentication on mount')
     checkAuthentication()
   }, [])
 
