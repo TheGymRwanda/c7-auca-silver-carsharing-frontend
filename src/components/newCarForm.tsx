@@ -1,84 +1,102 @@
-import { ChevronDownIcon } from '../assets/ChevronDownIcon'
-import Button from '@/UI/Button'
-import { Input } from '@/utils/Typography'
+import { useCarData } from '@/hooks'
+import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
+import CarFormFields from './CarFormFields'
+import { useEffect, useRef, useMemo } from 'react'
+import Button from '../UI/Button'
 
 export default function NewOwnCarForm() {
+  const { carTypes } = useCarData()
+  const {
+    formData,
+    errors,
+    touched,
+    isSubmitting,
+    isSuccess,
+    handleInputChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useNewCarForm()
+
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const carTypeOptions = useMemo(
+    () => carTypes[0]?.data?.map(type => ({ value: type.id, label: type.name })) || [],
+    [carTypes[0]?.data],
+  )
+  const isLoadingCarTypes = carTypes[0]?.loading || false
+
+  useEffect(() => {
+    if (isSuccess && formRef.current) {
+      const firstInput = formRef.current.querySelector('input, select') as HTMLElement
+      firstInput?.focus()
+    }
+  }, [isSuccess])
+
   return (
     <div className="mx-auto w-full max-w-sm px-6 py-8">
-      <form>
-        <div>
-          <Input
-            id="car-name"
-            label="Name"
-            type="text"
-            placeholder="e.g. My Nice Moni Car"
-            className="rounded-full bg-primary-form px-5 py-4 text-base placeholder:text-white/70 focus:ring-white/30"
-          />
-        </div>
-        <div className="mt-4">
-          <label className="mb-3 block text-base text-white">Type</label>
-          <div className="relative">
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full rounded-full bg-primary-form px-5 py-4 text-left text-base text-white/70 focus:ring-white/30"
-            >
-              Moni Cooper
-            </Button>
-            <ChevronDownIcon className="absolute right-5 top-1/2 size-8 -translate-y-1/2 text-white" />
-          </div>
-        </div>
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="space-y-4"
+        noValidate
+        aria-label="Add new car form"
+      >
+        <CarFormFields
+          formData={formData}
+          errors={errors}
+          touched={touched}
+          handleInputChange={handleInputChange}
+          handleBlur={handleBlur}
+          carTypeOptions={carTypeOptions}
+          fuelTypeOptions={fuelTypeOptions}
+          isLoadingCarTypes={isLoadingCarTypes}
+        />
 
-        <div className="mt-4 grid grid-cols-2 gap-4">
-          <div>
-            <Input
-              id="license-plate"
-              label="License Plate"
-              type="text"
-              placeholder="e.g. M-XY 123"
-              className="rounded-full bg-primary-form p-4 text-base placeholder:text-white/70 focus:ring-white/30"
-            />
+        {errors.submit && (
+          <div className="mt-4 rounded-lg border border-red-500/50 bg-red-500/20 p-3">
+            <p className="text-sm text-red-400">{errors.submit}</p>
           </div>
-          <div>
-            <Input
-              id="horse-power"
-              label="Horse Power"
-              type="number"
-              placeholder="110"
-              className="rounded-full bg-primary-form p-4 text-base placeholder:text-white/70 focus:ring-white/30"
-            />
-          </div>
-        </div>
+        )}
 
-        <div className="mt-4">
-          <label className="mb-3 block text-base text-white">Fuel type</label>
-          <div className="relative">
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full rounded-full bg-primary-form px-5 py-4 text-left text-base text-white/70 focus:ring-white/30"
-            >
-              e.g. 150
-            </Button>
-            <ChevronDownIcon className="absolute right-5 top-1/2 size-8 -translate-y-1/2 text-white" />
+        {isSuccess && (
+          <div
+            className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-3"
+            role="status"
+            aria-live="polite"
+          >
+            <p className="text-sm text-green-400">
+              ✅ Car added successfully! Form will reset in 3 seconds.
+            </p>
           </div>
-        </div>
-
-        <div className="mt-4">
-          <Input
-            id="additional-info"
-            label="Additional Information"
-            placeholder="e.g. No smoking"
-            className="resize-none rounded-3xl bg-primary-form px-5 py-4 text-base placeholder:text-white/70 focus:ring-white/30"
-          />
-        </div>
+        )}
 
         <div className="mt-20 flex gap-4">
-          <Button type="button" variant="outlineWhite" className="flex-1">
-            Cancel
+          <Button
+            type="button"
+            variant="outlineWhite"
+            onClick={resetForm}
+            disabled={isSubmitting}
+            aria-label={isSuccess ? 'Add another car' : 'Cancel form'}
+            className="flex-1"
+          >
+            {isSuccess ? 'Add Another' : 'Cancel'}
           </Button>
-          <Button type="submit" variant="primary" className="flex-1">
-            Add Car
+          <Button
+            type="submit"
+            variant="primary"
+            loading={isSubmitting}
+            disabled={isSuccess}
+            aria-label={
+              isSubmitting
+                ? 'Adding car, please wait'
+                : isSuccess
+                  ? 'Car added successfully'
+                  : 'Add car to system'
+            }
+            className="flex-1"
+          >
+            {isSubmitting ? 'Adding...' : isSuccess ? '✓ Added' : 'Add Car'}
           </Button>
         </div>
       </form>

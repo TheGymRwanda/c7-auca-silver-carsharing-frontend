@@ -10,7 +10,11 @@ export default function PageHeader({ title }: PageHeaderProps) {
 
   return (
     <div className="mb-6 flex items-center">
-      <Button onClick={() => navigate(-1)} variant="ghost" className="p-0 text-white">
+      <Button
+        onClick={() => navigate(-1)}
+        variant="ghost"
+        className="bg-transparent p-0 text-white focus:outline-none focus:ring-0 focus:ring-offset-0"
+      >
         <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>

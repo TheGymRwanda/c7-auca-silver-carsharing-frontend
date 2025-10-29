@@ -1,6 +1,8 @@
 export interface User {
   id: number
   token: string
+  name?: string
+  userId?: number
 }
 
 export interface AuthState {

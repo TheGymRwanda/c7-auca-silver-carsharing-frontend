@@ -1,5 +1,6 @@
-import { AppRoutes } from '@/types/app_routes'
 import { Link } from 'react-router-dom'
+
+import { AppRoutes } from '@/types/app_routes'
 import Logo from '@/assets/Logo'
 import { buttonBase } from '@/utils/buttonBase'
 

@@ -1,9 +1,27 @@
+import { isTokenExpired } from './tokenUtils'
+
 export function getAuthToken(): string | null {
   try {
     const user = sessionStorage.getItem('user')
     if (!user) return null
     const userData = JSON.parse(user)
-    return userData.token || null
+    const token = userData.token || null
+
+    // Return null if token is expired
+    if (token && isTokenExpired(token)) {
+      return null
+    }
+
+    return token
+  } catch {
+    return null
+  }
+}
+
+export function getStoredUser() {
+  try {
+    const user = sessionStorage.getItem('user')
+    return user ? JSON.parse(user) : null
   } catch {
     return null
   }
