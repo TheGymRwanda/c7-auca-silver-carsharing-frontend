@@ -89,7 +89,7 @@ export default function LoginPage() {
                   required
                   aria-describedby="username-help"
                   autoComplete="username"
-                  leftIcon={<ProfileIcon className="w-5 h-5" />}
+                  leftIcon={<ProfileIcon className="size-5" />}
                 />
                 <div id="username-help" className="sr-only">
                   Enter your username or email address
@@ -111,7 +111,7 @@ export default function LoginPage() {
                   required
                   aria-describedby="password-help"
                   autoComplete="current-password"
-                  leftIcon={<KeyIcon className="w-5 h-5" />}
+                  leftIcon={<KeyIcon className="size-5" />}
                 />
                 <div id="password-help" className="sr-only">
                   Enter your password

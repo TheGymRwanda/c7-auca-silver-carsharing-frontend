@@ -2,6 +2,7 @@ import React from 'react'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   leftIcon?: React.ReactNode
+  className?: string
   containerClassName?: string
 }
 
@@ -9,7 +10,7 @@ export default function Input({ leftIcon, className, containerClassName, ...prop
   return (
     <div className={`relative ${containerClassName ?? ''}`}>
       {leftIcon ? (
-        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 transform text-white/70">
+        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/70">
           {leftIcon}
         </span>
       ) : null}

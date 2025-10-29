@@ -1,8 +1,13 @@
+import NewOwnCarForm from '@/components/newCarForm'
+import { H1 } from '@/utils/Typography'
+
 export default function AddCar() {
   return (
-    <div className="mx-auto w-full max-w-sm text-center text-white">
-      <h1 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl">Add Car</h1>
-      <p className="text-sm sm:text-base">This is the Add Car page.</p>
+    <div className="min-h-screen w-full flex-col justify-center bg-primary-dark align-middle">
+      <H1 className="mb-2 mt-8 w-full text-center text-4xl font-normal">New Car</H1>
+      <div id="FormSpace" className="flex w-full items-center justify-center">
+        <NewOwnCarForm />
+      </div>
     </div>
   )
 }

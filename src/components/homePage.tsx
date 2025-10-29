@@ -1,8 +1,8 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
+import { TextBase } from '@/utils/Typography'
 
-export default function HomePage(){
+export default function HomePage() {
   return (
     <>
       {/* Navbar goes here */}
@@ -35,6 +35,21 @@ export default function HomePage(){
           >
             Login
           </Link>
+          <TextBase className="mb-6 md:text-lg">or</TextBase>
+          <div className="flex w-full flex-col gap-y-3 sm:flex-row sm:gap-x-3">
+            <Link
+              to={AppRoutes.cars}
+              className="flex-1 whitespace-nowrap rounded-full border border-white px-6 py-3 text-center text-base text-white"
+            >
+              See My Cars
+            </Link>
+            <Link
+              to={AppRoutes.myBookings}
+              className="flex-1 whitespace-nowrap rounded-full border border-white px-6 py-3 text-center text-base text-white"
+            >
+              See My Bookings
+            </Link>
+          </div>
         </div>
       </div>
       {/* User/account icon can be placed here */}

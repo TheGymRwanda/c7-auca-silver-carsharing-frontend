@@ -5,7 +5,7 @@ import { useCarData } from '@/hooks/useCarData'
 import CarCard from '@/UI/CarCard'
 import PageHeader from '@/components/PageHeader'
 import Button from '@/UI/Button'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 import { styles } from '@/utils/styles'
 
 export default function CarsPage() {

@@ -1,10 +1,9 @@
-import { ReactElement } from 'react'
-import { AppRoutes } from '@/types'
+import { AppRoutes } from '@/types/app_routes'
 import { Link } from 'react-router-dom'
 import Logo from '@/assets/Logo'
 import { buttonBase } from '@/utils/buttonBase'
 
-export default function LoginNavbar(){
+export default function LoginNavbar() {
   return (
     <nav className="relative mx-auto w-full max-w-[430px] rounded-b-[30px] bg-gray-900 shadow-lg">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6">
