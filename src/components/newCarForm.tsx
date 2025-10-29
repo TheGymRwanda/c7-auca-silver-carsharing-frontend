@@ -1,7 +1,7 @@
 import { useCarData } from '@/hooks'
 import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
 import CarFormFields from './CarFormFields'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import Button from '../UI/Button'
 
 export default function NewOwnCarForm() {
@@ -17,8 +17,14 @@ export default function NewOwnCarForm() {
     handleSubmit,
     resetForm,
   } = useNewCarForm()
-  const carTypeOptions = carTypes[0].data?.map(type => ({ value: type.id, label: type.name })) || []
+
   const formRef = useRef<HTMLFormElement>(null)
+
+  const carTypeOptions = useMemo(
+    () => carTypes[0]?.data?.map(type => ({ value: type.id, label: type.name })) || [],
+    [carTypes[0]?.data],
+  )
+  const isLoadingCarTypes = carTypes[0]?.loading || false
 
   useEffect(() => {
     if (isSuccess && formRef.current) {
@@ -44,6 +50,7 @@ export default function NewOwnCarForm() {
           handleBlur={handleBlur}
           carTypeOptions={carTypeOptions}
           fuelTypeOptions={fuelTypeOptions}
+          isLoadingCarTypes={isLoadingCarTypes}
         />
 
         {errors.submit && (

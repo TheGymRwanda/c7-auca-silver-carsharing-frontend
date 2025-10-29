@@ -38,7 +38,6 @@ interface FormSelectProps {
   touched?: boolean
   className?: string
 }
-
 export function H1({ children, className = '' }: TypographyProps): ReactElement {
   return (
     <h1 className={classNames('font-lora text-3xl font-semibold text-white', className)}>

@@ -19,17 +19,26 @@ export default function HomePage(): React.ReactElement {
             What are you up to today?
           </p>
           {/* Primary button */}
-          <button className="mb-6 w-full rounded-full bg-white px-6 py-3 text-base font-semibold text-cyan-800 sm:text-lg">
+          <Link
+            to={AppRoutes.cars}
+            className="mb-6 block w-full rounded-full bg-white px-6 py-3 text-center text-base font-semibold text-cyan-800 sm:text-lg"
+          >
             Book Car
-          </button>
+          </Link>
           <span className="mb-4 text-white">or</span>
           {/* Outlined buttons */}
-          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+          <Link
+            to={AppRoutes.myCars}
+            className="mb-3 block w-full rounded-full border border-white px-6 py-3 text-center text-base text-white sm:text-lg"
+          >
             See My Cars
-          </button>
-          <button className="mb-3 w-full rounded-full border border-white px-6 py-3 text-base text-white sm:text-lg">
+          </Link>
+          <Link
+            to={AppRoutes.myBookings}
+            className="mb-3 block w-full rounded-full border border-white px-6 py-3 text-center text-base text-white sm:text-lg"
+          >
             See My Bookings
-          </button>
+          </Link>
           <Link
             to={AppRoutes.login}
             className="w-full rounded-full border border-white px-6 py-3 text-center text-base text-white transition-colors duration-200 hover:bg-white hover:text-primary-dark sm:text-lg"

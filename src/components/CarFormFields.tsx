@@ -10,6 +10,7 @@ interface CarFormFieldsProps {
   handleBlur: (field: keyof FormData) => void
   carTypeOptions: { value: number; label: string }[]
   fuelTypeOptions: { value: FuelType; label: string }[]
+  isLoadingCarTypes?: boolean
 }
 
 export default function CarFormFields({
@@ -20,6 +21,7 @@ export default function CarFormFields({
   handleBlur,
   carTypeOptions,
   fuelTypeOptions,
+  isLoadingCarTypes = false,
 }: CarFormFieldsProps) {
   return (
     <>
@@ -40,7 +42,7 @@ export default function CarFormFields({
         onChange={value => handleInputChange('carTypeId', Number(value))}
         onBlur={() => handleBlur('carTypeId')}
         options={carTypeOptions}
-        placeholder="Select car type"
+        placeholder={isLoadingCarTypes ? 'Loading car types...' : 'Select car type'}
         error={errors.carTypeId}
         touched={touched.carTypeId}
       />

@@ -29,7 +29,16 @@ export default function CustomSelect({
     <div className={classNames('group relative rounded', className)}>
       <select
         value={value || ''}
-        onChange={e => onChange(e.target.value === '' ? '' : e.target.value)}
+        onChange={e => {
+          const val = e.target.value
+          if (val === '') {
+            onChange('')
+          } else {
+            // Try to convert to number if it's a numeric string
+            const numVal = Number(val)
+            onChange(isNaN(numVal) ? val : numVal)
+          }
+        }}
         onBlur={onBlur}
         className={classNames(
           'w-full cursor-pointer appearance-none rounded-full bg-primary-form px-5 py-4 text-base text-white transition-all duration-200 focus:outline-none focus:ring-2',

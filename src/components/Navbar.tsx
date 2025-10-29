@@ -5,6 +5,7 @@ import { AppRoutes } from '@/types/app_routes'
 import Logo from '@/assets/Logo'
 import { buttonBase } from '@/utils/buttonBase'
 import MenuItems from '@/components/MenuItems'
+import Button from '@/UI/Button'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,12 +30,13 @@ export default function Navbar() {
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="md:h-18 flex h-16 items-center justify-between lg:h-20">
             <div className="relative" ref={menuRef}>
-              <button
+              <Button
                 onClick={handleMenuClick}
-                className={`rounded-lg px-3 py-2 text-base font-medium lg:hidden ${buttonBase}`}
+                variant="ghost"
+                className={`rounded-lg px-3 py-2 text-base font-medium lg:hidden ${buttonBase} bg-transparent focus:ring-0 focus:ring-offset-0`}
               >
                 {isMenuOpen ? 'Close' : 'Menu'}
-              </button>
+              </Button>
 
               <Link
                 to={AppRoutes.home}
