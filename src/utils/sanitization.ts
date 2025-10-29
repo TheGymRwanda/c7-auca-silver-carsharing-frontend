@@ -36,7 +36,7 @@ export const transformFormDataToApi = (formData: FormData, userId: number): NewC
     carTypeId: formData.carTypeId,
     horsepower: sanitizeNumber(formData.horsepower),
     info: formData.info ? sanitizeString(formData.info) : null,
-    plate: formData.licensePlate ? sanitizeLicensePlate(formData.licensePlate) : null,
+    licensePlate: formData.licensePlate ? sanitizeLicensePlate(formData.licensePlate) : null,
     fuelType: formData.fuelType,
   }
 }

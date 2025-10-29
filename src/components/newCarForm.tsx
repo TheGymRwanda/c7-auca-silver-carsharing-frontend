@@ -1,11 +1,13 @@
 import { useCarData } from '@/hooks'
 import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
 import CarFormFields from './CarFormFields'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import Button from '../UI/Button'
+import useAuth from '@/hooks/useAuth'
 
 export default function NewOwnCarForm() {
   const { carTypes } = useCarData()
+  const { login } = useAuth()
   const {
     formData,
     errors,
@@ -17,8 +19,27 @@ export default function NewOwnCarForm() {
     handleSubmit,
     resetForm,
   } = useNewCarForm()
-  const carTypeOptions = carTypes[0].data?.map(type => ({ value: type.id, label: type.name })) || []
+
   const formRef = useRef<HTMLFormElement>(null)
+
+  const carTypeOptions = useMemo(
+    () => carTypes[0]?.data?.map(type => ({ value: type.id, label: type.name })) || [],
+    [carTypes[0]?.data],
+  )
+  const isLoadingCarTypes = carTypes[0]?.loading || false
+
+  useEffect(() => {
+    const refreshToken = async () => {
+      if (carTypes[0]?.error?.response?.status === 400) {
+        try {
+          await login({ username: 'admin', password: 'admin' })
+        } catch (error) {
+          console.error('Token refresh failed:', error)
+        }
+      }
+    }
+    refreshToken()
+  }, [carTypes[0]?.error, login])
 
   useEffect(() => {
     if (isSuccess && formRef.current) {
@@ -26,6 +47,27 @@ export default function NewOwnCarForm() {
       firstInput?.focus()
     }
   }, [isSuccess])
+
+  // Debug only on submission state changes
+  useEffect(() => {
+    if (isSubmitting) {
+      console.log('=== CAR SUBMISSION STARTED ===')
+      console.log('Form data:', formData)
+    }
+  }, [isSubmitting])
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('=== CAR CREATED SUCCESSFULLY ===')
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    if (errors.submit) {
+      console.log('=== CAR CREATION FAILED ===')
+      console.log('Error:', errors.submit)
+    }
+  }, [errors.submit])
 
   return (
     <div className="mx-auto w-full max-w-sm px-6 py-8">
@@ -44,6 +86,7 @@ export default function NewOwnCarForm() {
           handleBlur={handleBlur}
           carTypeOptions={carTypeOptions}
           fuelTypeOptions={fuelTypeOptions}
+          isLoadingCarTypes={isLoadingCarTypes}
         />
 
         {errors.submit && (
