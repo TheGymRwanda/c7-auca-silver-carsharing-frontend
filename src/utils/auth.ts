@@ -7,7 +7,6 @@ export function getAuthToken(): string | null {
     const userData = JSON.parse(user)
     const token = userData.token || null
 
-    // Return null if token is expired
     if (token && isTokenExpired(token)) {
       return null
     }

@@ -34,7 +34,6 @@ export default function CustomSelect({
           if (val === '') {
             onChange('')
           } else {
-            // Try to convert to number if it's a numeric string
             const numVal = Number(val)
             onChange(isNaN(numVal) ? val : numVal)
           }

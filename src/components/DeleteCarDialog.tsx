@@ -25,16 +25,13 @@ export default function DeleteCarDialog({
       await onConfirm()
       setIsDeleting(false)
       setShowSuccess(true)
-      // Close dialog after showing success for 3 seconds
       setTimeout(() => {
         setShowSuccess(false)
         onClose()
       }, 3000)
     } catch (error) {
-      // Failed to delete car
       setIsDeleting(false)
       setShowError(true)
-      // Close dialog after showing error for 3 seconds
       setTimeout(() => {
         setShowError(false)
         onClose()
