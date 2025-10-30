@@ -1,10 +1,8 @@
-import { ReactElement } from 'react'
-
 interface KeyIconProps {
   className?: string
 }
 
-export default function KeyIcon({ className }: KeyIconProps): ReactElement {
+export default function KeyIcon({ className }: KeyIconProps) {
   return (
     <svg
       width="24"

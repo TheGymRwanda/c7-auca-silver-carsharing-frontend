@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AppRoutes as AppRoutePaths } from '@/types/app_routes'
 
@@ -15,7 +14,7 @@ import Profile from '@/pages/Profile'
 import LoginPage from '@/pages/LoginPage'
 import ProtectedRoute from '@/components/ProtectedRoute'
 
-export default function AppRoutes(): ReactElement {
+export default function AppRoutes() {
   return (
     <Routes>
       <Route path={AppRoutePaths.login} element={<LoginPage />} />
