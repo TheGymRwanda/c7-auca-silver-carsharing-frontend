@@ -23,7 +23,6 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 }
 
 export const setupApiInterceptors = (refreshTokenFn: () => Promise<void>, logoutFn: () => void) => {
-  // Request interceptor - add auth header
   axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const token = getAuthToken()
@@ -36,7 +35,6 @@ export const setupApiInterceptors = (refreshTokenFn: () => Promise<void>, logout
     error => Promise.reject(error),
   )
 
-  // Response interceptor - handle token expiry
   axios.interceptors.response.use(
     (response: AxiosResponse) => response,
     async error => {

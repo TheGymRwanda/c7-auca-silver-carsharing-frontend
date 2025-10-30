@@ -4,7 +4,6 @@ interface LogoProps {
   className?: string
 }
 
-// eslint-disable-next-line max-lines-per-function
 export default function Logo({ className }: LogoProps): ReactElement {
   return (
     <svg

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
 import useAuth from '@/hooks/useAuth'
@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
   children: ReactNode
 }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement {
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
@@ -23,5 +23,5 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps): React
     return <Navigate to={AppRoutes.login} replace />
   }
 
-  return <>{children}</>
+  return children
 }

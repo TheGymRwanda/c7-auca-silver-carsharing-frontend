@@ -39,6 +39,5 @@ export const shouldRefreshToken = (token: string): boolean => {
   const currentTime = Math.floor(Date.now() / 1000)
   const timeUntilExpiry = payload.exp - currentTime
 
-  // Refresh if token expires in less than 5 minutes (300 seconds)
   return timeUntilExpiry < 300 && timeUntilExpiry > 0
 }

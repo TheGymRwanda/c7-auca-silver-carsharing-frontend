@@ -10,20 +10,19 @@ export default function MyCars() {
   const myCarsWithDetails = useMemo(() => {
     if (!cars[0]?.data || !users[0]?.data || !carTypes[0]?.data) return []
 
-    // Get current user ID from token (assuming it's stored in localStorage)
     const token = localStorage.getItem('token')
     let currentUserId: number | null = null
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]))
         currentUserId = payload.userId || payload.id
-      } catch (e) {
-        console.error('Failed to parse token:', e)
+      } catch {
+        currentUserId = null
       }
     }
 
     return cars[0].data
-      .filter(car => car.ownerId === currentUserId) // Only show user's own cars
+      .filter(car => car.ownerId === currentUserId)
       .map(car => {
         const owner = users[0].data?.find(user => user.id === car.ownerId)
         const carType = carTypes[0].data?.find(type => type.id === car.carTypeId)
