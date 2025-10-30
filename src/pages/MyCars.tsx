@@ -18,7 +18,7 @@ export default function MyCars() {
         const payload = JSON.parse(atob(token.split('.')[1]))
         currentUserId = payload.userId || payload.id
       } catch (e) {
-        console.error('Failed to parse token:', e)
+        // Failed to parse token
       }
     }
 

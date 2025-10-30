@@ -31,7 +31,7 @@ export default function DeleteCarDialog({
         onClose()
       }, 3000)
     } catch (error) {
-      console.error('Failed to delete car:', error)
+      // Failed to delete car
       setIsDeleting(false)
       setShowError(true)
       // Close dialog after showing error for 3 seconds
