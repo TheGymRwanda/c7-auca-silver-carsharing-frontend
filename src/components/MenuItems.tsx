@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '../types'
-import CarsIcon from '../assets/CarsIcon'
-import ListIcon from '../assets/ListIcon'
-import CarIcon from '../assets/CarIcon'
-import CarPlusIcon from '../assets/CarPlusIcon'
-import LogoutIcon from '../assets/LogoutIcon'
-import { styles } from '../utils/styles'
+import { AppRoutes } from '@/types/app_routes'
+import CarsIcon from '@/assets/CarsIcon'
+import ListIcon from '@/assets/ListIcon'
+import CarIcon from '@/assets/CarIcon'
+import CarPlusIcon from '@/assets/CarPlusIcon'
+import LogoutIcon from '@/assets/LogoutIcon'
+import { styles } from '@/utils/styles'
 
 interface MenuItemsProps {
   closeMenu: () => void
@@ -14,7 +14,7 @@ interface MenuItemsProps {
 export default function MenuItems({ closeMenu }: MenuItemsProps) {
   return (
     <div className="flex flex-col">
-      <div className="flex-1 py-2">
+      <div className="flex-1 py-2 ">
         <div className="px-4">
           <Link to={AppRoutes.bookCar} className={styles.menuLink} onClick={closeMenu}>
             <CarsIcon className={styles.iconWhite} />
