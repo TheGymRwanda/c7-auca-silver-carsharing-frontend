@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useState, useMemo, ReactNode } f
 import { carsReducer, initialState } from '@/reducers/carsReducer'
 import { carService } from '@/services/carService'
 import { carTypeService } from '@/services/carTypeService'
+import { userService } from '@/services/userService'
 import type { CarState } from '@/types/carState'
 import type { NewCarDto } from '@/utils/api'
 
@@ -24,8 +25,12 @@ export function CarProvider({ children }: { children: ReactNode }) {
 
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
-      const [cars, carTypes] = await Promise.all([carService.getAll(), carTypeService.getAll()])
-      dispatch({ type: 'LOAD_SUCCESS', payload: { cars, carTypes } })
+      const [cars, carTypes, users] = await Promise.all([
+        carService.getAll(),
+        carTypeService.getAll(),
+        userService.getAll(),
+      ])
+      dispatch({ type: 'LOAD_SUCCESS', payload: { cars, carTypes, users } })
       setHasLoaded(true)
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to load car data' })

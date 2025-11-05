@@ -1,11 +1,25 @@
-import { CarDto } from '@/utils/api'
-import { apiUrl } from '@/utils/apiUrl'
-import { getAuthToken } from '@/utils/auth'
-import useAxios from 'axios-hooks'
+import { useEffect } from 'react'
+import { useCarContext } from '@/context/carContext'
 
-export default function useCarById(carId: string | number) {
-  return useAxios<CarDto>({
-    headers: { Authorization: `Bearer ${getAuthToken()}` },
-    url: `${apiUrl}/cars/${carId}`,
-  })
+const useCarById = (carId: string | number) => {
+  const { state, loadData } = useCarContext()
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const car = state.cars.find(c => c.id === Number(carId))
+
+  const owner = state.users.find(user => user.id === car?.ownerId)
+  const carType = state.carTypes.find(type => type.id === car?.carTypeId)
+
+  return {
+    car,
+    owner,
+    carType,
+    loading: state.loading,
+    error: state.error,
+  }
 }
+
+export default useCarById

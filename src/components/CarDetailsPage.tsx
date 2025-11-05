@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 
 import useCarById from '@/hooks/useCarById'
-import { useCarData } from '@/hooks/useCarData'
 import { ChevronBackIcon } from '@/assets/ChevronBackIcon'
 import CarDetails from '@/components/CarDetails'
 import { H1, H2 } from '@/utils/Typography'
@@ -9,25 +8,11 @@ import { styles } from '@/utils/styles'
 
 export default function CarDetailsPage() {
   const { carId } = useParams<{ carId: string }>()
-  const [{ data: car, loading: carLoading, error: carError }] = useCarById(carId || '')
-  const {
-    users: [{ data: users }],
-    carTypes: [{ data: carTypes }],
-  } = useCarData()
+  const { car, owner, carType, loading, error } = useCarById(carId || '')
 
-  if (carLoading) return <div className={styles.loadingText}>Loading car details...</div>
-  if (carError)
-    return (
-      <div className={styles.errorText}>
-        Error: {carError.message}
-        <br />
-        Status: {carError.response?.status}
-      </div>
-    )
-  if (!car) return <div className={styles.errorText}>Car not found</div>
-
-  const owner = users?.find(user => user.id === car.ownerId)
-  const carType = carTypes?.find(type => type.id === car.carTypeId)
+  if (loading) return <div className={styles.centerText}>Loading car details...</div>
+  if (error) return <div className={styles.centerText}>Error: {error}</div>
+  if (!car) return <div className={styles.centerText}>Car not found</div>
 
   return (
     <div className={styles.fullHeightContainer}>

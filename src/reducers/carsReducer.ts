@@ -3,6 +3,7 @@ import type { CarState, CarAction } from '@/types/carState'
 const initialState: CarState = {
   cars: [],
   carTypes: [],
+  users: [],
   loading: false,
   error: null,
 }
@@ -20,6 +21,7 @@ export const carsReducer = (state: CarState, action: CarAction): CarState => {
         ...state,
         cars: action.payload.cars,
         carTypes: action.payload.carTypes,
+        users: action.payload.users,
         loading: false,
         error: null,
       }
