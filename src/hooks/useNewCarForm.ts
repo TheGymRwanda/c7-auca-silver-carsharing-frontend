@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
-import { submitCarData } from '@/utils/apiSubmission'
-import useAuth from './useAuth'
+import { useCarActions } from '@/hooks/useCarActions'
 
 export interface FormData {
   name: string
@@ -21,7 +20,7 @@ export const fuelTypeOptions = [
 ]
 
 export function useNewCarForm() {
-  const { user } = useAuth()
+  const { createCar } = useCarActions()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     carTypeId: null,
@@ -77,11 +76,11 @@ export function useNewCarForm() {
     setErrors(formErrors)
     setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
 
-    if (Object.keys(formErrors).length === 0 && user) {
+    if (Object.keys(formErrors).length === 0) {
       setIsSubmitting(true)
 
       try {
-        const apiData = transformFormDataToApi(formData, user.id)
+        const apiData = transformFormDataToApi(formData)
 
         const apiErrors = validateApiData(apiData)
         if (apiErrors.length > 0) {
@@ -89,19 +88,14 @@ export function useNewCarForm() {
           return
         }
 
-        const result = await submitCarData(apiData)
-
-        if (result.success) {
-          setIsSuccess(true)
-          setErrors({})
-          setTimeout(() => {
-            resetForm()
-          }, 3000)
-        } else {
-          setErrors({ submit: result.error || 'Failed to create car' })
-        }
+        await createCar(apiData)
+        setIsSuccess(true)
+        setErrors({})
+        setTimeout(() => {
+          resetForm()
+        }, 3000)
       } catch (error) {
-        setErrors({ submit: 'Network error occurred' })
+        setErrors({ submit: 'Failed to create car' })
       } finally {
         setIsSubmitting(false)
       }
