@@ -9,7 +9,7 @@ import { AppRoutes } from '@/types/app_routes'
 import { styles } from '@/utils/styles'
 
 export default function CarsPage() {
-  const { cars, users, carTypes, loading, error } = useCars()
+  const { cars, users, carTypes, loading, error, retry } = useCars()
 
   const transformedCars = useMemo(
     () =>
@@ -34,7 +34,14 @@ export default function CarsPage() {
   }
 
   if (error) {
-    return <div className={styles.centerText}>Error: {error}</div>
+    return (
+      <div className={styles.centerText}>
+        <p>Error: {error}</p>
+        <Button onClick={retry} variant="primary" className="mt-4">
+          Retry
+        </Button>
+      </div>
+    )
   }
 
   if (transformedCars.length === 0) {

@@ -1,17 +1,15 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { useCarState, useCarActions } from '@/context/carContext'
 
 export const useCars = () => {
   const state = useCarState()
-  const { loadData } = useCarActions()
-
-  const memoizedLoadData = useCallback(() => {
-    loadData()
-  }, [loadData])
+  const { loadData, retryLoad } = useCarActions()
 
   useEffect(() => {
-    memoizedLoadData()
-  }, [memoizedLoadData])
+    if (!state.error) {
+      loadData()
+    }
+  }, [loadData, state.error])
 
   return {
     cars: state.cars,
@@ -19,6 +17,6 @@ export const useCars = () => {
     users: state.users,
     loading: state.loading,
     error: state.error,
-    loadData,
+    retry: retryLoad,
   }
 }

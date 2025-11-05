@@ -1,17 +1,15 @@
-import { useEffect, useCallback, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useCarState, useCarActions } from '@/context/carContext'
 
 export const useCarById = (carId: string | number) => {
   const state = useCarState()
   const { loadData } = useCarActions()
 
-  const memoizedLoadData = useCallback(() => {
-    loadData()
-  }, [loadData])
-
   useEffect(() => {
-    memoizedLoadData()
-  }, [memoizedLoadData])
+    if (!state.error) {
+      loadData()
+    }
+  }, [loadData, state.error])
 
   const carData = useMemo(() => {
     const car = state.cars.find(c => c.id === Number(carId))

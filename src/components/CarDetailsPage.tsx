@@ -1,17 +1,29 @@
 import { useParams, Link } from 'react-router-dom'
 
 import { useCarById } from '@/hooks/useCarById'
+import { useCarActions } from '@/hooks/useCarActions'
 import { ChevronBackIcon } from '@/assets/ChevronBackIcon'
 import CarDetails from '@/components/CarDetails'
+import Button from '@/UI/Button'
 import { H1, H2 } from '@/utils/Typography'
 import { styles } from '@/utils/styles'
 
 export default function CarDetailsPage() {
   const { carId } = useParams<{ carId: string }>()
   const { car, owner, carType, loading, error } = useCarById(carId || '')
+  const { retry } = useCarActions()
 
   if (loading) return <div className={styles.centerText}>Loading car details...</div>
-  if (error) return <div className={styles.centerText}>Error: {error}</div>
+  if (error) {
+    return (
+      <div className={styles.centerText}>
+        <p>Error: {error}</p>
+        <Button onClick={retry} variant="primary" className="mt-4">
+          Retry
+        </Button>
+      </div>
+    )
+  }
   if (!car) return <div className={styles.centerText}>Car not found</div>
 
   return (

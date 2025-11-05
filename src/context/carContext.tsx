@@ -23,6 +23,7 @@ interface CarActionsContextType {
   createCar: (carData: NewCarDto) => Promise<void>
   deleteCar: (carId: number) => Promise<void>
   clearError: () => void
+  retryLoad: () => Promise<void>
 }
 
 const CarStateContext = createContext<CarStateContextType | undefined>(undefined)
@@ -33,7 +34,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
   const [hasLoaded, setHasLoaded] = useState(false)
 
   const loadData = useCallback(async (): Promise<void> => {
-    if (hasLoaded || state.loading) return
+    if (hasLoaded) return
 
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
@@ -47,7 +48,7 @@ export function CarProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to load car data' })
     }
-  }, [hasLoaded, state.loading])
+  }, [hasLoaded])
 
   const createCar = useCallback(async (carData: NewCarDto): Promise<void> => {
     dispatch({ type: 'SET_LOADING', payload: true })
@@ -75,6 +76,12 @@ export function CarProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_ERROR', payload: null })
   }, [])
 
+  const retryLoad = useCallback(async (): Promise<void> => {
+    setHasLoaded(false)
+    dispatch({ type: 'SET_ERROR', payload: null })
+    await loadData()
+  }, [loadData])
+
   const stateValue = useMemo(() => ({ state }), [state])
   const actionsValue = useMemo(
     () => ({
@@ -82,8 +89,9 @@ export function CarProvider({ children }: { children: ReactNode }) {
       createCar,
       deleteCar,
       clearError,
+      retryLoad,
     }),
-    [loadData, createCar, deleteCar, clearError],
+    [loadData, createCar, deleteCar, clearError, retryLoad],
   )
 
   return (
