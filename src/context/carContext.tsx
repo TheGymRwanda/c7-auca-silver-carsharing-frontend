@@ -1,4 +1,12 @@
-import { createContext, useContext, useReducer, useState, useMemo, ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+  useMemo,
+  useCallback,
+  ReactNode,
+} from 'react'
 import { carsReducer, initialState } from '@/reducers/carsReducer'
 import { carService } from '@/services/carService'
 import { carTypeService } from '@/services/carTypeService'
@@ -6,21 +14,25 @@ import { userService } from '@/services/userService'
 import type { CarState } from '@/types/carState'
 import type { NewCarDto } from '@/utils/api'
 
-interface CarContextType {
+interface CarStateContextType {
   state: CarState
+}
+
+interface CarActionsContextType {
   loadData: () => Promise<void>
   createCar: (carData: NewCarDto) => Promise<void>
   deleteCar: (carId: number) => Promise<void>
   clearError: () => void
 }
 
-const CarContext = createContext<CarContextType | undefined>(undefined)
+const CarStateContext = createContext<CarStateContextType | undefined>(undefined)
+const CarActionsContext = createContext<CarActionsContextType | undefined>(undefined)
 
 export function CarProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(carsReducer, initialState)
   const [hasLoaded, setHasLoaded] = useState(false)
 
-  const loadData = async (): Promise<void> => {
+  const loadData = useCallback(async (): Promise<void> => {
     if (hasLoaded || state.loading) return
 
     dispatch({ type: 'SET_LOADING', payload: true })
@@ -35,9 +47,9 @@ export function CarProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to load car data' })
     }
-  }
+  }, [hasLoaded, state.loading])
 
-  const createCar = async (carData: NewCarDto): Promise<void> => {
+  const createCar = useCallback(async (carData: NewCarDto): Promise<void> => {
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const newCar = await carService.create(carData)
@@ -46,9 +58,9 @@ export function CarProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to create car' })
       throw error
     }
-  }
+  }, [])
 
-  const deleteCar = async (carId: number): Promise<void> => {
+  const deleteCar = useCallback(async (carId: number): Promise<void> => {
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       await carService.delete(carId)
@@ -57,30 +69,42 @@ export function CarProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to delete car' })
       throw error
     }
-  }
+  }, [])
 
-  const clearError = (): void => {
+  const clearError = useCallback((): void => {
     dispatch({ type: 'SET_ERROR', payload: null })
-  }
+  }, [])
 
-  const contextValue = useMemo(
+  const stateValue = useMemo(() => ({ state }), [state])
+  const actionsValue = useMemo(
     () => ({
-      state,
       loadData,
       createCar,
       deleteCar,
       clearError,
     }),
-    [state],
+    [loadData, createCar, deleteCar, clearError],
   )
 
-  return <CarContext.Provider value={contextValue}>{children}</CarContext.Provider>
+  return (
+    <CarStateContext.Provider value={stateValue}>
+      <CarActionsContext.Provider value={actionsValue}>{children}</CarActionsContext.Provider>
+    </CarStateContext.Provider>
+  )
 }
 
-export const useCarContext = (): CarContextType => {
-  const context = useContext(CarContext)
+export const useCarState = (): CarState => {
+  const context = useContext(CarStateContext)
   if (context === undefined) {
-    throw new Error('useCarContext must be used within a CarProvider')
+    throw new Error('useCarState must be used within a CarProvider')
+  }
+  return context.state
+}
+
+export const useCarActions = (): CarActionsContextType => {
+  const context = useContext(CarActionsContext)
+  if (context === undefined) {
+    throw new Error('useCarActions must be used within a CarProvider')
   }
   return context
 }

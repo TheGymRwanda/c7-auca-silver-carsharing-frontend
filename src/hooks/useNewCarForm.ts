@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
@@ -21,6 +21,7 @@ export const fuelTypeOptions = [
 
 export function useNewCarForm() {
   const { createCar } = useCarActions()
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     carTypeId: null,
@@ -91,7 +92,7 @@ export function useNewCarForm() {
         await createCar(apiData)
         setIsSuccess(true)
         setErrors({})
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           resetForm()
         }, 3000)
       } catch (error) {
@@ -101,6 +102,15 @@ export function useNewCarForm() {
       }
     }
   }
+
+  useEffect(
+    () => () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    },
+    [],
+  )
 
   return {
     formData,

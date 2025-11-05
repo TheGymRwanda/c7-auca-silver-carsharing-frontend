@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 
-import useCarById from '@/hooks/useCarById'
+import { useCarById } from '@/hooks/useCarById'
 import { ChevronBackIcon } from '@/assets/ChevronBackIcon'
 import CarDetails from '@/components/CarDetails'
 import { H1, H2 } from '@/utils/Typography'

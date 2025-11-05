@@ -1,25 +1,29 @@
-import { useEffect } from 'react'
-import { useCarContext } from '@/context/carContext'
+import { useEffect, useCallback, useMemo } from 'react'
+import { useCarState, useCarActions } from '@/context/carContext'
 
-const useCarById = (carId: string | number) => {
-  const { state, loadData } = useCarContext()
+export const useCarById = (carId: string | number) => {
+  const state = useCarState()
+  const { loadData } = useCarActions()
+
+  const memoizedLoadData = useCallback(() => {
+    loadData()
+  }, [loadData])
 
   useEffect(() => {
-    loadData()
-  }, [])
+    memoizedLoadData()
+  }, [memoizedLoadData])
 
-  const car = state.cars.find(c => c.id === Number(carId))
+  const carData = useMemo(() => {
+    const car = state.cars.find(c => c.id === Number(carId))
+    const owner = state.users.find(user => user.id === car?.ownerId)
+    const carType = state.carTypes.find(type => type.id === car?.carTypeId)
 
-  const owner = state.users.find(user => user.id === car?.ownerId)
-  const carType = state.carTypes.find(type => type.id === car?.carTypeId)
+    return { car, owner, carType }
+  }, [state.cars, state.users, state.carTypes, carId])
 
   return {
-    car,
-    owner,
-    carType,
+    ...carData,
     loading: state.loading,
     error: state.error,
   }
 }
-
-export default useCarById

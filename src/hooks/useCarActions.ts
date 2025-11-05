@@ -1,7 +1,7 @@
-import { useCarContext } from '@/context/carContext'
+import { useCarActions as useCarActionsContext } from '@/context/carContext'
 
 export const useCarActions = () => {
-  const { createCar, deleteCar, clearError } = useCarContext()
+  const { createCar, deleteCar, clearError } = useCarActionsContext()
 
   return {
     createCar,

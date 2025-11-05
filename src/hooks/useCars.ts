@@ -1,12 +1,17 @@
-import { useEffect } from 'react'
-import { useCarContext } from '@/context/carContext'
+import { useEffect, useCallback } from 'react'
+import { useCarState, useCarActions } from '@/context/carContext'
 
 export const useCars = () => {
-  const { state, loadData } = useCarContext()
+  const state = useCarState()
+  const { loadData } = useCarActions()
+
+  const memoizedLoadData = useCallback(() => {
+    loadData()
+  }, [loadData])
 
   useEffect(() => {
-    loadData()
-  }, [])
+    memoizedLoadData()
+  }, [memoizedLoadData])
 
   return {
     cars: state.cars,
