@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
@@ -94,14 +95,23 @@ export function useNewCarForm() {
         if (result.success) {
           setIsSuccess(true)
           setErrors({})
+          toast.success('Car added successfully')
           setTimeout(() => {
             resetForm()
           }, 3000)
         } else {
-          setErrors({ submit: result.error || 'Failed to create car' })
+          const msg = result.error || 'Failed to create car'
+          setErrors({ submit: msg })
+          const split = msg.split(/(?<=\.)\s+|,\s+|;\s+/).filter(Boolean)
+          if (split.length > 1) {
+            split.forEach(m => toast.error(m))
+          } else {
+            toast.error(msg)
+          }
         }
       } catch (error) {
         setErrors({ submit: 'Network error occurred' })
+        toast.error('Network error occurred')
       } finally {
         setIsSubmitting(false)
       }

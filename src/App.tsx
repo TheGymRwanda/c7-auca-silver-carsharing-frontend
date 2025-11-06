@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
 import { configure } from 'axios-hooks'
 import { useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
@@ -40,6 +41,7 @@ function AppContent() {
       <main>
         <AppRoutesComponent />
       </main>
+      <ToastContainer position="top-right" theme="colored" newestOnTop closeOnClick pauseOnHover />
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '@/hooks/useAuth'
 import { AppRoutes } from '@/types/app_routes'
@@ -11,9 +12,16 @@ export const useLoginForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      toast.success('Logged in successfully')
       navigate(AppRoutes.home, { replace: true })
     }
   }, [isAuthenticated, navigate])
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target

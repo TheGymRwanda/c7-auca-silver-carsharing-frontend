@@ -74,12 +74,6 @@ export default function LoginForm({
           </div>
         </div>
 
-        {error && (
-          <div className="rounded-lg border border-red-500/50 bg-red-500/20 p-3" role="alert">
-            <p className="text-sm text-red-400">{error}</p>
-          </div>
-        )}
-
         <Button
           type="submit"
           variant="primary"
