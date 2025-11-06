@@ -10,11 +10,17 @@ import { deleteCar } from '@/utils/deleteCar'
 
 interface CarCardProps {
   car: CarWithDetails
+  showActions?: boolean
   onRefresh?: () => void
   onDeleteSuccess?: (message: string) => void
 }
 
-export default function CarCard({ car, onRefresh, onDeleteSuccess }: CarCardProps) {
+export default function CarCard({
+  car,
+  showActions = false,
+  onRefresh,
+  onDeleteSuccess,
+}: CarCardProps) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
   const handleDeleteConfirm = async () => {
@@ -57,21 +63,26 @@ export default function CarCard({ car, onRefresh, onDeleteSuccess }: CarCardProp
           </div>
         </div>
       </div>
-      <Button
-        variant="outlineWhite"
-        size="sm"
-        className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
-        onClick={() => setIsDeleteDialogOpen(true)}
-      >
-        Delete
-      </Button>
 
-      <DeleteCarDialog
-        isOpen={isDeleteDialogOpen}
-        onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={handleDeleteConfirm}
-        carName={car.name}
-      />
+      {showActions && (
+        <>
+          <Button
+            variant="outlineWhite"
+            size="sm"
+            className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
+            onClick={() => setIsDeleteDialogOpen(true)}
+          >
+            Delete
+          </Button>
+
+          <DeleteCarDialog
+            isOpen={isDeleteDialogOpen}
+            onClose={() => setIsDeleteDialogOpen(false)}
+            onConfirm={handleDeleteConfirm}
+            carName={car.name}
+          />
+        </>
+      )}
     </div>
   )
 }

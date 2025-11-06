@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 
-interface ErrorIconProps {
+interface SuccessIconProps {
   className?: string
 }
 
-export default function ErrorIcon({ className }: ErrorIconProps): ReactElement {
+export default function SuccessIcon({ className }: SuccessIconProps): ReactElement {
   return (
     <svg
       width="24"
@@ -16,7 +16,7 @@ export default function ErrorIcon({ className }: ErrorIconProps): ReactElement {
     >
       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
       <path
-        d="M15 9l-6 6M9 9l6 6"
+        d="M9 12l2 2 4-4"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

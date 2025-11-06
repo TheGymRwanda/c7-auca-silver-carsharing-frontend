@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { useCarData } from '@/hooks'
 import CarCard from '@/UI/CarCard'
+import Button from '@/UI/Button'
 import { CarWithDetails } from '@/types/cardetails_type'
 
 export default function MyCars() {
@@ -66,7 +68,6 @@ export default function MyCars() {
           {successMessage}
         </div>
       )}
-
       {myCarsWithDetails.length === 0 ? (
         <div className="text-center text-white">
           <p>You don&apos;t have any cars yet.</p>
@@ -77,12 +78,21 @@ export default function MyCars() {
             <CarCard
               key={car.id}
               car={car}
+              showActions={true}
               onRefresh={handleRefresh}
               onDeleteSuccess={handleDeleteSuccess}
             />
           ))}
         </div>
       )}
+
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <Link to="/add-car" className="block">
+          <Button variant="primary" size="lg" className="w-full shadow-2xl">
+            Add new Car
+          </Button>
+        </Link>
+      </div>
     </div>
   )
 }
