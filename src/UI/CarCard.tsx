@@ -6,9 +6,30 @@ import { styles } from '@/utils/styles'
 
 interface CarCardProps {
   car: CarWithDetails
+<<<<<<< HEAD
 }
 
 export default function CarCard({ car }: CarCardProps) {
+=======
+  showActions?: boolean
+  onRefresh?: () => void
+  onDeleteSuccess?: (message: string) => void
+}
+
+export default function CarCard({
+  car,
+  showActions = false,
+  onRefresh,
+  onDeleteSuccess,
+}: CarCardProps) {
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+
+  const handleDeleteConfirm = async () => {
+    await deleteCar(car.id)
+    onRefresh?.()
+    onDeleteSuccess?.('Car deleted successfully!')
+  }
+>>>>>>> 6bf7849 (feat: update Cars and MyCars pages layout and functionality)
   return (
     <div className={`${styles.cardContainer} md:flex md:h-full md:flex-col`}>
       <div className="mb-4 flex md:flex-col">
@@ -44,6 +65,29 @@ export default function CarCard({ car }: CarCardProps) {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+
+      {showActions && (
+        <>
+          <Button
+            variant="outlineWhite"
+            size="sm"
+            className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
+            onClick={() => setIsDeleteDialogOpen(true)}
+          >
+            Delete
+          </Button>
+
+          <DeleteCarDialog
+            isOpen={isDeleteDialogOpen}
+            onClose={() => setIsDeleteDialogOpen(false)}
+            onConfirm={handleDeleteConfirm}
+            carName={car.name}
+          />
+        </>
+      )}
+>>>>>>> 6bf7849 (feat: update Cars and MyCars pages layout and functionality)
     </div>
   )
 }

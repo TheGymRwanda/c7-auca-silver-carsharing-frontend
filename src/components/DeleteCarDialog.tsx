@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import Button from '@/UI/Button'
+import SuccessIcon from '@/assets/SuccessIcon'
+import ErrorIcon from '@/assets/ErrorIcon'
 
 interface DeleteCarDialogProps {
   isOpen: boolean
@@ -18,6 +20,7 @@ export default function DeleteCarDialog({
   const [isDeleting, setIsDeleting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -28,14 +31,16 @@ export default function DeleteCarDialog({
       setTimeout(() => {
         setShowSuccess(false)
         onClose()
-      }, 3000)
+      }, 5000)
     } catch (error) {
       setIsDeleting(false)
       setShowError(true)
+      setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred')
       setTimeout(() => {
         setShowError(false)
+        setErrorMessage('')
         onClose()
-      }, 3000)
+      }, 5000)
     }
   }
 
@@ -44,28 +49,40 @@ export default function DeleteCarDialog({
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
-          className="mx-auto max-w-md rounded-lg border-2 border-white/20 p-8 shadow-2xl"
+          className="relative mx-auto max-w-md rounded-lg border-2 border-white/20 p-8 shadow-2xl"
           style={{ backgroundColor: '#265e78' }}
         >
-          <DialogTitle className="mb-4 text-lg font-medium text-white">
+          {/* Icon at top border center */}
+          {(showSuccess || showError) && (
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2">
+              <div className="rounded-full bg-[#265e78] p-2">
+                {showSuccess ? (
+                  <SuccessIcon className="size-8 text-green-400" />
+                ) : (
+                  <ErrorIcon className="size-8 text-red-400" />
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogTitle className="mb-6 text-center text-xl font-bold text-white">
             {showSuccess ? 'Success!' : showError ? 'Error!' : 'Delete Car'}
           </DialogTitle>
 
           {showSuccess ? (
-            <div className="mb-6 text-center">
-              <div className="mb-4 text-4xl">✅</div>
-              <p className="text-sm text-green-300">
-                Car <span className="font-semibold text-white">{carName}</span> removed
-                successfully!
+            <div className="text-center">
+              <p className="text-sm text-gray-300">
+                The car <span className="font-semibold text-white">{carName}</span> has been
+                successfully deleted from your account.
               </p>
             </div>
           ) : showError ? (
-            <div className="mb-6 text-center">
-              <div className="mb-4 text-4xl">❌</div>
-              <p className="text-sm text-red-300">
-                Failed to delete car <span className="font-semibold text-white">{carName}</span>.
-                Please try again.
+            <div className="text-center">
+              <p className="mb-3 text-sm text-gray-300">
+                Unable to delete the car <span className="font-semibold text-white">{carName}</span>
+                .
               </p>
+              <p className="text-xs text-red-300">Error: {errorMessage}</p>
             </div>
           ) : (
             <>

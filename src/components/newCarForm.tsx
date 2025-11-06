@@ -53,27 +53,6 @@ export default function NewOwnCarForm() {
           isLoadingCarTypes={isLoadingCarTypes}
         />
 
-<<<<<<< HEAD
-=======
-        {errors.submit && (
-          <div className="mt-4 rounded-lg border border-red-500/50 bg-red-500/20 p-3">
-            <p className="text-sm text-red-400">{errors.submit}</p>
-          </div>
-        )}
-
-        {isSuccess && (
-          <div
-            className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-3"
-            role="status"
-            aria-live="polite"
-          >
-            <p className="text-sm text-green-400">
-              Car added successfully! Form will reset in 3 seconds.
-            </p>
-          </div>
-        )}
-
->>>>>>> fa16243b03b738fe05fefb9397050f91d613af7b
         <div className="mt-20 flex gap-4">
           <Button
             type="button"
