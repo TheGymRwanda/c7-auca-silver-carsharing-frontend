@@ -1,6 +1,6 @@
-import { FormField, FormSelect } from '../utils/Typography'
-import { FormData } from '../hooks/useNewCarForm'
-import { FuelType } from '../utils/api'
+import { FormField, FormSelect } from '@/utils/Typography'
+import { FormData } from '@/hooks/useNewCarForm'
+import { FuelType } from '@/utils/api'
 
 interface CarFormFieldsProps {
   formData: FormData
@@ -39,7 +39,10 @@ export default function CarFormFields({
       <FormSelect
         label="Type"
         value={formData.carTypeId}
-        onChange={value => handleInputChange('carTypeId', Number(value))}
+        onChange={value => {
+          const numValue = value === '' ? null : Number(value)
+          handleInputChange('carTypeId', numValue)
+        }}
         onBlur={() => handleBlur('carTypeId')}
         options={carTypeOptions}
         placeholder={isLoadingCarTypes ? 'Loading car types...' : 'Select car type'}
@@ -75,7 +78,9 @@ export default function CarFormFields({
       <FormSelect
         label="Fuel type"
         value={formData.fuelType}
-        onChange={value => handleInputChange('fuelType', value)}
+        onChange={value => {
+          handleInputChange('fuelType', value as FuelType)
+        }}
         onBlur={() => handleBlur('fuelType')}
         options={fuelTypeOptions}
         placeholder="Select fuel type"

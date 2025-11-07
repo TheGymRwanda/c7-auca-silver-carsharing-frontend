@@ -6,6 +6,7 @@ import { AppRoutes } from '@/types/app_routes'
 import Navbar from '@/components/Navbar'
 import LoginNavbar from '@/components/LoginNavbar'
 import AuthContextProvider from '@/context/authContext'
+import { CarProvider } from '@/context/carContext'
 import AppRoutesComponent from '@/components/AppRoutes'
 import { setupApiInterceptors } from '@/utils/apiInterceptors'
 import useAuth from '@/hooks/useAuth'
@@ -38,7 +39,9 @@ function AppContent() {
     <div className="mx-auto min-h-screen bg-primary-dark">
       <ConditionalNavbar />
       <main>
-        <AppRoutesComponent />
+        <CarProvider>
+          <AppRoutesComponent />
+        </CarProvider>
       </main>
     </div>
   )
