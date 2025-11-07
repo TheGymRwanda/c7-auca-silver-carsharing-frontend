@@ -1,8 +1,7 @@
-import React from 'react'
 import Button from '../../UI/Button'
 import ErrorMsgIcon from '../../assets/ErrorMsgIcon'
 
-export default function ErroPage(): React.ReactElement {
+export default function ErroPage() {
   return (
     <div
       className="mx-auto flex flex-col items-center justify-center gap-y-7 px-4 py-12

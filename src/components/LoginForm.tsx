@@ -1,5 +1,5 @@
-import { ReactElement } from 'react'
 import Button from '@/UI/Button'
+import Input from '@/UI/Input'
 import { LoginCredentials } from '@/types/auth_types'
 
 interface LoginFormProps {
@@ -18,7 +18,7 @@ export default function LoginForm({
   isLoading,
   error,
   isFormValid,
-}: LoginFormProps): ReactElement {
+}: LoginFormProps) {
   return (
     <div className="max-h-96 w-full translate-y-0 opacity-100 transition-all duration-500 ease-in-out">
       <h1 className="my-16 flex flex-col font-lora text-5xl text-white sm:text-6xl">
@@ -34,14 +34,13 @@ export default function LoginForm({
           <label htmlFor="username" className="sr-only">
             Username or email address
           </label>
-          <input
+          <Input
             id="username"
             type="text"
             name="username"
             value={formData.username}
             onChange={onInputChange}
             placeholder="Username / e-mail"
-            className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
             required
             disabled={isLoading}
             aria-describedby="username-help"
@@ -56,14 +55,13 @@ export default function LoginForm({
           <label htmlFor="password" className="sr-only">
             Password
           </label>
-          <input
+          <Input
             id="password"
             type="password"
             name="password"
             value={formData.password}
             onChange={onInputChange}
             placeholder="Password"
-            className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-white transition-all duration-200 placeholder:text-white/70 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white/50"
             required
             disabled={isLoading}
             aria-describedby="password-help"

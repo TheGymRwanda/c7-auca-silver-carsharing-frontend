@@ -1,7 +1,7 @@
-import React from 'react'
+import { InputHTMLAttributes, ReactNode } from 'react'
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  leftIcon?: React.ReactNode
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  leftIcon?: ReactNode
   className?: string
   containerClassName?: string
 }

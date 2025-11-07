@@ -3,11 +3,9 @@ import ProfileIcon from '@/assets/ProfileIcon'
 import CarsIcon from '@/assets/CarsIcon'
 import { CarWithDetails } from '@/types/cardetails_type'
 import { styles } from '@/utils/styles'
-import Button from './Button'
 
 interface CarCardProps {
   car: CarWithDetails
-  onDelete?: (carId: number) => void
 }
 
 export default function CarCard({ car }: CarCardProps) {
@@ -46,13 +44,6 @@ export default function CarCard({ car }: CarCardProps) {
           </div>
         </div>
       </div>
-      <Button
-        variant="outlineWhite"
-        size="sm"
-        className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
-      >
-        Delete
-      </Button>
     </div>
   )
 }

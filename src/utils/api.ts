@@ -34,7 +34,6 @@ interface CarDto {
 
 interface NewCarDto {
   name: string
-  userId: number
   carTypeId: number
   horsepower: number | null
   info: string | null

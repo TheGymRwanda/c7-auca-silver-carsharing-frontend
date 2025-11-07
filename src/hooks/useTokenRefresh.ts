@@ -29,14 +29,13 @@ export const useTokenRefresh = ({
     if (!token) return
 
     if (shouldRefreshToken(token)) {
-      // Refresh immediately if token needs refresh
       refreshToken().catch(() => logout())
       return
     }
 
     const expiry = getTokenExpiry(token)
     const now = Date.now()
-    const timeUntilRefresh = expiry - now - 5 * 60 * 1000 // 5 minutes before expiry
+    const timeUntilRefresh = expiry - now - 5 * 60 * 1000
 
     if (timeUntilRefresh > 0) {
       refreshTimerRef.current = setTimeout(() => {

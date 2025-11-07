@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
-import { submitCarData } from '@/utils/apiSubmission'
-import useAuth from './useAuth'
+import { useCarActions } from '@/hooks/useCarActions'
 
 export interface FormData {
   name: string
@@ -22,7 +21,8 @@ export const fuelTypeOptions = [
 ]
 
 export function useNewCarForm() {
-  const { user } = useAuth()
+  const { createCar } = useCarActions()
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     carTypeId: null,
@@ -78,11 +78,11 @@ export function useNewCarForm() {
     setErrors(formErrors)
     setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
 
-    if (Object.keys(formErrors).length === 0 && user) {
+    if (Object.keys(formErrors).length === 0) {
       setIsSubmitting(true)
 
       try {
-        const apiData = transformFormDataToApi(formData, user.id)
+        const apiData = transformFormDataToApi(formData)
 
         const apiErrors = validateApiData(apiData)
         if (apiErrors.length > 0) {
@@ -90,33 +90,28 @@ export function useNewCarForm() {
           return
         }
 
-        const result = await submitCarData(apiData)
-
-        if (result.success) {
-          setIsSuccess(true)
-          setErrors({})
-          toast.success('Car added successfully')
-          setTimeout(() => {
-            resetForm()
-          }, 3000)
-        } else {
-          const msg = result.error || 'Failed to create car'
-          setErrors({ submit: msg })
-          const split = msg.split(/(?<=\.)\s+|,\s+|;\s+/).filter(Boolean)
-          if (split.length > 1) {
-            split.forEach(m => toast.error(m))
-          } else {
-            toast.error(msg)
-          }
-        }
+        await createCar(apiData)
+        setIsSuccess(true)
+        setErrors({})
+        timeoutRef.current = setTimeout(() => {
+          resetForm()
+        }, 3000)
       } catch (error) {
-        setErrors({ submit: 'Network error occurred' })
-        toast.error('Network error occurred')
+        setErrors({ submit: 'Failed to create car' })
       } finally {
         setIsSubmitting(false)
       }
     }
   }
+
+  useEffect(
+    () => () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    },
+    [],
+  )
 
   return {
     formData,

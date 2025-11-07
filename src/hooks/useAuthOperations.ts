@@ -120,15 +120,12 @@ export const useAuthOperations = () => {
       setState(prev => ({ ...prev, isLoading: true, error: null }))
       const userData = await authRequest(credentials)
 
-      // Try to fetch additional user details
       try {
         const userDetails = await fetchUserDetails(userData.token)
         const completeUserData = { ...userData, ...userDetails }
         sessionStorage.setItem('user', JSON.stringify(completeUserData))
         setState(authenticatedState(completeUserData))
       } catch {
-        // If GET /auth fails, use login response data
-        // GET /auth failed, using login response only
         sessionStorage.setItem('user', JSON.stringify(userData))
         setState(authenticatedState(userData))
       }
@@ -141,7 +138,7 @@ export const useAuthOperations = () => {
     }
   }
 
-  const register = login // Registration uses same logic as login
+  const register = login
 
   const logout = () => {
     sessionStorage.removeItem('user')
