@@ -1,10 +1,12 @@
 import { useMemo } from 'react'
 import { useCars } from '@/hooks/useCars'
+import { useCarActions } from '@/hooks/useCarActions'
 import useAuth from '@/hooks/useAuth'
 import CarCard from '@/UI/CarCard'
 
 export default function MyCars() {
   const { cars, users, carTypes, loading, error } = useCars()
+  const { deleteCar } = useCarActions()
   const { user } = useAuth()
 
   const myCarsWithDetails = useMemo(() => {
@@ -27,7 +29,11 @@ export default function MyCars() {
       })
   }, [cars, users, carTypes, user])
 
-  if (loading) {
+  const handleDelete = async (carId: number) => {
+    await deleteCar(carId)
+  }
+
+  if (loading || !user || cars.length === 0 || users.length === 0 || carTypes.length === 0) {
     return (
       <div className="mx-auto w-full max-w-sm text-center text-white">
         <p>Loading your cars...</p>
@@ -56,7 +62,7 @@ export default function MyCars() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {myCarsWithDetails.map(car => (
-            <CarCard key={car.id} car={car} />
+            <CarCard key={car.id} car={car} onDelete={handleDelete} />
           ))}
         </div>
       )}

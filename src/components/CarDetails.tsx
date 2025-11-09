@@ -56,14 +56,16 @@ export default function CarDetails({ car, owner, carType }: CarDetailsProps) {
         <FuelIcon className="size-6 text-white md:size-7" />
         <TextLarge className="md:text-xl lg:text-2xl"> {car.fuelType}</TextLarge>
       </div>
-      <div
-        className={classNames(styles.detailRow, 'mb-4 space-y-2 text-left md:mb-0 md:space-y-0')}
-      >
-        <div className="size-6 text-white md:size-7">
-          <AlertIcon />
+      {car.info && (
+        <div
+          className={classNames(styles.detailRow, 'mb-4 space-y-2 text-left md:mb-0 md:space-y-0')}
+        >
+          <div className="size-6 text-white md:size-7">
+            <AlertIcon />
+          </div>
+          <TextLarge className="md:text-xl lg:text-2xl"> {car.info}</TextLarge>
         </div>
-        <TextLarge className="font-bold md:text-xl lg:text-2xl">No smoking</TextLarge>
-      </div>
+      )}
     </>
   )
 }
