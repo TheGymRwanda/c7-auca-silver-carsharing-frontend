@@ -1,13 +1,30 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useCars } from '@/hooks/useCars'
 import { useCarActions } from '@/hooks/useCarActions'
 import useAuth from '@/hooks/useAuth'
 import CarCard from '@/UI/CarCard'
+import Button from '@/UI/Button'
+import NotificationToast from '@/components/NotificationToast'
 
 export default function MyCars() {
   const { cars, users, carTypes, loading, error } = useCars()
   const { deleteCar } = useCarActions()
   const { user } = useAuth()
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+
+  const handleDelete = async (carId: number, carName: string) => {
+    try {
+      await deleteCar(carId)
+      setToast({ message: `${carName} has been successfully deleted`, type: 'success' })
+    } catch (error) {
+      setToast({
+        message: `Failed to delete ${carName}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        type: 'error',
+      })
+      throw error
+    }
+  }
 
   const myCarsWithDetails = useMemo(() => {
     if (!user) return []
@@ -28,10 +45,6 @@ export default function MyCars() {
         }
       })
   }, [cars, users, carTypes, user])
-
-  const handleDelete = async (carId: number) => {
-    await deleteCar(carId)
-  }
 
   if (loading || !user || cars.length === 0 || users.length === 0 || carTypes.length === 0) {
     return (
@@ -54,26 +67,14 @@ export default function MyCars() {
       <h1 className="mb-6 text-center text-2xl font-bold text-white sm:text-3xl md:text-4xl">
         My Cars
       </h1>
-
-      {successMessage && (
-        <div className="mb-4 rounded-lg bg-green-600 p-3 text-center text-white">
-          {successMessage}
-        </div>
-      )}
       {myCarsWithDetails.length === 0 ? (
         <div className="text-center text-white">
           <p>You don&apos;t have any cars yet.</p>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 pb-24 sm:grid-cols-2 lg:grid-cols-3">
           {myCarsWithDetails.map(car => (
-            <CarCard
-              key={car.id}
-              car={car}
-              showActions={true}
-              onRefresh={handleRefresh}
-              onDeleteSuccess={handleDeleteSuccess}
-            />
+            <CarCard key={`car-${car.id}`} car={car} onDelete={handleDelete} />
           ))}
         </div>
       )}
@@ -85,6 +86,13 @@ export default function MyCars() {
           </Button>
         </Link>
       </div>
+
+      <NotificationToast
+        message={toast?.message || ''}
+        type={toast?.type || 'success'}
+        isVisible={!!toast}
+        onClose={() => setToast(null)}
+      />
     </div>
   )
 }
