@@ -22,7 +22,7 @@ export const sanitizeLicensePlate = (input: string): string | null => {
   return cleaned || null
 }
 
-export const transformFormDataToApi = (formData: FormData, userId: number): NewCarDto => {
+export const transformFormDataToApi = (formData: FormData): NewCarDto => {
   if (!formData.carTypeId) {
     throw new Error('Car type is required')
   }
@@ -32,7 +32,6 @@ export const transformFormDataToApi = (formData: FormData, userId: number): NewC
 
   return {
     name: sanitizeString(formData.name),
-    userId,
     carTypeId: formData.carTypeId,
     horsepower: sanitizeNumber(formData.horsepower),
     info: formData.info ? sanitizeString(formData.info) : null,

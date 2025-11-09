@@ -1,48 +1,48 @@
 import { useMemo } from 'react'
-
-import { useCarData } from '@/hooks/useCarData'
+import { useCars } from '@/hooks/useCars'
 import CarCard from '@/UI/CarCard'
 import PageHeader from '@/components/PageHeader'
+import Button from '@/UI/Button'
+
 import { styles } from '@/utils/styles'
 
 export default function CarsPage() {
-  const {
-    cars: [{ data: carsData, loading: carsLoading, error: carsError }],
-    users: [{ data: usersData, loading: usersLoading, error: usersError }],
-    carTypes: [{ data: carTypesData, loading: carTypesLoading, error: carTypesError }],
-  } = useCarData()
+  const { cars, users, carTypes, loading, error, retry } = useCars()
 
-  const cars = useMemo(() => {
-    if (!carsData || !usersData || !carTypesData) return []
+  const transformedCars = useMemo(
+    () =>
+      cars.map(car => {
+        const owner = users.find(user => user.id === car.ownerId)
+        const carType = carTypes.find(type => type.id === car.carTypeId)
 
-    return carsData.map(car => {
-      const owner = usersData.find(user => user.id === car.ownerId)
-      const carType = carTypesData.find(type => type.id === car.carTypeId)
+        return {
+          id: car.id,
+          name: car.name,
+          owner: owner?.name || 'Unknown',
+          type: carType?.name || 'Unknown',
+          image: carType?.imageUrl || 'https://via.placeholder.com/150',
+          info: car.info,
+        }
+      }),
+    [cars, users, carTypes],
+  )
 
-      return {
-        id: car.id,
-        name: car.name,
-        owner: owner?.name || 'Unknown',
-        type: carType?.name || 'Unknown',
-        image: carType?.imageUrl || 'https://via.placeholder.com/150',
-        info: car.info,
-      }
-    })
-  }, [carsData, usersData, carTypesData])
-
-  if (carsLoading || usersLoading || carTypesLoading) {
+  if (loading || cars.length === 0 || users.length === 0 || carTypes.length === 0) {
     return <div className={styles.centerText}>Loading cars...</div>
   }
 
-  if (carsError || usersError || carTypesError) {
+  if (error) {
     return (
-      <div className="p-4 text-center font-serif text-red-600">
-        Error loading data: {carsError?.message || usersError?.message || carTypesError?.message}
+      <div className={styles.centerText}>
+        <p>Error: {error}</p>
+        <Button onClick={retry} variant="primary" className="mt-4">
+          Retry
+        </Button>
       </div>
     )
   }
 
-  if (cars.length === 0) {
+  if (transformedCars.length === 0) {
     return <div className={styles.centerText}>No cars available</div>
   }
 
@@ -52,7 +52,7 @@ export default function CarsPage() {
         <PageHeader title="ALL CARS" />
 
         <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
-          {cars.map(car => (
+          {transformedCars.map(car => (
             <CarCard key={car.id} car={car} />
           ))}
         </div>

@@ -1,11 +1,11 @@
-import { useCarData } from '@/hooks'
+import { useCars } from '@/hooks/useCars'
 import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
-import CarFormFields from './CarFormFields'
+import CarFormFields from '@/components/CarFormFields'
 import { useEffect, useRef, useMemo } from 'react'
-import Button from '../UI/Button'
+import Button from '@/UI/Button'
 
 export default function NewOwnCarForm() {
-  const { carTypes } = useCarData()
+  const { carTypes, loading } = useCars()
   const {
     formData,
     errors,
@@ -21,10 +21,10 @@ export default function NewOwnCarForm() {
   const formRef = useRef<HTMLFormElement>(null)
 
   const carTypeOptions = useMemo(
-    () => carTypes[0]?.data?.map(type => ({ value: type.id, label: type.name })) || [],
-    [carTypes[0]?.data],
+    () => carTypes.map(type => ({ value: type.id, label: type.name })),
+    [carTypes],
   )
-  const isLoadingCarTypes = carTypes[0]?.loading || false
+  const isLoadingCarTypes = loading
 
   useEffect(() => {
     if (isSuccess && formRef.current) {
@@ -66,7 +66,7 @@ export default function NewOwnCarForm() {
             aria-live="polite"
           >
             <p className="text-sm text-green-400">
-              ✅ Car added successfully! Form will reset in 3 seconds.
+              Car added successfully! Form will reset in 3 seconds.
             </p>
           </div>
         )}

@@ -1,4 +1,6 @@
-import { ReactElement } from 'react'
+interface ErrorIconProps {
+  className?: string
+}
 
 interface ErrorIconProps {
   className?: string

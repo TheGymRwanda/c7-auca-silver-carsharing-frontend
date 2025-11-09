@@ -45,7 +45,11 @@ export default function DeleteCarDialog({
   }
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+    <Dialog
+      open={isOpen}
+      onClose={showSuccess || showError ? () => {} : handleClose}
+      className="relative z-50"
+    >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
@@ -103,7 +107,7 @@ export default function DeleteCarDialog({
                 <Button
                   variant="outlineWhite"
                   size="sm"
-                  onClick={onClose}
+                  onClick={handleClose}
                   disabled={isDeleting}
                   className="flex-1 hover:!text-primary-dark"
                 >
