@@ -1,8 +1,0 @@
-export default function Cars() {
-  return (
-    <div className="mx-auto w-full max-w-sm text-center text-white">
-      <h1 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl">Cars</h1>
-      <p className="text-sm sm:text-base">This is the Cars page.</p>
-    </div>
-  )
-}

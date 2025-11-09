@@ -22,14 +22,6 @@ export default function DeleteCarDialog({
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleClose = () => {
-    setIsDeleting(false)
-    setShowSuccess(false)
-    setShowError(false)
-    setErrorMessage('')
-    onClose()
-  }
-
   const handleDelete = async () => {
     setIsDeleting(true)
     try {
@@ -37,15 +29,18 @@ export default function DeleteCarDialog({
       setIsDeleting(false)
       setShowSuccess(true)
       setTimeout(() => {
-        handleClose()
-      }, 3000)
+        setShowSuccess(false)
+        onClose()
+      }, 5000)
     } catch (error) {
       setIsDeleting(false)
       setShowError(true)
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred')
       setTimeout(() => {
-        handleClose()
-      }, 3000)
+        setShowError(false)
+        setErrorMessage('')
+        onClose()
+      }, 5000)
     }
   }
 

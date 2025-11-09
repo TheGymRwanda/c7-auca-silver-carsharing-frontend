@@ -55,6 +55,11 @@ export default function MyCars() {
         My Cars
       </h1>
 
+      {successMessage && (
+        <div className="mb-4 rounded-lg bg-green-600 p-3 text-center text-white">
+          {successMessage}
+        </div>
+      )}
       {myCarsWithDetails.length === 0 ? (
         <div className="text-center text-white">
           <p>You don&apos;t have any cars yet.</p>
@@ -62,10 +67,24 @@ export default function MyCars() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {myCarsWithDetails.map(car => (
-            <CarCard key={car.id} car={car} onDelete={handleDelete} />
+            <CarCard
+              key={car.id}
+              car={car}
+              showActions={true}
+              onRefresh={handleRefresh}
+              onDeleteSuccess={handleDeleteSuccess}
+            />
           ))}
         </div>
       )}
+
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <Link to="/add-car" className="block">
+          <Button variant="primary" size="lg" className="w-full shadow-2xl">
+            Add new Car
+          </Button>
+        </Link>
+      </div>
     </div>
   )
 }
