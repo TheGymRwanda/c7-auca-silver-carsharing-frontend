@@ -1,5 +1,8 @@
-import { ReactElement } from 'react'
+interface ErrorIconProps {
+  className?: string
+}
 
+<<<<<<< HEAD
 interface ErrorIconProps {
   className?: string
 }
@@ -22,6 +25,12 @@ export default function ErrorIcon({ className }: ErrorIconProps): ReactElement {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+=======
+export default function ErrorIcon({ className }: ErrorIconProps) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
     </svg>
   )
 }

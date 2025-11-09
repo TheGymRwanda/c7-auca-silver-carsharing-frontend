@@ -1,19 +1,14 @@
-<<<<<<< HEAD
 import { useMemo } from 'react'
 import { useCars } from '@/hooks/useCars'
+import { useCarActions } from '@/hooks/useCarActions'
 import useAuth from '@/hooks/useAuth'
 import CarCard from '@/UI/CarCard'
-=======
-import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { useCarData } from '@/hooks'
-import CarCard from '@/UI/CarCard'
 import Button from '@/UI/Button'
-import { CarWithDetails } from '@/types/cardetails_type'
->>>>>>> 6bf7849 (feat: update Cars and MyCars pages layout and functionality)
 
 export default function MyCars() {
   const { cars, users, carTypes, loading, error } = useCars()
+  const { deleteCar } = useCarActions()
   const { user } = useAuth()
 
   const myCarsWithDetails = useMemo(() => {
@@ -36,7 +31,11 @@ export default function MyCars() {
       })
   }, [cars, users, carTypes, user])
 
-  if (loading) {
+  const handleDelete = async (carId: number) => {
+    await deleteCar(carId)
+  }
+
+  if (loading || !user || cars.length === 0 || users.length === 0 || carTypes.length === 0) {
     return (
       <div className="mx-auto w-full max-w-sm text-center text-white">
         <p>Loading your cars...</p>
@@ -58,14 +57,6 @@ export default function MyCars() {
         My Cars
       </h1>
 
-<<<<<<< HEAD
-=======
-      {successMessage && (
-        <div className="mb-4 rounded-lg bg-green-600 p-3 text-center text-white">
-          {successMessage}
-        </div>
-      )}
->>>>>>> 6bf7849 (feat: update Cars and MyCars pages layout and functionality)
       {myCarsWithDetails.length === 0 ? (
         <div className="text-center text-white">
           <p>You don&apos;t have any cars yet.</p>
@@ -73,17 +64,10 @@ export default function MyCars() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {myCarsWithDetails.map(car => (
-<<<<<<< HEAD
-            <CarCard key={car.id} car={car} />
-=======
             <CarCard
               key={car.id}
               car={car}
-              showActions={true}
-              onRefresh={handleRefresh}
-              onDeleteSuccess={handleDeleteSuccess}
             />
->>>>>>> 6bf7849 (feat: update Cars and MyCars pages layout and functionality)
           ))}
         </div>
       )}

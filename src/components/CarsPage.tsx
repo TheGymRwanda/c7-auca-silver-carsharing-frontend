@@ -1,8 +1,16 @@
 import { useMemo } from 'react'
+<<<<<<< HEAD
 
 import { useCars } from '@/hooks/useCars'
 import CarCard from '@/UI/CarCard'
 import PageHeader from '@/components/PageHeader'
+=======
+import { useCars } from '@/hooks/useCars'
+import CarCard from '@/UI/CarCard'
+import PageHeader from '@/components/PageHeader'
+import Button from '@/UI/Button'
+
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
 import { styles } from '@/utils/styles'
 
 export default function CarsPage() {
@@ -26,7 +34,7 @@ export default function CarsPage() {
     [cars, users, carTypes],
   )
 
-  if (loading) {
+  if (loading || cars.length === 0 || users.length === 0 || carTypes.length === 0) {
     return <div className={styles.centerText}>Loading cars...</div>
   }
 

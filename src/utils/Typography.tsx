@@ -147,11 +147,6 @@ export function FormField({
     <div className="w-full">
       <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
         {label}
-        {props.required && (
-          <span className="ml-1 text-red-400" aria-label="required">
-            *
-          </span>
-        )}
       </label>
       <input
         id={fieldId}
@@ -195,9 +190,6 @@ export function FormSelect({
     <div className="w-full">
       <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
         {label}
-        <span className="ml-1 text-red-400" aria-label="required">
-          *
-        </span>
       </label>
       <CustomSelect
         value={value}

@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 import { ReactElement } from 'react'
 
+=======
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
 interface SuccessIconProps {
   className?: string
 }
 
+<<<<<<< HEAD
 export default function SuccessIcon({ className }: SuccessIconProps): ReactElement {
   return (
     <svg
@@ -22,6 +26,12 @@ export default function SuccessIcon({ className }: SuccessIconProps): ReactEleme
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+=======
+export default function SuccessIcon({ className }: SuccessIconProps) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
     </svg>
   )
 }

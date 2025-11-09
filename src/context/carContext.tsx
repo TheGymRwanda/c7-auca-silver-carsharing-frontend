@@ -2,7 +2,7 @@ import {
   createContext,
   useContext,
   useReducer,
-  useState,
+  useRef,
   useMemo,
   useCallback,
   ReactNode,
@@ -31,11 +31,13 @@ const CarActionsContext = createContext<CarActionsContextType | undefined>(undef
 
 export function CarProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(carsReducer, initialState)
-  const [hasLoaded, setHasLoaded] = useState(false)
+  const hasLoadedRef = useRef(false)
+  const isLoadingRef = useRef(false)
 
   const loadData = useCallback(async (): Promise<void> => {
-    if (hasLoaded) return
+    if (hasLoadedRef.current || isLoadingRef.current) return
 
+    isLoadingRef.current = true
     dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const [cars, carTypes, users] = await Promise.all([
@@ -44,14 +46,15 @@ export function CarProvider({ children }: { children: ReactNode }) {
         userService.getAll(),
       ])
       dispatch({ type: 'LOAD_SUCCESS', payload: { cars, carTypes, users } })
-      setHasLoaded(true)
+      hasLoadedRef.current = true
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to load car data' })
+    } finally {
+      isLoadingRef.current = false
     }
-  }, [hasLoaded])
+  }, [])
 
   const createCar = useCallback(async (carData: NewCarDto): Promise<void> => {
-    dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const newCar = await carService.create(carData)
       dispatch({ type: 'ADD_CAR', payload: newCar })
@@ -62,7 +65,6 @@ export function CarProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const deleteCar = useCallback(async (carId: number): Promise<void> => {
-    dispatch({ type: 'SET_LOADING', payload: true })
     try {
       await carService.delete(carId)
       dispatch({ type: 'DELETE_CAR', payload: carId })
@@ -77,7 +79,8 @@ export function CarProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const retryLoad = useCallback(async (): Promise<void> => {
-    setHasLoaded(false)
+    hasLoadedRef.current = false
+    isLoadingRef.current = false
     dispatch({ type: 'SET_ERROR', payload: null })
     await loadData()
   }, [loadData])

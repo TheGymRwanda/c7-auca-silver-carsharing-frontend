@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { useCarById } from '@/hooks/useCarById'
 import { useCarActions } from '@/hooks/useCarActions'
@@ -10,6 +10,7 @@ import { styles } from '@/utils/styles'
 
 export default function CarDetailsPage() {
   const { carId } = useParams<{ carId: string }>()
+  const navigate = useNavigate()
   const { car, owner, carType, loading, error } = useCarById(carId || '')
   const { retry } = useCarActions()
 
@@ -29,9 +30,9 @@ export default function CarDetailsPage() {
   return (
     <div className={styles.fullHeightContainer}>
       <div className={`mb-4 ${styles.flexBetween}`}>
-        <Link to="/cars" className={styles.backLink}>
+        <button onClick={() => navigate(-1)} className={styles.backLink}>
           <ChevronBackIcon className="size-5" />
-        </Link>
+        </button>
         <H2>DETAILS</H2>
         <div className="w-8"></div>
       </div>

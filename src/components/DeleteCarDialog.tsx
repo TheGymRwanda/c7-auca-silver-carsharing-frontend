@@ -21,6 +21,17 @@ export default function DeleteCarDialog({
   const [showSuccess, setShowSuccess] = useState(false)
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+<<<<<<< HEAD
+=======
+
+  const handleClose = () => {
+    setIsDeleting(false)
+    setShowSuccess(false)
+    setShowError(false)
+    setErrorMessage('')
+    onClose()
+  }
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -29,23 +40,37 @@ export default function DeleteCarDialog({
       setIsDeleting(false)
       setShowSuccess(true)
       setTimeout(() => {
+<<<<<<< HEAD
         setShowSuccess(false)
         onClose()
       }, 5000)
+=======
+        handleClose()
+      }, 3000)
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
     } catch (error) {
       setIsDeleting(false)
       setShowError(true)
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred')
       setTimeout(() => {
+<<<<<<< HEAD
         setShowError(false)
         setErrorMessage('')
         onClose()
       }, 5000)
+=======
+        handleClose()
+      }, 3000)
+>>>>>>> 466e1c3 (feat: add delete car functionality with confirmation dialog)
     }
   }
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+    <Dialog
+      open={isOpen}
+      onClose={showSuccess || showError ? () => {} : handleClose}
+      className="relative z-50"
+    >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
@@ -103,7 +128,7 @@ export default function DeleteCarDialog({
                 <Button
                   variant="outlineWhite"
                   size="sm"
-                  onClick={onClose}
+                  onClick={handleClose}
                   disabled={isDeleting}
                   className="flex-1 hover:!text-primary-dark"
                 >
