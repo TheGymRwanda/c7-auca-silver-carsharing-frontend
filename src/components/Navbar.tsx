@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import classNames from 'classnames'
 import ProfileIcon from '@/assets/ProfileIcon'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
@@ -7,26 +8,33 @@ import Logo from '@/assets/Logo'
 import MenuItems from '@/components/MenuItems'
 import Button from '@/UI/Button'
 
+const navLinkClasses = classNames(
+  'text-base text-white transition-colors',
+  'hover:text-gray-300 active:bg-gray-800',
+)
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const handleMenuClick = () => setIsMenuOpen(!isMenuOpen)
-  const closeMenu = () => setIsMenuOpen(false)
+  const handleMenuClick = useCallback(() => setIsMenuOpen(prev => !prev), [])
+  const closeMenu = useCallback(() => setIsMenuOpen(false), [])
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsMenuOpen(false)
+    }
+  }, [])
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false)
-      }
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
     }
-
-    if (isMenuOpen) document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isMenuOpen])
+  }, [isMenuOpen, handleClickOutside])
 
   return (
     <>
-      <nav className="relative w-full rounded-b-[30px] bg-gray-900 shadow-lg">
+      <nav className={classNames('relative w-full rounded-b-3xl bg-gray-900 shadow-lg')}>
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="md:h-18 flex h-16 items-center justify-between lg:h-20">
             <div className="relative" ref={menuRef}>
@@ -48,8 +56,10 @@ export default function Navbar() {
 
               {isMenuOpen && (
                 <div
-                  className="
-                    absolute left-0 top-full z-50 mt-2 min-w-[200px] rounded-2xl bg-primary-light shadow-2xl transition-all duration-300 ease-in-out lg:hidden"
+                  className={classNames(
+                    'absolute left-0 top-full z-50 mt-2 min-w-52 rounded-2xl bg-primary-light shadow-2xl',
+                    'transition-all duration-300 ease-in-out lg:hidden',
+                  )}
                 >
                   <MenuItems closeMenu={closeMenu} />
                 </div>
@@ -68,40 +78,22 @@ export default function Navbar() {
               </div>
 
               <div className="hidden items-center space-x-6 lg:flex">
-                <Link
-                  to={AppRoutes.home}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.home} className={navLinkClasses}>
                   Home
                 </Link>
-                <Link
-                  to={AppRoutes.cars}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.cars} className={navLinkClasses}>
                   Cars
                 </Link>
-                <Link
-                  to={AppRoutes.myBookings}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.myBookings} className={navLinkClasses}>
                   My Bookings
                 </Link>
-                <Link
-                  to={AppRoutes.myCars}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.myCars} className={navLinkClasses}>
                   My Cars
                 </Link>
-                <Link
-                  to={AppRoutes.addCar}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.addCar} className={navLinkClasses}>
                   Add Car
                 </Link>
-                <Link
-                  to={AppRoutes.myCarsBookings}
-                  className="text-base text-white transition-colors hover:text-gray-300 active:bg-gray-800"
-                >
+                <Link to={AppRoutes.myCarsBookings} className={navLinkClasses}>
                   My Car&apos;s Bookings
                 </Link>
               </div>
