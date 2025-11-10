@@ -32,10 +32,7 @@ export default function SimpleDeleteDialog({
     <Dialog open={isOpen} onClose={isDeleting ? () => {} : onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <DialogPanel
-          className="relative mx-auto max-w-md rounded-lg border-2 border-white/20 p-8 shadow-2xl"
-          style={{ backgroundColor: '#265e78' }}
-        >
+        <DialogPanel className="bg-primary relative mx-auto max-w-md rounded-lg border-2 border-white/20 p-8 shadow-2xl">
           <DialogTitle className="mb-6 text-center text-xl font-bold text-white">
             Delete Car
           </DialogTitle>
@@ -60,7 +57,7 @@ export default function SimpleDeleteDialog({
               size="sm"
               onClick={onClose}
               disabled={isDeleting}
-              className="flex-1 hover:!text-primary-dark"
+              className="flex-1 hover:text-primary-dark"
             >
               Cancel
             </Button>

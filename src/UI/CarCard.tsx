@@ -98,7 +98,7 @@ export default function CarCard({ car, onDelete }: CarCardProps) {
         <Button
           variant="outlineWhite"
           size="sm"
-          className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
+          className="w-full border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black md:mt-auto [&:hover]:bg-yellow-400 [&:hover]:text-black"
           onClick={handleDeleteClick}
         >
           Delete
