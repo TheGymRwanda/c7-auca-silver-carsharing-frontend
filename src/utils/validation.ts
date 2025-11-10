@@ -1,4 +1,4 @@
-import { FuelType } from './api'
+import { FuelType } from '@/utils/api'
 
 export interface ValidationError {
   field: string

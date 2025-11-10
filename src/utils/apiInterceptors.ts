@@ -1,6 +1,6 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse } from 'axios'
-import { getAuthToken } from './auth'
-import { isTokenExpired } from './tokenUtils'
+import { getAuthToken } from '@/utils/auth'
+import { isTokenExpired } from '@/utils/tokenUtils'
 
 export const setupApiInterceptors = (logoutFn: () => void) => {
   // Request interceptor

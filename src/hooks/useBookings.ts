@@ -1,9 +1,9 @@
 import axios from 'axios'
 import useAxios from 'axios-hooks'
 import { useEffect, useState } from 'react'
-import { BookingDto, BookingWithReferences, CarDto, UserDto } from '../utils/api'
-import { apiUrl } from '../utils/apiUrl'
-import { getAuthToken } from '../utils/auth'
+import { BookingDto, BookingWithReferences, CarDto, UserDto } from '@/utils/api'
+
+import { getAuthToken } from '@/utils/auth'
 
 function useBookingData() {
   const [data, setData] = useState<BookingWithReferences[] | null>(null)
@@ -13,7 +13,10 @@ function useBookingData() {
 
   const [{ data: bookingsData, loading: bookingsLoading, error: bookingsError }] = useAxios<
     BookingDto[]
-  >({ url: `${apiUrl}/bookings`, headers: { Authorization: `Bearer ${token}` } })
+  >({
+    url: `${import.meta.env.VITE_API_URL}/bookings`,
+    headers: { Authorization: `Bearer ${token}` },
+  })
 
   useEffect(() => {
     if (bookingsData) {
@@ -22,19 +25,19 @@ function useBookingData() {
 
       const fetchCarAndUser = async (booking: BookingDto) => {
         const renterResponse = await axios<UserDto>({
-          url: `${apiUrl}/users/${booking.renterId}`,
+          url: `${import.meta.env.VITE_API_URL}/users/${booking.renterId}`,
           headers: { Authorization: `Bearer ${token}` },
         })
         const renterData = renterResponse.data
 
         const carResponse = await axios<CarDto>({
-          url: `${apiUrl}/cars/${booking.carId}`,
+          url: `${import.meta.env.VITE_API_URL}/cars/${booking.carId}`,
           headers: { Authorization: `Bearer ${token}` },
         })
         const carData = carResponse.data
 
         const userResponse = await axios<UserDto>({
-          url: `${apiUrl}/users/${carData.ownerId}`,
+          url: `${import.meta.env.VITE_API_URL}/users/${carData.ownerId}`,
           headers: { Authorization: `Bearer ${token}` },
         })
         const userData = userResponse.data

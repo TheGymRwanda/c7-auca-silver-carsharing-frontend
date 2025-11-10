@@ -3,6 +3,7 @@ import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
 import CarFormFields from '@/components/CarFormFields'
 import { useEffect, useRef, useMemo } from 'react'
 import Button from '@/UI/Button'
+import SuccessIcon from '@/assets/SuccessIcon'
 
 export default function NewOwnCarForm() {
   const { carTypes, loading } = useCars()
@@ -96,7 +97,16 @@ export default function NewOwnCarForm() {
             }
             className="flex-1"
           >
-            {isSubmitting ? 'Adding...' : isSuccess ? '✓ Added' : 'Add Car'}
+            {isSubmitting ? (
+              'Adding...'
+            ) : isSuccess ? (
+              <span className="flex items-center gap-2">
+                <SuccessIcon className="size-4" aria-label="Success" />
+                Added
+              </span>
+            ) : (
+              'Add Car'
+            )}
           </Button>
         </div>
       </form>

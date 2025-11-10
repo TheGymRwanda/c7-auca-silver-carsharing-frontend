@@ -1,10 +1,8 @@
-import { ReactElement } from 'react'
-
 interface SuccessIconProps {
   className?: string
 }
 
-export default function SuccessIcon({ className }: SuccessIconProps): ReactElement {
+export default function SuccessIcon({ className }: SuccessIconProps) {
   return (
     <svg
       width="24"

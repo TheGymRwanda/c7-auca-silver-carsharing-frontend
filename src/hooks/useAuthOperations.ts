@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import axios from 'axios'
 import type { AuthState, User, LoginCredentials } from '@/types/auth_types'
-import { apiUrl } from '@/utils/apiUrl'
+
 import { isTokenExpired } from '@/utils/tokenUtils'
 
 const initialState: AuthState = {
@@ -26,12 +26,12 @@ const unauthenticatedState: AuthState = {
 }
 
 const authRequest = async (credentials: LoginCredentials): Promise<User> => {
-  const response = await axios.post(`${apiUrl}/auth/`, credentials)
+  const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/`, credentials)
   return response.data
 }
 
 const fetchUserDetails = async (token: string): Promise<Pick<User, 'id' | 'name'>> => {
-  const response = await axios.get(`${apiUrl}/auth/`, {
+  const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   return response.data

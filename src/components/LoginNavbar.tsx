@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 
 import { AppRoutes } from '@/types/app_routes'
 import Logo from '@/assets/Logo'
-import { buttonBase } from '@/utils/buttonBase'
 
 export default function LoginNavbar() {
   return (
@@ -12,7 +11,7 @@ export default function LoginNavbar() {
           <div className="mb-2 mt-8 rounded-b-full bg-gray-900 px-4 py-2 pb-4 shadow-lg sm:mb-0 sm:px-6">
             <Link
               to={AppRoutes.home}
-              className={`flex items-center justify-center ${buttonBase}`}
+              className="flex items-center justify-center text-white transition-colors hover:text-gray-300 active:bg-gray-800"
               aria-label="Home"
             >
               <Logo className="size-7 sm:size-8" />

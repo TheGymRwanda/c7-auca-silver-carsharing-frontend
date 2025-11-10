@@ -68,6 +68,8 @@ export const useLoginForm = () => {
     handleSubmit,
     isLoading,
     error: validationError || error,
-    isFormValid: formData.username.trim() && formData.password.trim() && !validationError,
+    isFormValid: Boolean(
+      formData.username.trim() && formData.password.trim() && !validationError && !error,
+    ),
   }
 }

@@ -2,11 +2,7 @@ interface ErrorIconProps {
   className?: string
 }
 
-interface ErrorIconProps {
-  className?: string
-}
-
-export default function ErrorIcon({ className }: ErrorIconProps): ReactElement {
+export default function ErrorIcon({ className }: ErrorIconProps) {
   return (
     <svg
       width="24"
