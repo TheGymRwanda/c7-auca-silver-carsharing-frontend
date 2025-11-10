@@ -1,11 +1,10 @@
-import { ReactElement } from 'react'
 import Button from '@/UI/Button'
 
 interface WelcomeScreenProps {
   onShowLogin: () => void
 }
 
-export default function WelcomeScreen({ onShowLogin }: WelcomeScreenProps): ReactElement {
+export default function WelcomeScreen({ onShowLogin }: WelcomeScreenProps) {
   return (
     <div className="flex w-full flex-col items-center justify-between gap-24 overflow-hidden">
       <h1 className="mt-10 flex flex-col font-lora text-5xl text-white sm:text-6xl">

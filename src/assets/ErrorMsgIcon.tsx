@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import ErrorPageIcon from '../components/errorPage/png/ErrorPageIcon.png'
+import ErrorPageIcon from '@/components/errorPage/png/ErrorPageIcon.png'
 
 export default function ErrorMsgIcon(): ReactElement {
   return (

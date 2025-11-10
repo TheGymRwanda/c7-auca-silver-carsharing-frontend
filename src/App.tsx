@@ -30,11 +30,8 @@ function AppContent() {
   const { logout } = useAuth()
 
   useEffect(() => {
-    const refreshTokenFn = async () => {
-      throw new Error('Token refresh handled by context')
-    }
-    setupApiInterceptors(refreshTokenFn, logout)
-  }, [logout])
+    setupApiInterceptors(logout)
+  }, [])
 
   return (
     <div className="mx-auto min-h-screen bg-primary-dark">
