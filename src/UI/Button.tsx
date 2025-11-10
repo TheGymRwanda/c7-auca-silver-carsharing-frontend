@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, cloneElement, isValidElement } from 'react'
 import classNames from 'classnames'
 
 import LoadingSpinner from '@/assets/LoadingSpinner'
@@ -56,7 +56,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const isDisabled = disabled || loading
 
     if (asChild) {
-      return <span className={buttonClasses}>{children}</span>
+      if (isValidElement(children)) {
+        return cloneElement(children, {
+          className: classNames(buttonClasses, children.props.className),
+          ...props,
+        })
+      }
+      return children
     }
 
     return (

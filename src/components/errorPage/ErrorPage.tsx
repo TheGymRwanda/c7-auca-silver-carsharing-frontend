@@ -1,5 +1,5 @@
-import Button from '../../UI/Button'
-import ErrorMsgIcon from '../../assets/ErrorMsgIcon'
+import Button from '@/UI/Button'
+import ErrorMsgIcon from '@/assets/ErrorMsgIcon'
 
 export default function ErroPage() {
   return (

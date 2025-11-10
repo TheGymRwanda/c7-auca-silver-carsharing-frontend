@@ -1,5 +1,5 @@
-import { FuelType, NewCarDto } from './api'
-import { FormData } from '../hooks/useNewCarForm'
+import { FuelType, NewCarDto } from '@/utils/api'
+import { FormData } from '@/hooks/useNewCarForm'
 
 export const sanitizeString = (input: string): string =>
   input.trim().replace(/[<>]/g, '').replace(/\s+/g, ' ')

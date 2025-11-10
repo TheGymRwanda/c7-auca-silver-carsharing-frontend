@@ -1,4 +1,4 @@
-import { isTokenExpired } from './tokenUtils'
+import { isTokenExpired } from '@/utils/tokenUtils'
 
 export function getAuthToken(): string | null {
   try {

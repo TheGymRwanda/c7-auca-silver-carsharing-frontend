@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { CarTypeDto } from '@/utils/api'
-import { apiUrl } from '@/utils/apiUrl'
+
 import { getAuthToken } from '@/utils/auth'
 
 const createHeaders = () => ({
@@ -10,14 +10,14 @@ const createHeaders = () => ({
 
 export const carTypeService = {
   getAll: async (): Promise<CarTypeDto[]> => {
-    const response = await axios.get(`${apiUrl}/car-types`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/car-types`, {
       headers: createHeaders(),
     })
     return response.data
   },
 
   getById: async (id: number): Promise<CarTypeDto> => {
-    const response = await axios.get(`${apiUrl}/car-types/${id}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/car-types/${id}`, {
       headers: createHeaders(),
     })
     return response.data
