@@ -1,7 +1,7 @@
 import { createContext, useEffect, ReactNode } from 'react'
 
 import type { AuthContextType } from '@/types/auth_types'
-import { useTokenRefresh } from '@/hooks/useTokenRefresh'
+
 import { useAuthOperations } from '@/hooks/useAuthOperations'
 
 export interface AuthProviderProps {
@@ -11,14 +11,7 @@ export interface AuthProviderProps {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export default function AuthContextProvider({ children }: AuthProviderProps) {
-  const { state, checkAuthentication, refreshToken, login, register, logout, cleanError } =
-    useAuthOperations()
-
-  useTokenRefresh({
-    isAuthenticated: state.isAuthenticated,
-    refreshToken,
-    logout,
-  })
+  const { state, checkAuthentication, login, register, logout, cleanError } = useAuthOperations()
 
   useEffect(() => {
     checkAuthentication()
