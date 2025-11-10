@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { toast } from 'react-toastify'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'

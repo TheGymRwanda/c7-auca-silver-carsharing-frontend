@@ -16,7 +16,6 @@ export default function LoginForm({
   onInputChange,
   onSubmit,
   isLoading,
-  error,
   isFormValid,
 }: LoginFormProps) {
   return (
