@@ -13,10 +13,7 @@ export const setupApiInterceptors = (logoutFn: () => void) => {
       }
       return config
     },
-    error => {
-      console.error('Request interceptor error:', error)
-      return Promise.reject(error)
-    },
+    error => Promise.reject(error),
   )
 
   // Response interceptor
@@ -24,7 +21,6 @@ export const setupApiInterceptors = (logoutFn: () => void) => {
     (response: AxiosResponse) => response,
     async error => {
       if (error.response?.status === 401) {
-        console.warn('Authentication failed, logging out user')
         logoutFn()
         return Promise.reject(new Error('Session expired. Please log in again.'))
       }
