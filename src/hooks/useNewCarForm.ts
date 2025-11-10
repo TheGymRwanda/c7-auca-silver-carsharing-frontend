@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
+import { toast } from 'react-toastify'
 import { FuelType } from '@/utils/api'
 import { validateField, validateForm } from '@/utils/validation'
 import { transformFormDataToApi, validateApiData } from '@/utils/sanitization'
-import { useCarActions } from '@/hooks/useCarActions'
+// import { useCarActions } from '@/hooks/useCarActions'
 
 export interface FormData {
   name: string
@@ -20,7 +21,7 @@ export const fuelTypeOptions = [
 ]
 
 export function useNewCarForm() {
-  const { createCar } = useCarActions()
+  // const { createCar } = useCarActions()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -89,14 +90,28 @@ export function useNewCarForm() {
           return
         }
 
-        await createCar(apiData)
-        setIsSuccess(true)
-        setErrors({})
-        timeoutRef.current = setTimeout(() => {
-          resetForm()
-        }, 3000)
+        // const result = await createCar(apiData)
+
+        // if (result.success) {
+        //   setIsSuccess(true)
+        //   setErrors({})
+        //   toast.success('Car added successfully')
+        //   setTimeout(() => {
+        //     resetForm()
+        //   }, 3000)
+        // } else {
+        //   const msg = result.error || 'Failed to create car'
+        //   setErrors({ submit: msg })
+        //   const split = msg.split(/(?<=\.)\s+|,\s+|;\s+/).filter(Boolean)
+        //   if (split.length > 1) {
+        //     split.forEach(m => toast.error(m))
+        //   } else {
+        //     toast.error(msg)
+        //   }
+        // }
       } catch (error) {
-        setErrors({ submit: 'Failed to create car' })
+        setErrors({ submit: 'Network error occurred' })
+        toast.error('Network error occurred')
       } finally {
         setIsSubmitting(false)
       }
