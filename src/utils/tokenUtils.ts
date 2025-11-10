@@ -20,7 +20,6 @@ export const parseJWT = (token: string): JWTPayload | null => {
     )
     return JSON.parse(jsonPayload)
   } catch (error) {
-    console.warn('Failed to parse JWT token:', error)
     return null
   }
 }

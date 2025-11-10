@@ -62,7 +62,6 @@ export const useAuthOperations = () => {
         setState(authenticatedState(user))
       }
     } catch (error) {
-      console.warn('Failed to restore session:', error)
       sessionStorage.removeItem('user')
       setState(unauthenticatedState)
     }
@@ -83,7 +82,6 @@ export const useAuthOperations = () => {
         sessionStorage.setItem('user', JSON.stringify(completeUserData))
         setState(authenticatedState(completeUserData))
       } catch (detailsError) {
-        console.warn('Failed to fetch user details:', detailsError)
         sessionStorage.setItem('user', JSON.stringify(userData))
         setState(authenticatedState(userData))
       }
