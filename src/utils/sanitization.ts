@@ -31,7 +31,6 @@ export const transformFormDataToApi = (formData: FormData): NewCarDto => {
   }
 
   return {
-    userId: parseInt(localStorage.getItem('userId') || '0'),
     name: sanitizeString(formData.name),
     carTypeId: formData.carTypeId,
     horsepower: sanitizeNumber(formData.horsepower),

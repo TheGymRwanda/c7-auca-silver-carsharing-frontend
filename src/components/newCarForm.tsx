@@ -5,7 +5,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import Button from '@/UI/Button'
 import SuccessIcon from '@/assets/SuccessIcon'
 
-export default function NewOwnCarForm() {
+export default function NewCarForm() {
   const { carTypes, loading } = useCars()
   const {
     formData,
