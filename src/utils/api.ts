@@ -34,11 +34,10 @@ interface CarDto {
 
 interface NewCarDto {
   name: string
-  userId: number
   carTypeId: number
   horsepower: number | null
   info: string | null
-  plate: string | null
+  licensePlate: string | null
   fuelType: FuelType
 }
 
