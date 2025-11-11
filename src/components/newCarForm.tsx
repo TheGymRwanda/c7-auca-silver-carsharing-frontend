@@ -1,11 +1,12 @@
-import { useCarData } from '@/hooks'
+import { useCars } from '@/hooks/useCars'
 import { useNewCarForm, fuelTypeOptions } from '@/hooks/useNewCarForm'
-import CarFormFields from './CarFormFields'
+import CarFormFields from '@/components/CarFormFields'
 import { useEffect, useRef, useMemo } from 'react'
-import Button from '../UI/Button'
+import Button from '@/UI/Button'
+import SuccessIcon from '@/assets/SuccessIcon'
 
-export default function NewOwnCarForm() {
-  const { carTypes } = useCarData()
+export default function NewCarForm() {
+  const { carTypes, loading } = useCars()
   const {
     formData,
     errors,
@@ -21,10 +22,10 @@ export default function NewOwnCarForm() {
   const formRef = useRef<HTMLFormElement>(null)
 
   const carTypeOptions = useMemo(
-    () => carTypes[0]?.data?.map(type => ({ value: type.id, label: type.name })) || [],
-    [carTypes[0]?.data],
+    () => carTypes.map(type => ({ value: type.id, label: type.name })),
+    [carTypes],
   )
-  const isLoadingCarTypes = carTypes[0]?.loading || false
+  const isLoadingCarTypes = loading
 
   useEffect(() => {
     if (isSuccess && formRef.current) {
@@ -53,24 +54,6 @@ export default function NewOwnCarForm() {
           isLoadingCarTypes={isLoadingCarTypes}
         />
 
-        {errors.submit && (
-          <div className="mt-4 rounded-lg border border-red-500/50 bg-red-500/20 p-3">
-            <p className="text-sm text-red-400">{errors.submit}</p>
-          </div>
-        )}
-
-        {isSuccess && (
-          <div
-            className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-3"
-            role="status"
-            aria-live="polite"
-          >
-            <p className="text-sm text-green-400">
-              ✅ Car added successfully! Form will reset in 3 seconds.
-            </p>
-          </div>
-        )}
-
         <div className="mt-20 flex gap-4">
           <Button
             type="button"
@@ -96,7 +79,16 @@ export default function NewOwnCarForm() {
             }
             className="flex-1"
           >
-            {isSubmitting ? 'Adding...' : isSuccess ? '✓ Added' : 'Add Car'}
+            {isSubmitting ? (
+              'Adding...'
+            ) : isSuccess ? (
+              <span className="flex items-center gap-2">
+                <SuccessIcon className="size-4" aria-label="Success" />
+                Added
+              </span>
+            ) : (
+              'Add Car'
+            )}
           </Button>
         </div>
       </form>

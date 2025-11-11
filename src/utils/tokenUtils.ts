@@ -5,7 +5,12 @@ interface JWTPayload {
 
 export const parseJWT = (token: string): JWTPayload | null => {
   try {
-    const base64Url = token.split('.')[1]
+    if (!token || typeof token !== 'string') return null
+
+    const parts = token.split('.')
+    if (parts.length !== 3) return null
+
+    const base64Url = parts[1]
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = decodeURIComponent(
       atob(base64)
@@ -14,30 +19,17 @@ export const parseJWT = (token: string): JWTPayload | null => {
         .join(''),
     )
     return JSON.parse(jsonPayload)
-  } catch {
+  } catch (error) {
     return null
   }
 }
 
 export const isTokenExpired = (token: string): boolean => {
+  if (!token) return true
+
   const payload = parseJWT(token)
-  if (!payload || !payload.exp) return true
+  if (!payload?.exp || typeof payload.exp !== 'number') return true
 
   const currentTime = Math.floor(Date.now() / 1000)
   return payload.exp < currentTime
-}
-
-export const getTokenExpiry = (token: string): number => {
-  const payload = parseJWT(token)
-  return payload?.exp ? payload.exp * 1000 : 0
-}
-
-export const shouldRefreshToken = (token: string): boolean => {
-  const payload = parseJWT(token)
-  if (!payload || !payload.exp) return false
-
-  const currentTime = Math.floor(Date.now() / 1000)
-  const timeUntilExpiry = payload.exp - currentTime
-
-  return timeUntilExpiry < 300 && timeUntilExpiry > 0
 }

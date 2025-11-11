@@ -6,6 +6,7 @@ export interface ApiResponse<T> {
   success: boolean
   data?: T
   error?: string
+  messages?: string[]
 }
 
 export const submitCarData = async (carData: NewCarDto): Promise<ApiResponse<CarDto>> => {
@@ -21,9 +22,34 @@ export const submitCarData = async (carData: NewCarDto): Promise<ApiResponse<Car
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
+
+      let error = `HTTP ${response.status}: ${response.statusText}`
+      let messages: string[] | undefined
+
+      if (typeof errorData?.message === 'string') {
+        error = errorData.message
+      } else if (Array.isArray(errorData?.message)) {
+        messages = errorData.message.filter((m: unknown) => typeof m === 'string')
+        if (messages && messages.length > 0) {
+          error = messages.join(', ')
+        }
+      } else if (Array.isArray(errorData?.errors)) {
+        const collected: string[] = []
+        for (const err of errorData.errors) {
+          if (err?.constraints && typeof err.constraints === 'object') {
+            collected.push(...Object.values(err.constraints as Record<string, string>))
+          }
+        }
+        if (collected.length > 0) {
+          messages = collected
+          error = collected.join(', ')
+        }
+      }
+
       return {
         success: false,
-        error: errorData.message || `HTTP ${response.status}: ${response.statusText}`,
+        error,
+        messages,
       }
     }
 

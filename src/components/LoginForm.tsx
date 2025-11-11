@@ -16,7 +16,6 @@ export default function LoginForm({
   onInputChange,
   onSubmit,
   isLoading,
-  error,
   isFormValid,
 }: LoginFormProps) {
   return (
@@ -71,12 +70,6 @@ export default function LoginForm({
             Enter your password
           </div>
         </div>
-
-        {error && (
-          <div className="rounded-lg border border-red-500/50 bg-red-500/20 p-3" role="alert">
-            <p className="text-sm text-red-400">{error}</p>
-          </div>
-        )}
 
         <Button
           type="submit"

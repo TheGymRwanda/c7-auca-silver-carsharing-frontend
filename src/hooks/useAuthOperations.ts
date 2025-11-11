@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import axios from 'axios'
 import type { AuthState, User, LoginCredentials } from '@/types/auth_types'
-import { apiUrl } from '@/utils/apiUrl'
+
 import { isTokenExpired } from '@/utils/tokenUtils'
 
 const initialState: AuthState = {
@@ -25,134 +26,90 @@ const unauthenticatedState: AuthState = {
 }
 
 const authRequest = async (credentials: LoginCredentials): Promise<User> => {
-  const response = await fetch(`${apiUrl}/auth/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  })
-
-  if (!response.ok) {
-    throw new Error(`Request failed!`)
-  }
-
-  return response.json()
-}
-
-const refreshTokenRequest = async (token: string): Promise<User> => {
-  const response = await fetch(`${apiUrl}/auth/refresh`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error('Token refresh failed')
-  }
-
-  return response.json()
+  const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/`, credentials)
+  return response.data
 }
 
 const fetchUserDetails = async (token: string): Promise<Pick<User, 'id' | 'name'>> => {
-  const response = await fetch(`${apiUrl}/auth/`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/`, {
+    headers: { Authorization: `Bearer ${token}` },
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch user details')
-  }
-
-  return response.json()
+  return response.data
 }
 
 export const useAuthOperations = () => {
   const [state, setState] = useState<AuthState>(initialState)
 
-  const checkAuthentication = async () => {
+  const checkAuthentication = useCallback(async () => {
     try {
       const storedUser = sessionStorage.getItem('user')
-      const user = storedUser ? JSON.parse(storedUser) : null
-
-      if (user && user.token) {
-        const tokenExpired = isTokenExpired(user.token)
-
-        if (tokenExpired) {
-          sessionStorage.removeItem('user')
-          setState(unauthenticatedState)
-        } else {
-          setState(authenticatedState(user))
-        }
-      } else {
+      if (!storedUser) {
         setState(unauthenticatedState)
-      }
-    } catch {
-      sessionStorage.removeItem('user')
-      setState({ ...unauthenticatedState, error: 'Failed to restore session' })
-    }
-  }
-
-  const refreshToken = async () => {
-    try {
-      const storedUser = sessionStorage.getItem('user')
-      const user = storedUser ? JSON.parse(storedUser) : null
-
-      if (!user || !user.token) {
-        throw new Error('No token to refresh')
+        return
       }
 
-      const refreshedUser = await refreshTokenRequest(user.token)
-      sessionStorage.setItem('user', JSON.stringify(refreshedUser))
-      setState(authenticatedState(refreshedUser))
+      const user = JSON.parse(storedUser)
+      if (!user?.token) {
+        sessionStorage.removeItem('user')
+        setState(unauthenticatedState)
+        return
+      }
+
+      if (isTokenExpired(user.token)) {
+        sessionStorage.removeItem('user')
+        setState(unauthenticatedState)
+      } else {
+        setState(authenticatedState(user))
+      }
     } catch (error) {
       sessionStorage.removeItem('user')
-      setState({ ...unauthenticatedState, error: 'Session expired' })
-      throw error
+      setState(unauthenticatedState)
     }
-  }
+  }, [])
 
   const login = async (credentials: LoginCredentials) => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }))
       const userData = await authRequest(credentials)
 
+      if (!userData?.token) {
+        throw new Error('Invalid response from server')
+      }
+
       try {
         const userDetails = await fetchUserDetails(userData.token)
         const completeUserData = { ...userData, ...userDetails }
         sessionStorage.setItem('user', JSON.stringify(completeUserData))
         setState(authenticatedState(completeUserData))
-      } catch {
+      } catch (detailsError) {
         sessionStorage.setItem('user', JSON.stringify(userData))
         setState(authenticatedState(userData))
       }
-    } catch (error_) {
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Login failed'
       setState(prev => ({
         ...prev,
         isLoading: false,
-        error: error_ instanceof Error ? error_.message : 'Login failed',
+        error: errorMessage,
       }))
+      throw error
     }
   }
 
   const register = login
 
-  const logout = () => {
+  const logout = useCallback(() => {
     sessionStorage.removeItem('user')
     setState(unauthenticatedState)
-  }
+  }, [])
 
-  const cleanError = () => {
+  const cleanError = useCallback(() => {
     setState(prev => ({ ...prev, error: null }))
-  }
+  }, [])
 
   return {
     state,
     checkAuthentication,
-    refreshToken,
     login,
     register,
     logout,

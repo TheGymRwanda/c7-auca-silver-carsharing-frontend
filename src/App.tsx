@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
 import { configure } from 'axios-hooks'
 import { useLocation, BrowserRouter as Router } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
@@ -6,6 +7,7 @@ import { AppRoutes } from '@/types/app_routes'
 import Navbar from '@/components/Navbar'
 import LoginNavbar from '@/components/LoginNavbar'
 import AuthContextProvider from '@/context/authContext'
+import { CarProvider } from '@/context/carContext'
 import AppRoutesComponent from '@/components/AppRoutes'
 import { setupApiInterceptors } from '@/utils/apiInterceptors'
 import useAuth from '@/hooks/useAuth'
@@ -28,18 +30,18 @@ function AppContent() {
   const { logout } = useAuth()
 
   useEffect(() => {
-    const refreshTokenFn = async () => {
-      throw new Error('Token refresh handled by context')
-    }
-    setupApiInterceptors(refreshTokenFn, logout)
-  }, [logout])
+    setupApiInterceptors(logout)
+  }, [])
 
   return (
     <div className="mx-auto min-h-screen bg-primary-dark">
       <ConditionalNavbar />
       <main>
-        <AppRoutesComponent />
+        <CarProvider>
+          <AppRoutesComponent />
+        </CarProvider>
       </main>
+      <ToastContainer position="top-right" theme="colored" newestOnTop closeOnClick pauseOnHover />
     </div>
   )
 }

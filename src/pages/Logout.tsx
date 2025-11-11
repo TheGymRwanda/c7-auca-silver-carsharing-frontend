@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from '@/types/app_routes'
 import useAuth from '@/hooks/useAuth'
-import LoadingSpinner from '@/components/LoadingSpinner'
+import LoadingSpinner from '@/assets/LoadingSpinner'
 
 export default function Logout() {
   const navigate = useNavigate()
@@ -16,7 +16,9 @@ export default function Logout() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center text-white">
-        <LoadingSpinner size="lg" className="mx-auto mb-4 text-white" />
+        <div className="mx-auto mb-4 text-white">
+          <LoadingSpinner />
+        </div>
         <p className="text-sm sm:text-base">Logging out...</p>
       </div>
     </div>

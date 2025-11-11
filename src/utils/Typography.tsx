@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import classNames from 'classnames'
 import CustomSelect from '@/components/CustomSelect'
 
@@ -38,7 +38,7 @@ interface FormSelectProps {
   touched?: boolean
   className?: string
 }
-export function H1({ children, className = '' }: TypographyProps): ReactElement {
+export function H1({ children, className = '' }: TypographyProps) {
   return (
     <h1 className={classNames('font-lora text-3xl font-semibold text-white', className)}>
       {children}
@@ -46,13 +46,13 @@ export function H1({ children, className = '' }: TypographyProps): ReactElement 
   )
 }
 
-export function H2({ children, className = '' }: TypographyProps): ReactElement {
+export function H2({ children, className = '' }: TypographyProps) {
   return (
     <h2 className={classNames('font-lora text-xl font-bold text-white', className)}>{children}</h2>
   )
 }
 
-export function H3({ children, className = '' }: TypographyProps): ReactElement {
+export function H3({ children, className = '' }: TypographyProps) {
   return (
     <h3 className={classNames('font-lora text-lg font-semibold text-white', className)}>
       {children}
@@ -60,40 +60,35 @@ export function H3({ children, className = '' }: TypographyProps): ReactElement 
   )
 }
 
-export function BrandTitle({ children, className = '' }: TypographyProps): ReactElement {
+export function BrandTitle({ children, className = '' }: TypographyProps) {
   return <h1 className={`font-lora text-5xl text-white ${className}`}>{children}</h1>
 }
 
-export function BodyLarge({ children, className = '' }: TypographyProps): ReactElement {
+export function BodyLarge({ children, className = '' }: TypographyProps) {
   return <p className={`text-lg text-white ${className}`}>{children}</p>
 }
 
-export function BodyMedium({ children, className = '' }: TypographyProps): ReactElement {
+export function BodyMedium({ children, className = '' }: TypographyProps) {
   return <p className={`text-base text-white ${className}`}>{children}</p>
 }
 
-export function BodySmall({ children, className = '' }: TypographyProps): ReactElement {
+export function BodySmall({ children, className = '' }: TypographyProps) {
   return <p className={`text-sm text-white ${className}`}>{children}</p>
 }
 
-export function TextLarge({ children, className = '' }: TypographyProps): ReactElement {
+export function TextLarge({ children, className = '' }: TypographyProps) {
   return <span className={`text-lg text-white ${className}`}>{children}</span>
 }
 
-export function TextBase({ children, className = '' }: TypographyProps): ReactElement {
+export function TextBase({ children, className = '' }: TypographyProps) {
   return <span className={`text-base text-white ${className}`}>{children}</span>
 }
 
-export function TextSmall({ children, className = '' }: TypographyProps): ReactElement {
+export function TextSmall({ children, className = '' }: TypographyProps) {
   return <span className={`text-sm text-white ${className}`}>{children}</span>
 }
 
-export function LabelText({
-  children,
-  className = '',
-  htmlFor,
-  required,
-}: LabelProps): ReactElement {
+export function LabelText({ children, className = '', htmlFor, required }: LabelProps) {
   return (
     <label
       htmlFor={htmlFor}
@@ -104,7 +99,7 @@ export function LabelText({
   )
 }
 
-export function Input({ id, label, error, className = '', ...props }: InputProps): ReactElement {
+export function Input({ id, label, error, className = '', ...props }: InputProps) {
   return (
     <div className="w-full">
       <LabelText htmlFor={id}>{label}</LabelText>
@@ -139,7 +134,7 @@ export function FormField({
   onBlur,
   className = '',
   ...props
-}: FormFieldProps): ReactElement {
+}: FormFieldProps) {
   const hasError = error && touched
   const fieldId = props.id || `field-${label.toLowerCase().replace(/\s+/g, '-')}`
 
@@ -147,11 +142,6 @@ export function FormField({
     <div className="w-full">
       <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
         {label}
-        {props.required && (
-          <span className="ml-1 text-red-400" aria-label="required">
-            *
-          </span>
-        )}
       </label>
       <input
         id={fieldId}
@@ -187,7 +177,7 @@ export function FormSelect({
   error,
   touched,
   className = '',
-}: FormSelectProps): ReactElement {
+}: FormSelectProps) {
   const hasError = error && touched
   const fieldId = `select-${label.toLowerCase().replace(/\s+/g, '-')}`
 
@@ -195,9 +185,6 @@ export function FormSelect({
     <div className="w-full">
       <label htmlFor={fieldId} className="mb-3 block text-base font-medium text-white">
         {label}
-        <span className="ml-1 text-red-400" aria-label="required">
-          *
-        </span>
       </label>
       <CustomSelect
         value={value}

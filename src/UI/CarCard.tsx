@@ -1,29 +1,65 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ProfileIcon from '@/assets/ProfileIcon'
 import CarsIcon from '@/assets/CarsIcon'
-import { CarWithDetails } from '@/types/cardetails_type'
+import Button from '@/UI/Button'
+import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import { styles } from '@/utils/styles'
-import Button from './Button'
-import DeleteCarDialog from '@/components/DeleteCarDialog'
-import { deleteCar } from '@/utils/deleteCar'
+
+interface CarWithDetails {
+  id: number
+  name: string
+  owner: string
+  type: string
+  image: string
+  info?: string
+}
 
 interface CarCardProps {
   car: CarWithDetails
-  onRefresh?: () => void
-  onDeleteSuccess?: (message: string) => void
+  onDelete?: (carId: number, carName: string) => Promise<void>
 }
 
-export default function CarCard({ car, onRefresh, onDeleteSuccess }: CarCardProps) {
+export default function CarCard({ car, onDelete }: CarCardProps) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isDeleted, setIsDeleted] = useState(false)
+  const navigate = useNavigate()
+
+  const handleCardClick = () => {
+    navigate(`/cars/${car.id}`)
+  }
+
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsDeleteDialogOpen(true)
+  }
+
+  const handleDialogClose = () => {
+    setIsDeleteDialogOpen(false)
+  }
 
   const handleDeleteConfirm = async () => {
-    await deleteCar(car.id)
-    onRefresh?.()
-    onDeleteSuccess?.('Car deleted successfully!')
+    if (onDelete) {
+      try {
+        await onDelete(car.id, car.name)
+        setIsDeleted(true)
+        setIsDeleteDialogOpen(false)
+      } catch (error) {
+        setIsDeleteDialogOpen(false)
+        throw error
+      }
+    }
   }
+  // Don't render the card if it's been deleted and dialog is closed
+  if (isDeleted && !isDeleteDialogOpen) {
+    return null
+  }
+
   return (
-    <div className={`${styles.cardContainer} md:flex md:h-full md:flex-col`}>
+    <div
+      className={`${styles.cardContainer} cursor-pointer transition-colors hover:bg-white/5 md:flex md:h-full md:flex-col ${isDeleted ? 'opacity-50' : ''}`}
+      onClick={handleCardClick}
+    >
       <div className="mb-4 flex md:flex-col">
         <div className="w-1/2 md:mb-4 md:w-full">
           <img
@@ -57,21 +93,26 @@ export default function CarCard({ car, onRefresh, onDeleteSuccess }: CarCardProp
           </div>
         </div>
       </div>
-      <Button
-        variant="outlineWhite"
-        size="sm"
-        className="w-full !border-yellow-400 !text-yellow-400 hover:!bg-yellow-400 hover:!text-black md:mt-auto"
-        onClick={() => setIsDeleteDialogOpen(true)}
-      >
-        Delete
-      </Button>
 
-      <DeleteCarDialog
-        isOpen={isDeleteDialogOpen}
-        onClose={() => setIsDeleteDialogOpen(false)}
-        onConfirm={handleDeleteConfirm}
-        carName={car.name}
-      />
+      {onDelete && (
+        <Button
+          variant="outlineWhite"
+          size="sm"
+          className="w-full border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black md:mt-auto [&:hover]:bg-yellow-400 [&:hover]:text-black"
+          onClick={handleDeleteClick}
+        >
+          Delete
+        </Button>
+      )}
+
+      {isDeleteDialogOpen && (
+        <DeleteConfirmationDialog
+          isOpen={isDeleteDialogOpen}
+          onClose={handleDialogClose}
+          onConfirm={handleDeleteConfirm}
+          carName={car.name}
+        />
+      )}
     </div>
   )
 }
